@@ -1,0 +1,356 @@
+/* Shared accessibility and answer-feedback fixes for Tagalog and Bisaya. */
+
+body.dark-mode {
+  --cream: #101722;
+  --paper: #172131;
+  --ink: #f3f7fb;
+  --muted: #afbdcc;
+  --line: #334156;
+  --soft: #222e40;
+  --app-bg: #0e1623;
+  --app-line: #334156;
+  --brand-soft: #173b35;
+  --shadow: 0 16px 40px rgba(0, 0, 0, .34);
+  color-scheme: dark;
+  background: var(--app-bg);
+  color: var(--ink);
+}
+
+body.dark-mode .main-area,
+body.dark-mode .view,
+body.dark-mode #learnView {
+  color: var(--ink);
+}
+
+body.dark-mode .panel,
+body.dark-mode .metric-card,
+body.dark-mode .lesson-card,
+body.dark-mode .session-panel,
+body.dark-mode .player-card,
+body.dark-mode .week-card,
+body.dark-mode .daily-quests-card,
+body.dark-mode .journey-section,
+body.dark-mode .topic-review-card,
+body.dark-mode .dictionary-card,
+body.dark-mode .skill-node,
+body.dark-mode .dialogue-modal-card,
+body.dark-mode .dialogue-line,
+body.dark-mode .region-index-card,
+body.dark-mode .session-complete-card,
+body.dark-mode .transfer-panel,
+body.dark-mode .install-panel {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .24);
+}
+
+body.dark-mode .lesson-content h3,
+body.dark-mode .dictionary-tagalog,
+body.dark-mode .natural-line,
+body.dark-mode .dialogue-text-row h4,
+body.dark-mode .session-complete-card h2,
+body.dark-mode .panel h3,
+body.dark-mode .section-intro h3 {
+  color: var(--ink) !important;
+}
+
+body.dark-mode .lesson-context,
+body.dark-mode .lesson-topline,
+body.dark-mode .builder-instruction,
+body.dark-mode .literal-line,
+body.dark-mode .dictionary-english,
+body.dark-mode .dictionary-example span,
+body.dark-mode .dialogue-note,
+body.dark-mode .hint-row,
+body.dark-mode .progress-caption {
+  color: var(--muted) !important;
+}
+
+body.dark-mode .structure-box {
+  background: #172235;
+  border-color: #3a4a61;
+  color: var(--ink);
+}
+
+body.dark-mode .structure-details summary {
+  background: #1b283b;
+  color: #f7fbff;
+}
+
+body.dark-mode .structure-details summary:hover {
+  background: #23344c;
+}
+
+body.dark-mode .structure-details.locked summary {
+  background: #1c2635;
+  color: #9eacbd;
+}
+
+body.dark-mode .structure-content {
+  border-color: #3a4a61;
+}
+
+body.dark-mode .gloss-pair {
+  background: #223047;
+  border-color: #40516a;
+  color: var(--ink);
+}
+
+body.dark-mode .gloss-pair strong {
+  color: #ffffff;
+}
+
+body.dark-mode .gloss-pair small {
+  color: #c5d0de;
+}
+
+body.dark-mode .built-sentence,
+body.dark-mode .word-tile,
+body.dark-mode .selected-word-tile,
+body.dark-mode .choice-btn,
+body.dark-mode .answer-area input,
+body.dark-mode .quick-review-launcher select,
+body.dark-mode .home-topic-controls select,
+body.dark-mode .dictionary-controls select,
+body.dark-mode .dictionary-controls input,
+body.dark-mode #transferCodeInput,
+body.dark-mode .settings-panel select {
+  background: #121c2a;
+  color: #f5f8fc;
+  border-color: #40516a;
+}
+
+body.dark-mode .built-sentence {
+  border-color: #526784;
+}
+
+body.dark-mode .word-tile,
+body.dark-mode .selected-word-tile,
+body.dark-mode .choice-btn {
+  box-shadow: 0 3px 0 #0b111b;
+}
+
+body.dark-mode .choice-btn:hover,
+body.dark-mode .word-tile:hover:not(:disabled),
+body.dark-mode .selected-word-tile:hover:not(:disabled) {
+  border-color: #5fb9ff;
+  background: #1b2b42;
+}
+
+.choice-btn.selected,
+body.dark-mode .choice-btn.selected {
+  background: linear-gradient(135deg, #19a998, #0f766e) !important;
+  border-color: #69f0df !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(105, 240, 223, .22), 0 5px 0 #07534e, 0 12px 26px rgba(15, 118, 110, .34) !important;
+  transform: translateY(-1px);
+}
+
+.selected-word-tile,
+body.dark-mode .selected-word-tile {
+  background: linear-gradient(135deg, #326ed1, #2857ae);
+  border-color: #8bb8ff;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(139, 184, 255, .2), 0 4px 0 #173b7c;
+}
+
+body.dark-mode .secondary-btn,
+body.dark-mode .modal-close-btn,
+body.dark-mode .line-audio-btn,
+body.dark-mode .lesson-close-btn,
+body.dark-mode .mobile-menu-btn,
+body.dark-mode .mobile-sheet-close {
+  background: #243249;
+  color: #f5f8fc;
+  border-color: #40516a;
+}
+
+body.dark-mode .audio-btn,
+body.dark-mode .dialogue-btn,
+body.dark-mode .dictionary-reveal-area .concealed {
+  background: #203654;
+  color: #a9ccff;
+  border-color: #45648c;
+}
+
+body.dark-mode .feedback-box {
+  background: #15382f;
+  border-color: #2b8b70;
+  color: #eafff8;
+}
+
+body.dark-mode .feedback-box.incorrect {
+  background: #3b2026;
+  border-color: #a84d5e;
+  color: #ffeef1;
+}
+
+body.dark-mode .feedback-box p {
+  color: #c8d8d2;
+}
+
+body.dark-mode .feedback-box.incorrect p {
+  color: #e6c8ce;
+}
+
+body.dark-mode .origin-badge,
+body.dark-mode .dictionary-forms span {
+  background: #44331f;
+  color: #ffd99a;
+}
+
+body.dark-mode .voice-status {
+  background: #1d2939;
+  color: var(--muted);
+}
+
+body.dark-mode .voice-status.ready,
+body.dark-mode .status-tag.ready {
+  background: #173b35;
+  color: #8be1d2;
+}
+
+body.dark-mode .voice-status.warning {
+  background: #3b311c;
+  color: #f1cc79;
+}
+
+body.dark-mode .preview-line,
+body.dark-mode .roadmap-stage,
+body.dark-mode .mastery-chip,
+body.dark-mode .badge,
+body.dark-mode .session-summary-grid > div,
+body.dark-mode .combo-chip,
+body.dark-mode .lesson-xp-chip {
+  background: var(--soft);
+  color: var(--ink);
+}
+
+body.dark-mode .roadmap-stage.active,
+body.dark-mode .daily-quest.done,
+body.dark-mode .journey-stop.current .journey-card {
+  background: #17352f;
+  border-color: #347e70;
+}
+
+body.dark-mode .daily-quest,
+body.dark-mode .daily-quest-icon,
+body.dark-mode .journey-card,
+body.dark-mode .mobile-more-grid button,
+body.dark-mode .dictionary-controls,
+body.dark-mode .mobile-menu-sheet {
+  background: #172131;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+body.dark-mode .quest-chest {
+  background: #1c2736;
+  border-color: #48576a;
+  color: #b7c3d1;
+}
+
+body.dark-mode .quest-chest.unlocked {
+  background: linear-gradient(135deg, #493b19, #322b18);
+  border-color: #a98731;
+  color: #ffe5a0;
+}
+
+body.dark-mode .dialogue-note,
+body.dark-mode .mobile-sheet-transfer,
+body.dark-mode .review-camp {
+  background: #392f1b;
+  border-color: #806a2d;
+  color: #f3d894 !important;
+}
+
+body.dark-mode .translation-key span {
+  background: #223047;
+  border-color: #40516a;
+  color: #c6d1df;
+}
+
+body.dark-mode .mobile-appbar,
+body.dark-mode .mobile-nav,
+body.dark-mode .lesson-topline,
+body.dark-mode .lesson-footer {
+  background: rgba(16, 23, 34, .97) !important;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+body.dark-mode .mobile-brand-button,
+body.dark-mode .mobile-stat,
+body.dark-mode .mobile-more-grid button {
+  color: var(--ink);
+}
+
+body.dark-mode .mobile-stat {
+  background: #172131;
+  border-color: var(--line);
+}
+
+body.dark-mode[data-current-view="learn"] #learnView {
+  background: #101722 !important;
+}
+
+body.dark-mode .audio-now-card,
+body.dark-mode .audio-queue-item {
+  color: var(--ink);
+}
+
+body.dark-mode .audio-now-topline,
+body.dark-mode .audio-queue-copy small,
+body.dark-mode .audio-now-english {
+  color: var(--muted);
+}
+
+body.dark-mode .audio-now-tagalog,
+body.dark-mode .audio-track-meta strong {
+  color: var(--ink);
+}
+
+/* Strong selection and correct-answer celebration. */
+.lesson-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.lesson-card.correct-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 42%, rgba(255,255,255,.88), rgba(116,255,220,.32) 24%, rgba(116,255,220,0) 58%);
+  animation: lesson-light-flash .72s ease-out forwards;
+}
+
+.answer-correct-flash {
+  position: relative;
+  z-index: 31;
+  animation: answer-correct-flash .82s ease-out;
+}
+
+@keyframes lesson-light-flash {
+  0% { opacity: 0; transform: scale(.72); }
+  18% { opacity: .95; }
+  100% { opacity: 0; transform: scale(1.18); }
+}
+
+@keyframes answer-correct-flash {
+  0% { filter: brightness(1); transform: scale(1); }
+  22% { filter: brightness(1.8); transform: scale(1.035); box-shadow: 0 0 0 5px rgba(120,255,217,.38), 0 0 34px rgba(120,255,217,.85); }
+  58% { filter: brightness(1.18); transform: scale(1.012); }
+  100% { filter: brightness(1); transform: scale(1); }
+}
+
+body.reduce-motion .lesson-card.correct-pulse::after,
+body.reduce-motion .answer-correct-flash,
+@media (prefers-reduced-motion: reduce) {
+  .lesson-card.correct-pulse::after,
+  .answer-correct-flash {
+    animation: none !important;
+  }
+}

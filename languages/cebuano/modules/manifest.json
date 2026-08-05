@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "packs": [
+    "introductions.json",
+    "origin.json",
+    "wellbeing.json",
+    "questions.json",
+    "food.json",
+    "grammar.json",
+    "verbs.json",
+    "spanish.json",
+    "code-switching.json"
+  ]
+}

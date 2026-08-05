@@ -1,0 +1,312 @@
+/* Contextual lesson console: launcher while idle, phrase tools while active. */
+
+.lesson-mode-launcher {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  width: 100%;
+}
+
+.lesson-mode-launcher[hidden],
+.lesson-empty-state[hidden] {
+  display: none !important;
+}
+
+.lesson-mode-launcher > .eyebrow {
+  margin: 0;
+}
+
+.lesson-mode-launcher > h3 {
+  margin: -2px 0 4px;
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.lesson-launcher-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid var(--app-line, var(--line));
+  border-radius: 15px;
+  background: var(--soft);
+}
+
+.lesson-launcher-tab {
+  min-height: 42px;
+  padding: 8px 7px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.lesson-launcher-tab.active {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 5px 14px rgba(20, 33, 61, .1);
+}
+
+.lesson-launcher-panel {
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  padding: 18px 14px 15px;
+  border: 1px solid var(--app-line, var(--line));
+  border-radius: 17px;
+  background: color-mix(in srgb, var(--paper) 92%, var(--soft));
+  text-align: center;
+}
+
+.lesson-launcher-panel[hidden] {
+  display: none !important;
+}
+
+.lesson-launcher-panel > strong {
+  font-size: .94rem;
+}
+
+.lesson-launcher-panel > p {
+  max-width: 245px;
+  margin: -2px 0 2px;
+  color: var(--muted);
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+.lesson-launcher-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 19px;
+  background: linear-gradient(145deg, #d9f6ef, #b9e8df);
+  color: #08766d;
+  font-size: 1.8rem;
+  box-shadow: inset 0 0 0 1px rgba(8, 118, 109, .12);
+}
+
+[data-launch-panel="quick"] .lesson-launcher-icon {
+  background: linear-gradient(145deg, #fff2bd, #f8da76);
+  color: #825d08;
+}
+
+.lesson-launcher-start {
+  width: 100%;
+  min-height: 46px;
+  margin: 3px 0 0;
+}
+
+.lesson-launcher-length {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: var(--soft);
+  color: var(--ink);
+  text-align: left;
+}
+
+.lesson-launcher-length span {
+  font-size: .7rem;
+  font-weight: 900;
+}
+
+.lesson-launcher-length select {
+  min-height: 34px;
+  padding: 5px 8px;
+  border: 1px solid var(--app-line, var(--line));
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.lesson-empty-state {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 30px;
+  text-align: center;
+}
+
+.lesson-empty-state .eyebrow {
+  margin: 4px 0 0;
+}
+
+.lesson-empty-state h3 {
+  margin: 0 !important;
+}
+
+.lesson-empty-state > p:last-child {
+  max-width: 470px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.5;
+}
+
+.lesson-empty-symbol {
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 29px;
+  background: linear-gradient(145deg, #f7c948, #efa93c);
+  color: #17263f;
+  font-size: 1.55rem;
+  font-weight: 950;
+  box-shadow: 0 16px 34px rgba(203, 150, 30, .22);
+}
+
+body.dark-mode .lesson-launcher-tab.active,
+body.dark-mode .lesson-launcher-panel,
+body.dark-mode .lesson-launcher-length select {
+  background: #223047;
+}
+
+@media (min-width: 1001px) {
+  /* Remove the second, redundant XP / Accuracy / Combo readout. */
+  body[data-current-view="learn"] .desktop-session-console.session-console-active > .session-console-heading,
+  body[data-current-view="learn"] .desktop-session-console.session-console-active > .session-score {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console.session-console-active .session-mastery-label {
+    margin-top: 12px;
+  }
+
+  /* The idle console contains only the two-tab launcher. */
+  body[data-current-view="learn"] .desktop-session-console.session-console-idle > :not(.lesson-mode-launcher) {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console.session-console-idle {
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  body[data-current-view="learn"] .lesson-session-idle .lesson-content > :not(.lesson-empty-state) {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .lesson-session-idle .lesson-footer {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .lesson-session-idle .lesson-card {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  /* Phrase audio lives below long-term mastery and stays available after answering. */
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden) {
+    width: 156px;
+    height: 156px;
+    min-height: 156px;
+    aspect-ratio: 1;
+    display: grid !important;
+    place-content: center;
+    justify-items: center;
+    gap: 9px;
+    align-self: center;
+    flex: 0 0 auto;
+    margin: 16px auto 0;
+    padding: 16px;
+    border: 1px solid color-mix(in srgb, #4f8ee8 58%, var(--app-line, var(--line)));
+    border-radius: 28px;
+    background: linear-gradient(145deg, #315d96, #23456f);
+    color: #eef6ff;
+    box-shadow: 0 12px 26px rgba(28, 73, 128, .28), inset 0 0 0 1px rgba(255, 255, 255, .07);
+    font-size: 0;
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden)::before {
+    content: "🔊";
+    display: block;
+    font-size: 3.25rem;
+    line-height: 1;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, .2));
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden)::after {
+    content: "Hear pronunciation";
+    display: block;
+    max-width: 120px;
+    font-size: .86rem;
+    font-weight: 950;
+    line-height: 1.2;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden):hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 16px 32px rgba(28, 73, 128, .34), inset 0 0 0 1px rgba(255, 255, 255, .11);
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden):active {
+    transform: translateY(1px) scale(.98);
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden):disabled {
+    opacity: .72;
+    cursor: wait;
+  }
+}
+
+@media (min-width: 1001px) and (max-height: 800px) {
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden) {
+    width: 126px;
+    height: 126px;
+    min-height: 126px;
+    margin-top: 10px;
+    border-radius: 23px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn.lesson-audio-square:not(.hidden)::before {
+    font-size: 2.65rem;
+  }
+
+  body[data-current-view="learn"] .lesson-launcher-panel {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  body[data-current-view="learn"] .lesson-launcher-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .lesson-mode-launcher {
+    padding: 5px 0;
+  }
+
+  .lesson-empty-state {
+    min-height: 360px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-launcher-tab,
+  .lesson-launcher-start,
+  .lesson-audio-square {
+    transition: none !important;
+  }
+}

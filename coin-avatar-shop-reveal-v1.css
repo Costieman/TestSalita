@@ -1,0 +1,36 @@
+.sq-coin-reveal-backdrop{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;padding:18px;background:rgba(8,24,22,.82);backdrop-filter:blur(8px)}
+.sq-coin-reveal-backdrop[hidden]{display:none}
+.sq-coin-reveal{position:relative;width:min(440px,100%);overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:28px;text-align:center;background:#f7fbf8;color:#173a37;box-shadow:0 28px 90px rgba(0,0,0,.38)}
+.sq-coin-reveal-kicker{margin:0 0 5px;font-size:12px;letter-spacing:.16em;font-weight:900;color:#0b6f67}
+.sq-coin-reveal-title{margin:0 0 18px;font-size:clamp(25px,6vw,34px)}
+.sq-coin-reveal-art{position:relative;width:min(270px,72vw);aspect-ratio:1;margin:0 auto 14px;border-radius:28px;overflow:hidden;background:linear-gradient(145deg,#e5efeb,#fff);box-shadow:inset 0 0 0 2px rgba(11,111,103,.12)}
+.sq-coin-reveal-art[hidden]{display:none}
+.sq-coin-reveal-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px;box-sizing:border-box}
+.sq-coin-reveal-base{filter:grayscale(1) opacity(.3)}
+.sq-coin-reveal-colour{position:absolute;inset:0;clip-path:inset(100% 0 0 0);transition:clip-path 1s cubic-bezier(.2,.8,.2,1)}
+.sq-coin-reveal-colour img{filter:saturate(1.08)}
+.sq-coin-reveal-shine{position:absolute;inset:-30%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.78) 49%,transparent 56%);transform:translateX(-70%);animation:sq-reveal-shine 1.2s ease-in-out infinite;pointer-events:none}
+.sq-coin-reveal-name{display:block;font-size:22px;margin-bottom:14px}
+.sq-coin-reveal-track{height:12px;border-radius:999px;overflow:hidden;background:#dce8e4}
+.sq-coin-reveal-track span{display:block;height:100%;width:0;border-radius:inherit;background:#0b6f67;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.sq-coin-reveal-progress{margin:9px 0 16px;color:#607773;font-weight:800}
+.sq-coin-reveal-done{border:0;border-radius:14px;padding:11px 22px;background:#0b6f67;color:#fff;font-weight:900;cursor:pointer}
+.sq-coin-reveal-burst{position:absolute;left:50%;top:48%;font-size:0;opacity:0;transform:translate(-50%,-50%) scale(.3);pointer-events:none}
+.sq-coin-reveal.complete{animation:sq-complete-card .65s ease both}
+.sq-coin-reveal.complete .sq-coin-reveal-art{box-shadow:0 0 0 5px #f4c84a,0 20px 45px rgba(244,200,74,.36)}
+.sq-coin-reveal.complete .sq-coin-reveal-colour{clip-path:inset(0 0 0 0)!important}
+.sq-coin-reveal.complete .sq-coin-reveal-burst{font-size:210px;color:#f4c84a;animation:sq-complete-burst 1s ease-out both}
+.sq-mystery-gift{display:grid;place-items:center;width:min(230px,66vw);aspect-ratio:1;margin:0 auto 18px;border-radius:30px;font-size:110px;background:radial-gradient(circle at 50% 38%,#fff7ca 0 22%,#ead67e 55%,#b8932f 100%);box-shadow:0 20px 44px rgba(125,92,15,.25);animation:sq-mystery-shake .7s ease-in-out infinite}
+.sq-mystery-gift[hidden]{display:none}
+.sq-coin-reveal[data-rarity="common"] .sq-coin-reveal-art{background:#a9d5ea}
+.sq-coin-reveal[data-rarity="uncommon"] .sq-coin-reveal-art{background:#edb2b2}
+.sq-coin-reveal[data-rarity="rare"] .sq-coin-reveal-art{background:#b8ddb9}
+.sq-coin-pack.mystery{border-color:#d5b24e;background:linear-gradient(150deg,#fff9dc,#fffdf4)}
+.sq-coin-pack.mystery .sq-coin-pack-icon{filter:drop-shadow(0 7px 12px rgba(146,105,12,.24))}
+.sq-coin-pack.mystery button{background:#9b7416;color:#fff}
+@keyframes sq-reveal-shine{0%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
+@keyframes sq-complete-card{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes sq-complete-burst{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-20deg)}45%{opacity:.75}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35) rotate(12deg)}}
+@keyframes sq-mystery-shake{0%,100%{transform:rotate(0deg) scale(1)}20%{transform:rotate(-4deg) scale(1.03)}40%{transform:rotate(4deg) scale(1.03)}60%{transform:rotate(-2deg)}80%{transform:rotate(2deg)}}
+@media(max-width:520px){.sq-coin-reveal{padding:23px 16px}.sq-coin-reveal-art{width:min(240px,72vw)}}
+@media(prefers-reduced-motion:reduce){.sq-coin-reveal-shine,.sq-mystery-gift{animation:none}.sq-coin-reveal-colour,.sq-coin-reveal-track span{transition:none}.sq-coin-reveal.complete{animation:none}}

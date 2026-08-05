@@ -1,0 +1,306 @@
+/* Unified desktop header, robust mastery layout, and a cleaner light theme. */
+
+/* These features already have dedicated destinations in the main navigation. */
+#homeView > .journey-section,
+#homeView > .conversation-spotlight,
+#homeView > .home-topic-review,
+#homeView > .dashboard-grid,
+#homeView > .achievement-panel {
+  display: none !important;
+}
+
+/* Light mode needs clearer separation than the original cream-on-white treatment. */
+body:not(.dark-mode) {
+  background: #eef4f3;
+}
+
+body:not(.dark-mode) .main-area {
+  background: linear-gradient(180deg, #f4f8f7 0, #eef4f3 54%, #edf3f2 100%);
+}
+
+body:not(.dark-mode) .topbar {
+  color: #14213d;
+}
+
+body:not(.dark-mode) .top-stats,
+body:not(.dark-mode) .mastery-rail-shell,
+body:not(.dark-mode) #homeView > .daily-quests-card,
+body:not(.dark-mode) #homeView .activity-tile,
+body:not(.dark-mode) #homeView .player-card,
+body:not(.dark-mode) #homeView .week-card {
+  border-color: #d6e2df;
+  background-color: #ffffff;
+  box-shadow: 0 10px 28px rgba(28, 54, 63, .075);
+}
+
+body:not(.dark-mode) .mastery-rail-shell {
+  background: rgba(255, 255, 255, .96);
+}
+
+body:not(.dark-mode) #homeView > .daily-quests-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdfd 100%);
+}
+
+body:not(.dark-mode) #homeView .activity-tile {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfa 100%);
+}
+
+body:not(.dark-mode) #homeView .activity-tile-primary {
+  background: linear-gradient(145deg, #e8faf5 0%, #ffffff 68%);
+  border-color: #b9dfd6;
+}
+
+body:not(.dark-mode) #homeView .activity-tile-review {
+  background: linear-gradient(145deg, #fff8e6 0%, #ffffff 68%);
+  border-color: #ead79b;
+}
+
+body:not(.dark-mode) #homeView .player-card {
+  background: linear-gradient(145deg, #fff9e9 0%, #ffffff 70%);
+  border-color: #ead9a5;
+}
+
+body:not(.dark-mode) #homeView .week-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f7faf9 100%);
+}
+
+body:not(.dark-mode) #homeView .daily-quest {
+  background: #f8fbfa;
+  border-color: #dce7e4;
+}
+
+body:not(.dark-mode) #homeView .quest-chest {
+  background: #f4f7f7;
+  border-color: #d6e1df;
+}
+
+@media (min-width: 1001px) {
+  .topbar {
+    min-height: 88px;
+    padding: 13px 0 11px;
+    align-items: center;
+  }
+
+  .topbar > div:first-child {
+    display: grid;
+    gap: 2px;
+  }
+
+  .topbar .eyebrow {
+    font-size: .65rem;
+    letter-spacing: .15em;
+  }
+
+  .topbar h2 {
+    margin: 1px 0 0;
+    font-size: clamp(1.55rem, 2.15vw, 2rem);
+    line-height: 1.05;
+  }
+
+  /* Streak, coins, and level read as one segmented control. */
+  .top-stats {
+    display: grid;
+    grid-template-columns: auto auto minmax(138px, auto);
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: 0 8px 22px rgba(20, 33, 61, .065);
+  }
+
+  .top-stats > .stat-chip,
+  .top-stats > .level-chip {
+    min-height: 60px;
+    margin: 0;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .top-stats > * + * {
+    border-left: 1px solid var(--line);
+  }
+
+  .top-stats > .stat-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 86px;
+    font-size: .92rem;
+  }
+
+  .top-stats > .stat-chip strong {
+    font-size: 1.05rem;
+  }
+
+  .top-stats > .level-chip {
+    display: grid;
+    align-content: center;
+    min-width: 138px;
+    font-size: .78rem;
+  }
+
+  .top-stats .mini-progress {
+    width: 100%;
+    height: 5px;
+    margin-top: 7px;
+  }
+
+  /* The runtime promotes these to three direct children of the shell. */
+  .mastery-rail-shell[data-compact-mastery="true"] {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr) 205px;
+    align-items: center;
+    gap: 18px;
+    margin: 0 -4px 14px;
+    padding: 11px 18px 12px;
+    border-radius: 20px;
+    overflow: visible;
+  }
+
+  .mastery-summary-compact {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    align-self: center;
+  }
+
+  .mastery-summary-compact .eyebrow {
+    display: none;
+  }
+
+  .mastery-summary-compact strong {
+    display: block;
+    color: var(--world-night);
+    font-size: .94rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-milestones {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    height: 61px;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .mastery-track {
+    top: 20px;
+    height: 7px;
+  }
+
+  .mastery-you {
+    width: 16px;
+    height: 16px;
+    border-width: 4px;
+  }
+
+  .mastery-milestone {
+    width: 76px;
+  }
+
+  .mastery-dot {
+    width: 29px;
+    height: 29px;
+    margin: 4px auto 3px;
+    border-width: 3px;
+  }
+
+  .mastery-label {
+    font-size: .53rem;
+  }
+
+  .mastery-milestone small {
+    font-size: .49rem;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-next-copy {
+    grid-column: 3;
+    grid-row: 1;
+    display: grid;
+    justify-items: end;
+    align-content: center;
+    gap: 3px;
+    min-width: 0;
+    max-width: none;
+    text-align: right;
+  }
+
+  .mastery-next-copy span {
+    display: block;
+    max-width: 100%;
+    color: var(--world-teal);
+    font-size: .82rem;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+
+  .mastery-next-copy small {
+    display: block;
+    max-width: 100%;
+    color: var(--muted);
+    font-size: .67rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  body.dark-mode .top-stats {
+    background: #172131;
+    border-color: #2c394c;
+  }
+
+  body.dark-mode .top-stats > * + * {
+    border-left-color: #2c394c;
+  }
+
+  body.dark-mode .mastery-summary-compact strong {
+    color: #eef4f8;
+  }
+}
+
+/* Laptop widths use two rows so labels never collide with the rail. */
+@media (min-width: 1001px) and (max-width: 1279px) {
+  .mastery-rail-shell[data-compact-mastery="true"] {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto 61px;
+    gap: 4px 18px;
+    padding-top: 12px;
+  }
+
+  .mastery-summary-compact {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-next-copy {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-milestones {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 1000px) {
+  /* Preserve the established mobile header and compact scrollable mastery rail. */
+  #homeView > .journey-section,
+  #homeView > .conversation-spotlight,
+  #homeView > .home-topic-review,
+  #homeView > .dashboard-grid,
+  #homeView > .achievement-panel {
+    display: none !important;
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b6f67" />
+  <title>Salita Quest: Bisaya — Loading</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:#edf7f3;color:#173a37}
+    body{display:grid;place-items:center}.loader{max-width:460px;padding:32px;text-align:center}.mark{width:64px;height:64px;margin:0 auto 18px;border-radius:20px;display:grid;place-items:center;background:#0b6f67;color:#fff;font-size:30px;font-weight:900;box-shadow:0 16px 34px rgba(11,111,103,.22)}
+    h1{margin:0 0 8px;font-size:28px}p{margin:0;color:#607773;line-height:1.55}.error{color:#9b3434}
+  </style>
+</head>
+<body>
+  <main class="loader" id="loader">
+    <div class="mark">B★</div>
+    <h1>Opening your Bisaya journey…</h1>
+    <p>Loading the Cebuano course pack.</p>
+  </main>
+  <script src="src/config/course-manifest.js?v=5.6.0"></script>
+  <script src="src/app/course-bootstrap.js?v=5.6.0"></script>
+  <script>
+    window.SalitaQuestCourseBootstrap.start({courseId: "cebuano"});
+  </script>
+</body>
+</html>

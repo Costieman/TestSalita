@@ -1,0 +1,171 @@
+/* Final desktop geometry for the greeting bar and World Progress.
+   Loaded by clean-topbar.js after the earlier responsive styles. */
+
+@media (min-width:1001px) {
+  .topbar {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    align-items:center !important;
+    column-gap:clamp(18px,2vw,34px) !important;
+    row-gap:10px !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  .topbar > div:first-child {
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  .topbar h2 {
+    max-width:100% !important;
+    overflow-wrap:anywhere;
+  }
+
+  .top-stats {
+    justify-self:end !important;
+    width:auto !important;
+    min-width:0 !important;
+    max-width:min(100%,430px) !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(190px,auto) !important;
+    grid-template-rows:auto 72px !important;
+    align-items:center !important;
+    gap:8px 18px !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-summary-compact {
+    grid-column:1 !important;
+    grid-row:1 !important;
+    display:flex !important;
+    align-items:baseline !important;
+    flex-wrap:wrap !important;
+    gap:5px 9px !important;
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  .mastery-summary-compact strong {
+    display:block !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere;
+  }
+
+  .mastery-points-compact {
+    display:inline-flex !important;
+    align-items:center;
+    flex:0 0 auto;
+    padding:3px 7px;
+    border:1px solid color-mix(in srgb,var(--world-teal) 28%,var(--line));
+    border-radius:999px;
+    background:color-mix(in srgb,var(--world-teal) 10%,transparent);
+    color:var(--world-teal);
+    font-size:.64rem;
+    font-weight:900;
+    line-height:1.2;
+    white-space:nowrap;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-next-copy {
+    grid-column:2 !important;
+    grid-row:1 !important;
+    display:grid !important;
+    grid-template-columns:auto auto !important;
+    align-items:baseline !important;
+    justify-content:end !important;
+    justify-items:end !important;
+    gap:4px 8px !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    text-align:right !important;
+  }
+
+  .mastery-next-copy::before {
+    content:"Next";
+    grid-column:1 / -1;
+    color:var(--muted);
+    font-size:.56rem;
+    font-weight:900;
+    letter-spacing:.12em;
+    line-height:1;
+    text-transform:uppercase;
+  }
+
+  .mastery-next-copy span,
+  .mastery-next-copy small {
+    min-width:0 !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere;
+  }
+
+  .mastery-next-copy span {
+    grid-column:1;
+    font-size:.79rem !important;
+  }
+
+  .mastery-next-copy small {
+    grid-column:2;
+    font-size:.65rem !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-milestones {
+    grid-column:1 / -1 !important;
+    grid-row:2 !important;
+    width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+  }
+}
+
+@media (min-width:1001px) and (max-width:1180px) {
+  .topbar {
+    grid-template-columns:minmax(0,1fr) !important;
+    align-items:start !important;
+  }
+
+  .top-stats {
+    justify-self:stretch !important;
+    width:100% !important;
+    max-width:none !important;
+  }
+}
+
+@media (min-width:1001px) and (max-width:1120px) {
+  .mastery-rail-shell[data-compact-mastery="true"] {
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:auto auto 72px !important;
+    gap:5px !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-summary-compact {
+    grid-column:1 !important;
+    grid-row:1 !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-next-copy {
+    grid-column:1 !important;
+    grid-row:2 !important;
+    justify-content:start !important;
+    justify-items:start !important;
+    text-align:left !important;
+  }
+
+  .mastery-rail-shell[data-compact-mastery="true"] > .mastery-milestones {
+    grid-column:1 !important;
+    grid-row:3 !important;
+  }
+}
+
+body.dark-mode .mastery-points-compact {
+  border-color:rgba(73,205,181,.3);
+  background:rgba(30,151,132,.12);
+  color:#62d6c1;
+}

@@ -1,0 +1,96 @@
+/* Desktop-only Avatar Case layout safety. No progression or reward state is changed. */
+@media (min-width: 900px) {
+  .sq-avatar-case-panel {
+    overflow: visible;
+  }
+
+  .sq-avatar-case-slots {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    align-items: stretch;
+  }
+
+  .sq-avatar-case-slot {
+    min-height: 164px;
+    height: 100%;
+  }
+
+  .sq-avatar-case-slot.is-filled {
+    grid-template-rows: minmax(112px, 1fr) minmax(48px, auto);
+  }
+
+  .sq-avatar-case-art {
+    min-height: 0;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .sq-avatar-case-art img,
+  .sq-avatar-case-order-item > img,
+  .sq-avatar-case-choice img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+
+  .sq-avatar-case-copy {
+    min-height: 48px;
+  }
+
+  .sq-avatar-case-copy strong {
+    overflow-wrap: anywhere;
+  }
+
+  .sq-avatar-case-picker {
+    align-items: center;
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+
+  .sq-avatar-case-picker-dialog {
+    width: min(1040px, calc(100vw - 40px));
+    max-height: calc(100dvh - 40px);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .sq-avatar-case-picker-grid {
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .sq-avatar-case-picker-order {
+    max-height: 230px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .sq-avatar-case-choice,
+  .sq-avatar-case-order-item {
+    min-height: 76px;
+  }
+
+  body.sq-avatar-case-picker-open {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1120px) {
+  .sq-avatar-case-slots {
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+  }
+
+  .sq-avatar-case-picker-grid,
+  .sq-avatar-case-picker-order {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

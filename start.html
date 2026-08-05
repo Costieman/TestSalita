@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b6f67">
+  <title>Welcome to Salita Quest</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <style>
+    :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#173a37;background:#edf7f3}
+    *{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px}
+    main{width:min(720px,100%);background:#fff;border:1px solid #dbe8e4;border-radius:28px;padding:clamp(24px,5vw,44px);box-shadow:0 22px 60px rgba(20,62,57,.16)}
+    .mark{width:72px;height:72px;border-radius:22px;display:grid;place-items:center;background:#0b6f67;color:#fff;font-size:30px;font-weight:900;margin-bottom:18px}
+    h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:0 0 10px}p{color:#607773;line-height:1.55;margin:0}
+    .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+    button,.button{border:0;border-radius:18px;padding:18px;text-decoration:none;font:inherit;font-weight:850;cursor:pointer;text-align:center;display:grid;gap:4px;align-content:center;min-height:96px}
+    .primary{background:#0b6f67;color:#fff;box-shadow:0 7px 0 #07544e}.secondary{background:#f4faf7;color:#173a37;border:2px solid #dbe8e4;box-shadow:0 5px 0 #d5e5df}
+    small{font-weight:650;opacity:.78;line-height:1.35}.note{margin-top:20px;padding:14px 16px;border-radius:14px;background:#f5f9f7;font-size:.88rem;color:#607773}
+    input[type=file]{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none}.status{margin-top:14px;color:#9b3434;font-weight:750;min-height:1.4em}
+    @media(max-width:620px){.choices{grid-template-columns:1fr}body{padding:14px}main{border-radius:22px}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="mark">S★</div>
+  <p style="font-weight:900;letter-spacing:.12em;color:#0b6f67;margin-bottom:8px">SALITA QUEST</p>
+  <h1>Set up your learning journey</h1>
+  <p>Create a learner on this device, or restore an existing Salita Quest backup before continuing.</p>
+  <div class="choices">
+    <a class="button primary" href="index.html?setup=new">Create a learner<small>Start a new Tagalog or Bisaya journey</small></a>
+    <button class="secondary" type="button" id="restoreButton">Restore a backup<small>Import a Salita Quest JSON backup</small></button>
+  </div>
+  <input id="backupFile" type="file" accept="application/json,.json">
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div class="note"><strong>Already set up on this device?</strong> <a href="index.html">Continue to your learners</a>. Progress remains local unless you deliberately import a backup.</div>
+</main>
+<script>
+(() => {
+  "use strict";
+  const PROFILE_STORE = "salitaQuestLocalProfilesV1";
+  const button = document.getElementById("restoreButton");
+  const input = document.getElementById("backupFile");
+  const status = document.getElementById("status");
+
+  function validProfiles(value){return value && typeof value === "object" && Array.isArray(value.profiles);}
+  function collectStorage(payload){
+    if (payload && typeof payload.localStorage === "object") return payload.localStorage;
+    if (payload && typeof payload.storage === "object") return payload.storage;
+    if (payload && typeof payload.data === "object" && payload.data[PROFILE_STORE]) return payload.data;
+    if (validProfiles(payload)) return {[PROFILE_STORE]:JSON.stringify(payload)};
+    return null;
+  }
+  function allowedKey(key){
+    return key === PROFILE_STORE || key === "salitaQuestProgress" || key === "salitaQuestBaseProgressOwner" ||
+      key.startsWith("salitaQuestProgress.profile.") || /^salitaQuestStateV[123]?$/.test(key);
+  }
+  button.addEventListener("click", () => input.click());
+  input.addEventListener("change", async () => {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    status.textContent = "Checking backup…";
+    try {
+      const payload = JSON.parse(await file.text());
+      const storage = collectStorage(payload);
+      if (!storage) throw new Error("This file does not contain a recognised Salita Quest backup.");
+      const entries = Object.entries(storage).filter(([key]) => allowedKey(key));
+      const profileEntry = entries.find(([key]) => key === PROFILE_STORE);
+      const profileValue = profileEntry ? (typeof profileEntry[1] === "string" ? JSON.parse(profileEntry[1]) : profileEntry[1]) : null;
+      if (!validProfiles(profileValue) || !profileValue.profiles.length) throw new Error("No learner profiles were found in this backup.");
+      entries.forEach(([key,value]) => localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value)));
+      status.style.color = "#0b6f67";
+      status.textContent = "Backup restored. Opening your learners…";
+      window.setTimeout(() => window.location.replace("index.html?setup=restored"), 450);
+    } catch (error) {
+      status.style.color = "#9b3434";
+      status.textContent = error && error.message ? error.message : "The backup could not be restored.";
+      input.value = "";
+    }
+  });
+})();
+</script>
+</body>
+</html>

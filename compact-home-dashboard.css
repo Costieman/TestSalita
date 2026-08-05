@@ -1,0 +1,287 @@
+/* Space-efficient home dashboard: quests first, followed by nine equal summary tiles. */
+
+/* The former continue-learning hero duplicated the activity controls. */
+#homeView > .hero-card {
+  display: none !important;
+}
+
+@media (min-width: 1001px) {
+  body[data-current-view="home"] .main-area {
+    padding-bottom: 42px;
+  }
+
+  body[data-current-view="home"] .topbar {
+    min-height: 86px;
+  }
+
+  body[data-current-view="home"] .mastery-rail-shell {
+    margin-bottom: 14px;
+  }
+
+  #homeView.view.active {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  /* Promote the seven activity cards and the two momentum cards into one grid. */
+  #homeView > .activity-hub,
+  #homeView > .game-dashboard {
+    display: contents;
+  }
+
+  #homeView > .daily-quests-card {
+    order: 1;
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 16px;
+    min-width: 0;
+  }
+
+  #homeView .activity-tile,
+  #homeView .player-card,
+  #homeView .week-card {
+    order: 2;
+    min-width: 0;
+    min-height: 96px;
+    height: 100%;
+    margin: 0;
+    border-radius: 22px;
+    align-self: stretch;
+  }
+
+  #homeView .activity-main {
+    min-height: 96px;
+    height: 100%;
+    padding: 12px 13px;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  #homeView .activity-art {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  #homeView .activity-art .pictogram {
+    width: 34px;
+    height: 34px;
+  }
+
+  #homeView .activity-copy strong {
+    font-size: .9rem;
+  }
+
+  #homeView .activity-copy em {
+    font-size: .66rem;
+  }
+
+  /* Learning Level becomes an equal-sized dashboard tile. */
+  #homeView .player-card {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    padding: 12px 13px;
+  }
+
+  #homeView .player-avatar-wrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  #homeView .player-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+    font-size: 1.65rem;
+    box-shadow: 0 4px 0 #dfaa29, 0 7px 12px rgba(164,117,12,.14);
+  }
+
+  #homeView .player-level-badge {
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 4px;
+    border-width: 2px;
+    font-size: .56rem;
+  }
+
+  #homeView .player-copy h3 {
+    margin: 2px 0;
+    font-size: .92rem;
+  }
+
+  #homeView .player-copy > p:last-of-type {
+    display: none;
+  }
+
+  #homeView .player-xp-row {
+    margin-top: 7px;
+    font-size: .6rem;
+  }
+
+  #homeView .player-xp-track {
+    height: 7px;
+    margin-top: 5px;
+  }
+
+  /* Weekly Momentum uses the same footprint as the learning-action tiles. */
+  #homeView .week-card {
+    padding: 12px 13px;
+    display: grid;
+    align-content: center;
+  }
+
+  #homeView .week-card-head strong {
+    margin-top: 2px;
+    font-size: .82rem;
+  }
+
+  #homeView .week-flame {
+    font-size: 1.15rem;
+  }
+
+  #homeView .week-momentum {
+    margin-top: 9px;
+    gap: 4px;
+  }
+
+  #homeView .week-day {
+    gap: 3px;
+  }
+
+  #homeView .week-day span {
+    width: 23px;
+    height: 23px;
+    border-radius: 8px;
+    font-size: .58rem;
+  }
+
+  #homeView .week-day small {
+    font-size: .49rem;
+  }
+
+  /* Four compact quests use the full width immediately below World Progress. */
+  #homeView .quest-card-header {
+    margin-bottom: 9px;
+    align-items: center;
+  }
+
+  #homeView .quest-card-header h3 {
+    margin: 3px 0;
+    font-size: 1rem;
+  }
+
+  #homeView .quest-card-header p:last-child,
+  #homeView .daily-quest-copy small {
+    display: none;
+  }
+
+  #homeView .daily-quest-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 0;
+  }
+
+  #homeView .daily-quest {
+    padding: 8px 9px;
+    gap: 8px;
+  }
+
+  #homeView .daily-quest-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 11px;
+    font-size: .95rem;
+  }
+
+  #homeView .daily-quest-copy strong {
+    font-size: .76rem;
+  }
+
+  #homeView .quest-progress {
+    height: 5px;
+    margin-top: 5px;
+  }
+
+  #homeView .quest-chest {
+    margin-top: 8px;
+    padding: 9px 10px;
+  }
+
+  /* Everything after the nine-card launcher returns to full-width content. */
+  #homeView > .mobile-transfer-prompt,
+  #homeView > .journey-section,
+  #homeView > .dashboard-grid,
+  #homeView > .achievement-panel {
+    order: 3;
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  #homeView > .conversation-spotlight,
+  #homeView > .home-topic-review {
+    order: 3;
+    min-width: 0;
+    margin: 0;
+  }
+
+  #homeView > .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1320px) {
+  #homeView.view.active {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #homeView .daily-quest-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #homeView > .home-topic-review {
+    grid-column: span 2;
+  }
+
+  #homeView > .dashboard-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1001px) and (max-height: 820px) {
+  #homeView .activity-main,
+  #homeView .player-card,
+  #homeView .week-card {
+    min-height: 84px;
+  }
+
+  #homeView .activity-main,
+  #homeView .player-card,
+  #homeView .week-card {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+/* On mobile, quests still lead the page and the existing stacked cards remain intact. */
+@media (max-width: 1000px) {
+  #homeView.view.active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #homeView > .daily-quests-card { order: 1; }
+  #homeView > .activity-hub { order: 2; }
+  #homeView > .game-dashboard { order: 3; }
+  #homeView > .mobile-transfer-prompt,
+  #homeView > .journey-section,
+  #homeView > .conversation-spotlight,
+  #homeView > .home-topic-review,
+  #homeView > .dashboard-grid,
+  #homeView > .achievement-panel { order: 4; }
+}

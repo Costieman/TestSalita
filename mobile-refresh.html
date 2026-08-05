@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b6f67">
+  <title>Update Salita Quest</title>
+  <style>
+    html,body{min-height:100%;margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:#edf7f3;color:#173a37}
+    body{display:grid;place-items:center;padding:24px;box-sizing:border-box}.card{width:min(440px,100%);background:white;border:1px solid #dce9e5;border-radius:24px;padding:28px;box-shadow:0 20px 55px rgba(9,56,52,.18);text-align:center}.mark{width:68px;height:68px;margin:0 auto 18px;border-radius:20px;display:grid;place-items:center;background:#0b6f67;color:white;font-size:30px;font-weight:900}.spinner{width:36px;height:36px;margin:22px auto;border:4px solid #dce9e5;border-top-color:#0b6f67;border-radius:50%;animation:spin .8s linear infinite}h1{margin:0 0 10px;font-size:26px}p{margin:0;color:#617773;line-height:1.55}.status{margin-top:16px;font-weight:800;color:#0b6f67}.error{color:#9b3434}button{margin-top:18px;border:0;border-radius:12px;padding:12px 18px;background:#0b6f67;color:white;font-weight:850;font-size:15px}@keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark">S★</div>
+    <h1>Updating Salita Quest</h1>
+    <p>This refreshes app files and offline caches only. Learner profiles, course progress, XP, coins and avatar ownership remain in local storage.</p>
+    <div class="spinner" aria-hidden="true"></div>
+    <div id="status" class="status" role="status">Preparing update…</div>
+    <button id="retry" type="button" hidden>Try again</button>
+  </main>
+  <script>
+  (() => {
+    "use strict";
+    const RELEASE = "5.5.6";
+    const status = document.getElementById("status");
+    const retry = document.getElementById("retry");
+    const files = [
+      `./index.html?v=${RELEASE}`,
+      `./app.html?v=${RELEASE}`,
+      `./bisaya.html?v=${RELEASE}`,
+      `./src/features/interface/popup-governor-v1.js?v=${RELEASE}`,
+      `./level-progression-v2.js?v=${RELEASE}`,
+      `./src/features/interface/level-up-mobile-safety-v552.js?v=${RELEASE}`,
+      `./src/features/interface/clean-topbar.js?v=${RELEASE}`,
+      `./src/features/progression/even-progress-rail.js?v=${RELEASE}`,
+      `./src/features/interface/compact-desktop-layout.js?v=${RELEASE}`,
+      `./src/features/audio/pronunciation-release-control.js?v=${RELEASE}`,
+      `./src/features/avatar/level-avatar-rewards-v1.js?v=${RELEASE}`,
+      `./avatar-unlock-celebration-v1.js?v=${RELEASE}`,
+      `./src/features/avatar/avatar-catalogue-v1.js?v=${RELEASE}`,
+      `./src/features/avatar/avatar-progression-migration-v1.js?v=${RELEASE}`,
+      `./src/features/avatar/avatar-artwork-registry-v554.js?v=${RELEASE}`,
+      `./src/features/avatar/avatar-progression-model-v551.js?v=${RELEASE}`,
+      `./src/adapters/navigation/avatar-collections-navigation-v551.js?v=${RELEASE}`,
+      `./avatar-progression-hotfix-v551.js?v=${RELEASE}`,
+      `./profile-emblem-control.js?v=${RELEASE}`,
+      `./profile-emblem-control.css?v=${RELEASE}`,
+      `./avatar-collection-screen-v1.js?v=${RELEASE}`,
+      `./avatar-collection-screen-v1.css?v=${RELEASE}`,
+      `./avatars/canonical/manifest.json?v=${RELEASE}`,
+      `./service-worker.js?v=${RELEASE}`
+    ];
+
+    const setStatus = message => { status.textContent = message; };
+
+    async function refresh() {
+      retry.hidden = true;
+      status.classList.remove("error");
+      try {
+        setStatus("Removing old offline app files…");
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(key => caches.delete(key)));
+        }
+
+        setStatus("Loading the canonical avatar runtime…");
+        await Promise.allSettled(files.map(url => fetch(url, {cache:"reload", credentials:"same-origin"})));
+
+        if ("serviceWorker" in navigator) {
+          setStatus("Installing the updated app…");
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map(registration => registration.unregister()));
+          const registration = await navigator.serviceWorker.register(`./service-worker.js?v=${RELEASE}`, {
+            scope:"./",
+            updateViaCache:"none"
+          });
+          await registration.update().catch(() => {});
+          await navigator.serviceWorker.ready.catch(() => null);
+        }
+
+        sessionStorage.setItem("salitaQuestMobileRefreshRelease", RELEASE);
+        setStatus("Update complete. Reopening Salita Quest…");
+        window.setTimeout(() => window.location.replace(`./index.html?v=${RELEASE}&refreshed=1`), 700);
+      } catch (error) {
+        console.error(error);
+        status.classList.add("error");
+        setStatus("The update could not finish. Check your connection and try again.");
+        retry.hidden = false;
+      }
+    }
+
+    retry.addEventListener("click", refresh);
+    refresh();
+  })();
+  </script>
+</body>
+</html>

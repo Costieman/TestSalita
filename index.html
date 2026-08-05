@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b6f67" />
+  <meta name="description" content="Salita Quest — local learner profiles with private progress stored on this device." />
+  <title>Salita Quest — Learner Login</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="profile-shell.css?v=5.4.25" />
+  <script src="src/features/avatar/avatar-catalogue-v1.js?v=5.5.0"></script>
+  <style>
+    .course-choice-shell{display:grid;gap:22px;text-align:center}
+    .course-choice-identity{display:grid;justify-items:center;gap:8px}
+    .course-choice-identity img{width:76px;height:76px;object-fit:contain;image-rendering:pixelated;border-radius:22px;background:#edf7f3;border:1px solid #dbe8e4;padding:7px}
+    .course-choice-identity h2{margin:0;max-width:520px;font-size:clamp(1.65rem,5vw,2.35rem);line-height:1.12;color:#173a37}
+    .course-choice-identity p:not(.profile-eyebrow){margin:0;color:#607773;line-height:1.5}
+    .course-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .course-choice-button{min-height:132px;border:2px solid #dbe8e4;border-radius:20px;background:#f7fbf9;color:#173a37;padding:20px 16px;display:grid;align-content:center;gap:6px;cursor:pointer;box-shadow:0 7px 0 #d5e5df;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+    .course-choice-button:hover,.course-choice-button:focus-visible{transform:translateY(-2px);border-color:#0b6f67;box-shadow:0 9px 0 #c7ddd5;outline:none}
+    .course-choice-button:active{transform:translateY(4px);box-shadow:0 3px 0 #c7ddd5}
+    .course-choice-button strong{font-size:1.45rem}
+    .course-choice-button small{color:#607773;font-weight:700;line-height:1.35}
+    .course-choice-back{justify-self:center}
+    @media(max-width:620px){.course-choice-grid{grid-template-columns:1fr}.course-choice-button{min-height:108px}}
+  </style>
+</head>
+<body>
+  <main id="profileGate" class="profile-gate" aria-live="polite">
+    <section class="profile-brand" aria-label="Salita Quest">
+      <div class="profile-brand-mark">S<span>★</span></div>
+      <div>
+        <p class="profile-eyebrow">LOCAL LEARNER PROFILES</p>
+        <h1>Salita Quest</h1>
+        <p>Your Tagalog or Bisaya journey stays on this device.</p>
+      </div>
+    </section>
+    <section id="profilePanel" class="profile-panel"><p>Loading learner profiles…</p></section>
+  </main>
+  <div id="profileToast" class="profile-toast" role="status" hidden></div>
+  <script>
+  (() => {
+    "use strict";
+
+    const STORE = "salitaQuestLocalProfilesV1";
+    const ACTIVE = "salitaQuestActiveProfileId";
+    const ACTIVE_COURSE = "salitaQuestActiveCourse";
+    const BASE = "salitaQuestProgress";
+    const OWNER = "salitaQuestBaseProgressOwner";
+    const PREFIX = "salitaQuestProgress.profile.";
+    const LEGACY_PROGRESS_KEYS = ["salitaQuestStateV3", "salitaQuestStateV2", "salitaQuestState"];
+    const LEGACY_AVATAR_IDS = new Set(["tarsier", "eagle", "tamaraw", "peacock", "orchid", "jade", "rafflesia", "anahaw"]);
+    const model = window.SalitaAvatarModel;
+    const starters = model ? model.list({rarity:"starter"}) : [];
+
+    const panel = document.getElementById("profilePanel");
+    const toast = document.getElementById("profileToast");
+
+    const esc = value => String(value ?? "").replace(/[&<>'"]/g, character => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#39;", '"':"&quot;"
+    }[character]));
+
+    function fallbackAvatar() {
+      return {id:"anahaw", name:"Anahaw", image:"avatars/anahaw.png", category:"plant"};
+    }
+
+    function avatar(value) {
+      return model?.get(value) || fallbackAvatar();
+    }
+
+    function equippedId(profile) {
+      return profile?.avatarCollection?.equippedAvatarId || profile?.avatarId || "anahaw";
+    }
+
+    function emptyStore() {
+      return {schemaVersion:1, profiles:[]};
+    }
+
+    function migrateProfile(profile) {
+      if (!profile || typeof profile !== "object" || !model) return false;
+      const before = JSON.stringify(profile.avatarCollection || null);
+      const state = model.normaliseCollectionState(profile.avatarCollection, profile.avatarId);
+      if (!state.equippedAvatarId && profile.avatarId) {
+        const current = model.get(profile.avatarId);
+        if (current) {
+          state.equippedAvatarId = current.id;
+          if (!state.ownedAvatarIds.includes(current.id)) state.ownedAvatarIds.push(current.id);
+        }
+      }
+      profile.avatarCollection = state;
+      if (state.equippedAvatarId && LEGACY_AVATAR_IDS.has(state.equippedAvatarId)) {
+        profile.avatarId = state.equippedAvatarId;
+      }
+      return before !== JSON.stringify(profile.avatarCollection);
+    }
+
+    function read() {
+      try {
+        const value = JSON.parse(localStorage.getItem(STORE) || "null");
+        const store = value && Array.isArray(value.profiles) ? value : emptyStore();
+        let changed = false;
+        store.profiles.forEach(profile => { changed = migrateProfile(profile) || changed; });
+        if (changed) write(store);
+        return store;
+      } catch {
+        return emptyStore();
+      }
+    }
+
+    function write(store) {
+      store.schemaVersion = 1;
+      store.updatedAt = new Date().toISOString();
+      localStorage.setItem(STORE, JSON.stringify(store));
+    }
+
+    const progressKey = id => PREFIX + id;
+    const courseProgressKey = (id, course) => `${PREFIX}${id}.${course}`;
+
+    function makeId() {
+      return crypto.randomUUID
+        ? crypto.randomUUID()
+        : [...crypto.getRandomValues(new Uint8Array(16))]
+            .map(value => value.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    function makeSalt() {
+      return [...crypto.getRandomValues(new Uint8Array(16))]
+        .map(value => value.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    async function hashPin(pin, salt) {
+      const digest = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(`${salt}:${pin}`)
+      );
+      return [...new Uint8Array(digest)]
+        .map(value => value.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.hidden = false;
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => { toast.hidden = true; }, 3000);
+    }
+
+    function findLegacyProgress() {
+      let value = localStorage.getItem(BASE);
+      if (value) return value;
+      for (const key of LEGACY_PROGRESS_KEYS) {
+        value = localStorage.getItem(key);
+        if (value) return value;
+      }
+      return null;
+    }
+
+    function recoverOwner() {
+      const owner = localStorage.getItem(OWNER);
+      const progress = localStorage.getItem(BASE);
+      if (!owner || !progress) return;
+      const separator = owner.lastIndexOf(":");
+      const profileId = separator > 0 ? owner.slice(0, separator) : owner;
+      const course = separator > 0 ? owner.slice(separator + 1) : "tagalog";
+      if (!read().profiles.some(profile => profile.id === profileId)) return;
+      localStorage.setItem(courseProgressKey(profileId, course), progress);
+      if (course === "tagalog") localStorage.setItem(progressKey(profileId), progress);
+    }
+
+    function loadProgress(profile, course) {
+      recoverOwner();
+      const courseId = course === "cebuano" ? "cebuano" : "tagalog";
+      const progress = localStorage.getItem(courseProgressKey(profile.id, courseId))
+        || (courseId === "tagalog" ? localStorage.getItem(progressKey(profile.id)) : null);
+      if (progress) localStorage.setItem(BASE, progress);
+      else localStorage.removeItem(BASE);
+      localStorage.setItem(OWNER, `${profile.id}:${courseId}`);
+      sessionStorage.setItem(ACTIVE_COURSE, courseId);
+    }
+
+    function clearShared() {
+      localStorage.removeItem(BASE);
+      localStorage.removeItem(OWNER);
+    }
+
+    function renderCourseChoice(profile) {
+      const store = read();
+      const saved = store.profiles.find(item => item.id === profile.id);
+      if (!saved) {
+        renderChoices();
+        return;
+      }
+      migrateProfile(saved);
+      saved.lastUsedAt = new Date().toISOString();
+      write(store);
+      sessionStorage.setItem(ACTIVE, saved.id);
+      sessionStorage.removeItem(ACTIVE_COURSE);
+      panel.dataset.courseProfile = saved.id;
+      const selected = avatar(equippedId(saved));
+      panel.innerHTML = `
+        <div class="course-choice-shell">
+          <div class="course-choice-identity">
+            <img src="${selected.image}" alt="">
+            <p class="profile-eyebrow">${esc(saved.name).toUpperCase()}</p>
+            <h2>Which language will you be learning today?</h2>
+            <p>Choose the course before any placement questions begin.</p>
+          </div>
+          <div class="course-choice-grid" role="group" aria-label="Choose a language course">
+            <button class="course-choice-button" type="button" data-course-choice="cebuano">
+              <strong>Bisaya</strong>
+              <small>Cebuano / Bisayan course</small>
+            </button>
+            <button class="course-choice-button" type="button" data-course-choice="tagalog">
+              <strong>Tagalog</strong>
+              <small>Tagalog course</small>
+            </button>
+          </div>
+          <button class="profile-btn secondary course-choice-back" type="button" data-back>Choose another learner</button>
+        </div>`;
+      try { navigator.storage?.persist?.(); } catch {}
+    }
+
+    function openCourse(profile, course) {
+      const courseId = course === "cebuano" ? "cebuano" : "tagalog";
+      const store = read();
+      const saved = store.profiles.find(item => item.id === profile.id);
+      if (!saved) {
+        renderChoices();
+        return;
+      }
+      saved.lastCourse = courseId;
+      saved.lastUsedAt = new Date().toISOString();
+      write(store);
+      sessionStorage.setItem(ACTIVE, saved.id);
+      loadProgress(saved, courseId);
+      window.location.replace(
+        courseId === "cebuano"
+          ? `bisaya.html?profile=${encodeURIComponent(saved.id)}`
+          : `app.html?profile=${encodeURIComponent(saved.id)}`
+      );
+    }
+
+    function openProfile(profile) {
+      const store = read();
+      const saved = store.profiles.find(item => item.id === profile.id);
+      if (!saved) {
+        renderChoices();
+        return;
+      }
+      renderCourseChoice(saved);
+    }
+
+    function renderChoices() {
+      delete panel.dataset.courseProfile;
+      const store = read();
+      const profiles = [...store.profiles].sort(
+        (a, b) => String(b.lastUsedAt || "").localeCompare(String(a.lastUsedAt || ""))
+      );
+      const hasProfiles = profiles.length > 0;
+      panel.innerHTML = `
+        <div class="profile-panel-header">
+          <div>
+            <p class="profile-eyebrow">WELCOME</p>
+            <h2>${hasProfiles ? "Choose your learner" : "Create your first learner"}</h2>
+            <p>${hasProfiles
+              ? "Select a local profile and enter its PIN."
+              : "Each learner receives separate progress on this device."}</p>
+          </div>
+        </div>
+        ${hasProfiles ? `
+          <div class="profile-list">
+            ${profiles.map(profile => {
+              const selected = avatar(equippedId(profile));
+              return `
+                <button class="profile-choice" type="button" data-profile="${profile.id}">
+                  <img src="${selected.image}" alt="">
+                  <span><strong>${esc(profile.name)}</strong><small>${esc(selected.name)}</small></span>
+                </button>`;
+            }).join("")}
+            <button class="profile-choice profile-add-card" type="button" data-new>
+              <span class="profile-add-icon">＋</span><span>Add another learner</span>
+            </button>
+          </div>` : `
+          <button class="profile-btn" type="button" data-new>Create learner profile</button>`}
+        <div class="profile-info-note">
+          <strong>Stored locally:</strong> clearing website data, private browsing, or changing browsers may remove access.
+          Keep using JSON backups.
+        </div>`;
+    }
+
+    function renderLogin(id) {
+      delete panel.dataset.courseProfile;
+      const profile = read().profiles.find(item => item.id === id);
+      if (!profile) {
+        renderChoices();
+        return;
+      }
+      const selected = avatar(equippedId(profile));
+      panel.innerHTML = `
+        <div class="profile-login-title">
+          <img class="profile-login-avatar" src="${selected.image}" alt="">
+          <p class="profile-eyebrow">${esc(selected.name).toUpperCase()}</p>
+          <h2>${esc(profile.name)}</h2>
+          <p>Enter your local PIN to continue.</p>
+        </div>
+        <form id="loginForm" class="profile-form">
+          <label class="profile-field">
+            <span>PIN</span>
+            <input id="loginPin" type="password" inputmode="numeric" minlength="4" maxlength="6"
+              pattern="[0-9]{4,6}" required autofocus>
+            <small>Four to six numbers.</small>
+          </label>
+          <div id="profileError" class="profile-error"></div>
+          <div class="profile-actions">
+            <button class="profile-btn secondary" type="button" data-back>Back</button>
+            <button class="profile-btn" type="submit">Continue</button>
+          </div>
+        </form>
+        <div class="profile-info-note">This is a casual local profile lock, not a secure online account.</div>`;
+
+      document.getElementById("loginForm").addEventListener("submit", async event => {
+        event.preventDefault();
+        const pin = document.getElementById("loginPin").value.trim();
+        const error = document.getElementById("profileError");
+        const submit = event.submitter;
+        if (!/^\d{4,6}$/.test(pin)) {
+          error.textContent = "Enter the four- to six-digit PIN.";
+          return;
+        }
+        submit.disabled = true;
+        submit.textContent = "Checking…";
+        if (await hashPin(pin, profile.pinSalt) !== profile.pinHash) {
+          error.textContent = "That PIN is not correct.";
+          submit.disabled = false;
+          submit.textContent = "Continue";
+          document.getElementById("loginPin").select();
+          return;
+        }
+        openProfile(profile);
+      });
+    }
+
+    function renderCreate() {
+      delete panel.dataset.courseProfile;
+      const hasProfiles = read().profiles.length > 0;
+      if (!model || starters.length !== 4) {
+        panel.innerHTML = "<h2>Avatar catalogue unavailable</h2><p>Reload Salita Quest to continue.</p>";
+        return;
+      }
+
+      panel.innerHTML = `
+        <div class="profile-panel-header">
+          <div>
+            <p class="profile-eyebrow">NEW LOCAL PROFILE</p>
+            <h2>Create a learner</h2>
+            <p>Choose one of four equal-status Philippine flora starters and protect the profile with a PIN.</p>
+          </div>
+        </div>
+        <form id="createForm" class="profile-form">
+          <label class="profile-field">
+            <span>Learner name</span>
+            <input id="learnerName" maxlength="24" required>
+          </label>
+          <div class="profile-pin-row">
+            <label class="profile-field">
+              <span>Create PIN</span>
+              <input id="newPin" type="password" inputmode="numeric" minlength="4" maxlength="6" required>
+            </label>
+            <label class="profile-field">
+              <span>Confirm PIN</span>
+              <input id="confirmPin" type="password" inputmode="numeric" minlength="4" maxlength="6" required>
+            </label>
+          </div>
+          <div class="profile-avatar-heading">
+            <strong>Choose your starter avatar</strong>
+            <small>All four choices have equal status</small>
+          </div>
+          <div class="avatar-grid">
+            ${starters.map((item, index) => `
+              <div class="avatar-option">
+                <input id="avatar-${item.id}" type="radio" name="avatar" value="${item.id}"
+                  ${index === 0 ? "checked" : ""}>
+                <label for="avatar-${item.id}">
+                  <img src="${item.image}" alt="">
+                  <strong>${esc(item.name)}</strong>
+                  <small>${item.category === "plant" ? "Philippine native flora" : "Philippine native flower"}</small>
+                </label>
+              </div>`).join("")}
+          </div>
+          <label class="profile-consent">
+            <input id="storageConsent" type="checkbox" required>
+            <span>I understand that this learner’s profile and progress will be stored in this browser on this device.</span>
+          </label>
+          <div id="profileError" class="profile-error"></div>
+          <div class="profile-actions">
+            ${hasProfiles ? '<button class="profile-btn secondary" type="button" data-back>Back</button>' : ""}
+            <button class="profile-btn" type="submit">Create and choose language</button>
+          </div>
+        </form>`;
+
+      document.getElementById("createForm").addEventListener("submit", async event => {
+        event.preventDefault();
+        const store = read();
+        const name = document.getElementById("learnerName").value.trim().replace(/\s+/g, " ");
+        const pin = document.getElementById("newPin").value.trim();
+        const confirmPin = document.getElementById("confirmPin").value.trim();
+        const error = document.getElementById("profileError");
+
+        if (!name || name.length > 24) {
+          error.textContent = "Enter a learner name of up to 24 characters.";
+          return;
+        }
+        if (store.profiles.some(profile => profile.name.toLowerCase() === name.toLowerCase())) {
+          error.textContent = "That learner name already exists.";
+          return;
+        }
+        if (!/^\d{4,6}$/.test(pin)) {
+          error.textContent = "Create a PIN containing four to six numbers.";
+          return;
+        }
+        if (pin !== confirmPin) {
+          error.textContent = "The PIN entries do not match.";
+          return;
+        }
+        if (!document.getElementById("storageConsent").checked) {
+          error.textContent = "Accept local storage before continuing.";
+          return;
+        }
+
+        const selectedId = document.querySelector('input[name="avatar"]:checked')?.value;
+        if (!model.starterIds.includes(selectedId)) {
+          error.textContent = "Choose one of the four starter avatars.";
+          return;
+        }
+
+        const salt = makeSalt();
+        const avatarCollection = model.normaliseCollectionState({
+          equippedAvatarId:selectedId,
+          ownedAvatarIds:[selectedId],
+          shards:{},
+          pendingUnlocks:[],
+          levelRewardsClaimed:[],
+          needsStarterChoice:false
+        });
+
+        const profile = {
+          id:makeId(),
+          name,
+          avatarId:selectedId,
+          avatarCollection,
+          pinSalt:salt,
+          pinHash:await hashPin(pin, salt),
+          createdAt:new Date().toISOString(),
+          lastUsedAt:new Date().toISOString(),
+          consentVersion:1
+        };
+        const existingProgress = store.profiles.length ? null : findLegacyProgress();
+        store.profiles.push(profile);
+        write(store);
+        if (existingProgress) {
+          localStorage.setItem(progressKey(profile.id), existingProgress);
+          localStorage.setItem(courseProgressKey(profile.id, "tagalog"), existingProgress);
+        }
+        showToast(existingProgress
+          ? "Profile created. Existing Tagalog progress was preserved."
+          : "Learner profile created.");
+        openProfile(profile);
+      });
+    }
+
+    panel.addEventListener("click", event => {
+      const target = event.target.closest("[data-profile],[data-new],[data-back],[data-course-choice]");
+      if (!target) return;
+      if (target.dataset.profile) {
+        renderLogin(target.dataset.profile);
+      } else if (target.hasAttribute("data-new")) {
+        renderCreate();
+      } else if (target.dataset.courseChoice) {
+        const id = panel.dataset.courseProfile || sessionStorage.getItem(ACTIVE);
+        const profile = read().profiles.find(item => item.id === id);
+        if (profile) openCourse(profile, target.dataset.courseChoice);
+        else renderChoices();
+      } else {
+        if (panel.dataset.courseProfile) {
+          sessionStorage.removeItem(ACTIVE);
+          sessionStorage.removeItem(ACTIVE_COURSE);
+          clearShared();
+        }
+        renderChoices();
+      }
+    });
+
+    try {
+      localStorage.setItem("__sq_test", "1");
+      localStorage.removeItem("__sq_test");
+      recoverOwner();
+      const store = read();
+      const active = store.profiles.find(profile => profile.id === sessionStorage.getItem(ACTIVE));
+      if (active) {
+        renderCourseChoice(active);
+      } else {
+        sessionStorage.removeItem(ACTIVE);
+        sessionStorage.removeItem(ACTIVE_COURSE);
+        clearShared();
+        renderChoices();
+      }
+    } catch (error) {
+      console.error(error);
+      panel.innerHTML = "<h2>Local storage is unavailable</h2><p>Leave private browsing or enable site storage, then reload.</p>";
+    }
+
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      navigator.serviceWorker.register("./service-worker.js?v=5.4.29").catch(() => {});
+    }
+  })();
+  </script>
+</body>
+</html>

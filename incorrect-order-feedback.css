@@ -1,0 +1,61 @@
+/* Reveal the correct word order after a failed sentence-builder answer. */
+
+.built-sentence.incorrect-order-correcting .selected-word-tile {
+  animation: incorrect-order-depart .17s ease-in forwards;
+}
+
+.built-sentence.correct-order-revealed {
+  position: relative;
+  padding-top: 29px !important;
+  border-color: #28a899 !important;
+  background: color-mix(in srgb, #d9fff7 54%, var(--paper)) !important;
+  box-shadow: inset 0 0 0 1px rgba(40, 168, 153, .16), 0 8px 22px rgba(22, 121, 109, .1);
+}
+
+.built-sentence.correct-order-revealed::before {
+  content: attr(data-correct-order-label);
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #0f766e;
+  font-size: .66rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.built-sentence.correct-order-revealed .selected-word-tile,
+body.dark-mode .built-sentence.correct-order-revealed .selected-word-tile {
+  background: linear-gradient(135deg, #1f9f91, #0f766e);
+  border-color: #79eadb;
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(121, 234, 219, .16), 0 4px 0 #07534e;
+}
+
+body.dark-mode .built-sentence.correct-order-revealed {
+  border-color: #4bc8b7 !important;
+  background: #15362f !important;
+  box-shadow: inset 0 0 0 1px rgba(75, 200, 183, .18), 0 8px 22px rgba(0, 0, 0, .2);
+}
+
+body.dark-mode .built-sentence.correct-order-revealed::before {
+  color: #9af0e3;
+}
+
+@keyframes incorrect-order-depart {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: .18; transform: translateY(7px) scale(.92); }
+}
+
+body.reduce-motion .built-sentence.incorrect-order-correcting .selected-word-tile {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .built-sentence.incorrect-order-correcting .selected-word-tile {
+    animation: none !important;
+  }
+}

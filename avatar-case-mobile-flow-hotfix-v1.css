@@ -1,0 +1,67 @@
+/* Phase 6.1 mobile flow hotfix: the expanded case must own the full height of all four tiles. */
+@media (max-width:650px){
+  .sq-avatar-case-panel{
+    display:block!important;
+    position:relative!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+    contain:none!important;
+  }
+  .sq-avatar-case-body:not([hidden]){
+    display:block!important;
+    position:relative!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+  .sq-avatar-case-slots{
+    display:grid!important;
+    position:relative!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:none!important;
+    grid-auto-rows:auto!important;
+    align-items:stretch!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:auto!important;
+    overflow:visible!important;
+  }
+  .sq-avatar-case-slot{
+    position:relative!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:175px!important;
+    max-height:none!important;
+    aspect-ratio:auto!important;
+    overflow:hidden!important;
+  }
+  .sq-avatar-case-slot.is-filled{
+    display:grid!important;
+    grid-template-rows:minmax(132px,1fr) auto!important;
+  }
+  .sq-avatar-case-art{
+    min-height:132px!important;
+  }
+  .sq-avatar-case-actions{
+    position:relative!important;
+    clear:both!important;
+    margin-top:10px!important;
+  }
+  .sq-avatar-collection-summary,
+  .sq-avatar-rarity-section,
+  .sq-avatar-collection-grid{
+    position:relative!important;
+    z-index:auto!important;
+    clear:both!important;
+  }
+}
+@media (max-width:390px){
+  .sq-avatar-case-slot{min-height:160px!important}
+  .sq-avatar-case-slot.is-filled{grid-template-rows:minmax(118px,1fr) auto!important}
+  .sq-avatar-case-art{min-height:118px!important}
+}

@@ -1,0 +1,398 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "wellbeing",
+  "status": "foundation",
+  "reviewStatus": "native-review-required",
+  "items": [
+    {
+      "id": "ceb_w_feel_q",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay imong gibati?",
+      "meaning": "How do you feel? / What are you feeling?",
+      "origin": "Native",
+      "example": "Unsay imong gibati?",
+      "natural": "How do you feel?",
+      "hint": "Unsay is unsa plus a linker. Paminaw is used in an alternative expression for how someone feels.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["imong", "your"], ["gibati", "felt / experienced"]],
+        "literal": "What your experienced-feeling?"
+      },
+      "accepted": ["Unsay paminaw nimo?", "Naunsa ka?"]
+    },
+    {
+      "id": "ceb_w_maayo_man",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Maayo man ko",
+      "meaning": "I’m fine / I’m well",
+      "origin": "Native",
+      "example": "Maayo man ko, salamat.",
+      "natural": "I’m fine, thank you.",
+      "hint": "Man adds conversational emphasis and does not map neatly to one English word.",
+      "analysis": {
+        "tokens": [["Maayo", "well / good"], ["man", "emphasis / conversational particle"], ["ko", "I"]],
+        "literal": "Well indeed I."
+      },
+      "accepted": ["Maayo ra ko", "Okay ra ko"]
+    },
+    {
+      "id": "ceb_w_okay_ra",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Okay ra ko",
+      "meaning": "I’m okay",
+      "origin": "Mixed",
+      "example": "Okay ra ko.",
+      "natural": "I’m okay.",
+      "hint": "The familiar English word remains, while ra gives the natural Cebuano sense of just or simply okay.",
+      "analysis": {
+        "tokens": [["Okay", "okay"], ["ra", "just / only"], ["ko", "I"]],
+        "literal": "Okay just I."
+      }
+    },
+    {
+      "id": "ceb_w_tired",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Gikapoy ko",
+      "meaning": "I am tired",
+      "origin": "Native",
+      "example": "Gikapoy ko.",
+      "natural": "I’m tired.",
+      "hint": "Gikapoy presents tiredness as a physical state being experienced.",
+      "analysis": {
+        "tokens": [["Gikapoy", "experienced-tiredness"], ["ko", "I"]],
+        "literal": "Tired-experienced I."
+      },
+      "accepted": ["Kapoy ko"]
+    },
+    {
+      "id": "ceb_w_little_tired",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Medyo gikapoy ko",
+      "meaning": "I am a little tired",
+      "origin": "Mixed",
+      "example": "Medyo gikapoy ko.",
+      "natural": "I’m a little tired.",
+      "hint": "Medyo is Spanish-origin and softens the statement to somewhat or a little.",
+      "analysis": {
+        "tokens": [["Medyo", "somewhat"], ["gikapoy", "experienced-tiredness"], ["ko", "I"]],
+        "literal": "Somewhat tired-experienced I."
+      }
+    },
+    {
+      "id": "ceb_w_hungry",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Gigutom ko",
+      "meaning": "I am hungry",
+      "origin": "Native",
+      "example": "Gigutom ko.",
+      "natural": "I’m hungry.",
+      "hint": "Gigutom describes hunger as a state being experienced. Gutom ko is also documented.",
+      "analysis": {
+        "tokens": [["Gigutom", "experienced-hunger"], ["ko", "I"]],
+        "literal": "Hungry-experienced I."
+      },
+      "accepted": ["Gutom ko", "Gigutom na ko"]
+    },
+    {
+      "id": "ceb_w_thirsty",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Giuhaw ko",
+      "meaning": "I am thirsty",
+      "origin": "Native",
+      "example": "Giuhaw ko.",
+      "natural": "I’m thirsty.",
+      "hint": "Giuhaw describes thirst as a physical state being experienced.",
+      "analysis": {
+        "tokens": [["Giuhaw", "experienced-thirst"], ["ko", "I"]],
+        "literal": "Thirsty-experienced I."
+      },
+      "accepted": ["Nauhaw ko", "Na-uhaw ako"]
+    },
+    {
+      "id": "ceb_w_happy",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Malipayon ko",
+      "meaning": "I am happy",
+      "origin": "Native",
+      "example": "Malipayon ko.",
+      "natural": "I’m happy.",
+      "hint": "Malipayon describes a happy state. Nalipay ko commonly expresses being glad about something.",
+      "analysis": {
+        "tokens": [["Malipayon", "happy"], ["ko", "I"]],
+        "literal": "Happy I."
+      },
+      "accepted": ["Nalipay ko"]
+    },
+    {
+      "id": "ceb_w_sad",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Naguol ko",
+      "meaning": "I am sad / worried",
+      "origin": "Native",
+      "example": "Naguol ko.",
+      "natural": "I’m sad.",
+      "hint": "Naguol can cover sadness, distress, or worry; context determines the closest English meaning.",
+      "analysis": {
+        "tokens": [["Naguol", "sad / worried"], ["ko", "I"]],
+        "literal": "Sad-or-worried I."
+      }
+    },
+    {
+      "id": "ceb_w_unwell",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Lain ang akong paminaw",
+      "meaning": "I do not feel well",
+      "origin": "Native",
+      "example": "Lain ang akong paminaw.",
+      "natural": "I don’t feel well.",
+      "hint": "Lain literally means different or strange; with paminaw it describes feeling physically unwell.",
+      "analysis": {
+        "tokens": [["Lain", "different / strange"], ["ang", "subject marker"], ["akong", "my"], ["paminaw", "feeling / condition"]],
+        "literal": "Strange [SUBJ] my feeling."
+      },
+      "accepted": ["Lain ang gibati nako", "Lain akong paminaw"]
+    },
+    {
+      "id": "ceb_w_headache",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Sakit akong ulo",
+      "meaning": "My head hurts / I have a headache",
+      "origin": "Native",
+      "example": "Sakit akong ulo.",
+      "natural": "I have a headache.",
+      "hint": "Sakit describes pain; akong ulo means my head. Labad is a common alternative for headache.",
+      "analysis": {
+        "tokens": [["Sakit", "painful / hurts"], ["akong", "my"], ["ulo", "head"]],
+        "literal": "Painful my head."
+      },
+      "accepted": ["Sakit ang akong ulo", "Labad akong ulo", "Labad ang akong ulo"]
+    },
+    {
+      "id": "ceb_w_stomach",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Sakit akong tiyan",
+      "meaning": "My stomach hurts / I have a stomach ache",
+      "origin": "Native",
+      "example": "Sakit akong tiyan.",
+      "natural": "I have a stomach ache.",
+      "hint": "Tiyan means stomach or abdomen.",
+      "analysis": {
+        "tokens": [["Sakit", "painful / hurts"], ["akong", "my"], ["tiyan", "stomach"]],
+        "literal": "Painful my stomach."
+      },
+      "accepted": ["Sakit ang akong tiyan", "Sakit ang tiyan ko"]
+    },
+    {
+      "id": "ceb_w_dizzy",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Nalipong ko",
+      "meaning": "I feel dizzy",
+      "origin": "Native",
+      "example": "Nalipong ko.",
+      "natural": "I feel dizzy.",
+      "hint": "Nalipong describes the experienced state of dizziness.",
+      "analysis": {
+        "tokens": [["Nalipong", "became / feels dizzy"], ["ko", "I"]],
+        "literal": "Dizzy-experienced I."
+      }
+    },
+    {
+      "id": "ceb_w_sleepy",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Katulgon ko",
+      "meaning": "I am sleepy",
+      "origin": "Native",
+      "example": "Katulgon ko.",
+      "natural": "I’m sleepy.",
+      "hint": "Katulgon describes feeling sleepy or ready to sleep.",
+      "analysis": {
+        "tokens": [["Katulgon", "sleepy"], ["ko", "I"]],
+        "literal": "Sleepy I."
+      },
+      "accepted": ["Katugon ko"]
+    },
+    {
+      "id": "ceb_w_better_q",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Maayo na ba imong paminaw?",
+      "meaning": "Are you feeling better now?",
+      "origin": "Native",
+      "example": "Maayo na ba imong paminaw?",
+      "natural": "Are you feeling better now?",
+      "hint": "Na marks the changed or current state, while ba marks the yes/no question.",
+      "analysis": {
+        "tokens": [["Maayo", "well / better"], ["na", "now / already"], ["ba", "question"], ["imong", "your"], ["paminaw", "feeling / condition"]],
+        "literal": "Well now Q your feeling?"
+      },
+      "accepted": ["Maayo na ba ang imong pamati?", "Maayo na ba imong pamati?"]
+    },
+    {
+      "id": "ceb_w_better",
+      "module": "wellbeing",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Maayo na ko",
+      "meaning": "I am better now",
+      "origin": "Native",
+      "example": "Maayo na ko.",
+      "natural": "I’m better now.",
+      "hint": "Na signals that the condition has changed and is now better.",
+      "analysis": {
+        "tokens": [["Maayo", "well / better"], ["na", "now / already"], ["ko", "I"]],
+        "literal": "Well now I."
+      }
+    }
+  ],
+  "dialogue": {
+    "title": "How are you feeling?",
+    "level": "Beginner 2",
+    "note": "Physical sensations commonly use experienced-state forms such as gikapoy, gigutom, and giuhaw. These should be learned as complete conversational patterns rather than reduced to English adjective order.",
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "Kumusta ka?",
+        "tokens": [["Kumusta", "how-are-things"], ["ka", "you"]],
+        "literal": "How-are-things you?",
+        "natural": "How are you?"
+      },
+      {
+        "speaker": "B",
+        "text": "Medyo gikapoy ko.",
+        "tokens": [["Medyo", "somewhat"], ["gikapoy", "experienced-tiredness"], ["ko", "I"]],
+        "literal": "Somewhat tired-experienced I.",
+        "natural": "I’m a little tired."
+      },
+      {
+        "speaker": "A",
+        "text": "Gigutom ka?",
+        "tokens": [["Gigutom", "experienced-hunger"], ["ka", "you"]],
+        "literal": "Hungry-experienced you?",
+        "natural": "Are you hungry?"
+      },
+      {
+        "speaker": "B",
+        "text": "Oo. Gigutom ko ug giuhaw pud ko.",
+        "tokens": [["Oo", "yes"], ["Gigutom", "experienced-hunger"], ["ko", "I"], ["ug", "and"], ["giuhaw", "experienced-thirst"], ["pud", "also"], ["ko", "I"]],
+        "literal": "Yes. Hungry-experienced I and thirsty-experienced also I.",
+        "natural": "Yes. I’m hungry and thirsty too."
+      },
+      {
+        "speaker": "A",
+        "text": "Sakit ba imong ulo?",
+        "tokens": [["Sakit", "painful"], ["ba", "question"], ["imong", "your"], ["ulo", "head"]],
+        "literal": "Painful Q your head?",
+        "natural": "Does your head hurt?"
+      },
+      {
+        "speaker": "B",
+        "text": "Dili. Okay ra ko.",
+        "tokens": [["Dili", "no / not"], ["Okay", "okay"], ["ra", "just"], ["ko", "I"]],
+        "literal": "No. Okay just I.",
+        "natural": "No. I’m okay."
+      }
+    ]
+  },
+  "starterExercises": [
+    {
+      "id": "ceb_w_ex_01",
+      "type": "choice",
+      "prompt": "Which phrase means ‘How do you feel?’",
+      "answer": "Unsay imong gibati?",
+      "choices": ["Unsay imong gibati?", "Asa ka gikan?", "Minyo ka?", "Unsa imong ngalan?"],
+      "itemIds": ["ceb_w_feel_q"]
+    },
+    {
+      "id": "ceb_w_ex_02",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m tired.’",
+      "answerTokens": ["Gikapoy", "ko."],
+      "wordBank": ["ko.", "Gikapoy", "ka", "gigutom", "maayo", "pud"],
+      "itemIds": ["ceb_w_tired"]
+    },
+    {
+      "id": "ceb_w_ex_03",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m a little tired.’",
+      "answerTokens": ["Medyo", "gikapoy", "ko."],
+      "wordBank": ["ko.", "gikapoy", "Medyo", "ka", "ra", "giuhaw"],
+      "itemIds": ["ceb_w_little_tired"]
+    },
+    {
+      "id": "ceb_w_ex_04",
+      "type": "choice",
+      "prompt": "What does ‘Gigutom ko’ mean?",
+      "answer": "I am hungry",
+      "choices": ["I am hungry", "I am thirsty", "I am sleepy", "I am happy"],
+      "itemIds": ["ceb_w_hungry"]
+    },
+    {
+      "id": "ceb_w_ex_05",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m thirsty.’",
+      "answerTokens": ["Giuhaw", "ko."],
+      "wordBank": ["ko.", "Giuhaw", "ka", "Gigutom", "Maayo", "Naguol"],
+      "itemIds": ["ceb_w_thirsty"]
+    },
+    {
+      "id": "ceb_w_ex_06",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I don’t feel well.’",
+      "answerTokens": ["Lain", "ang", "akong", "paminaw."],
+      "wordBank": ["paminaw.", "akong", "ang", "Lain", "imong", "Maayo"],
+      "itemIds": ["ceb_w_unwell"]
+    },
+    {
+      "id": "ceb_w_ex_07",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘My head hurts.’",
+      "answerTokens": ["Sakit", "akong", "ulo."],
+      "wordBank": ["ulo.", "akong", "Sakit", "tiyan", "imong", "ko"],
+      "itemIds": ["ceb_w_headache"]
+    },
+    {
+      "id": "ceb_w_ex_08",
+      "type": "choice",
+      "prompt": "Which phrase means ‘I feel dizzy’ ?",
+      "answer": "Nalipong ko",
+      "choices": ["Nalipong ko", "Katulgon ko", "Malipayon ko", "Maayo na ko"],
+      "itemIds": ["ceb_w_dizzy"]
+    },
+    {
+      "id": "ceb_w_ex_09",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Are you feeling better now?’",
+      "answerTokens": ["Maayo", "na", "ba", "imong", "paminaw?"],
+      "wordBank": ["paminaw?", "imong", "ba", "na", "Maayo", "ko"],
+      "itemIds": ["ceb_w_better_q"]
+    }
+  ]
+}

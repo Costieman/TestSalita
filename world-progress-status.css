@@ -1,0 +1,96 @@
+/* Clear World Progress states: complete, approaching, and future. */
+
+.mastery-milestones .mastery-track {
+  background: color-mix(in srgb, var(--red) 34%, var(--paper)) !important;
+}
+
+.mastery-milestones .mastery-track-fill {
+  background: linear-gradient(90deg, #0f766e, #2f9e74, #62bd84) !important;
+  box-shadow: 0 0 14px color-mix(in srgb, #2f9e74 42%, transparent);
+}
+
+.mastery-milestones .mastery-you {
+  background: #ffb12f !important;
+  border-color: #fff4d6 !important;
+  box-shadow: 0 0 0 5px color-mix(in srgb, #f59e0b 24%, transparent), 0 0 18px color-mix(in srgb, #f59e0b 70%, transparent) !important;
+}
+
+.mastery-milestone .mastery-dot {
+  transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+
+.mastery-milestone.progress-complete .mastery-dot {
+  background: #137f70 !important;
+  border-color: #d7fff4 !important;
+  color: white !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #2f9e74 22%, transparent), 0 5px 13px rgba(13, 110, 96, .22) !important;
+}
+
+.mastery-milestone.progress-complete .mastery-label,
+.mastery-milestone.progress-complete small {
+  color: #168374 !important;
+}
+
+.mastery-milestone.progress-approaching .mastery-dot {
+  background: #f59e0b !important;
+  border-color: #fff3c4 !important;
+  color: #302008 !important;
+  box-shadow: 0 0 0 5px color-mix(in srgb, #f59e0b 24%, transparent), 0 0 22px color-mix(in srgb, #f59e0b 62%, transparent) !important;
+  animation: worldProgressApproach 1.45s ease-in-out infinite;
+}
+
+.mastery-milestone.progress-approaching .mastery-label,
+.mastery-milestone.progress-approaching small {
+  color: #b86e00 !important;
+  font-weight: 900;
+}
+
+.mastery-milestone.progress-future .mastery-dot {
+  background: color-mix(in srgb, #7f1d1d 72%, var(--paper)) !important;
+  border-color: color-mix(in srgb, #ef7777 58%, var(--paper)) !important;
+  color: color-mix(in srgb, #fff 82%, #7f1d1d) !important;
+  box-shadow: none !important;
+  opacity: .82;
+}
+
+.mastery-milestone.progress-future .mastery-label,
+.mastery-milestone.progress-future small {
+  color: color-mix(in srgb, #9f3d3d 68%, var(--muted)) !important;
+  opacity: .78;
+}
+
+@keyframes worldProgressApproach {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.11); filter: brightness(1.16); }
+}
+
+body.dark-mode .mastery-milestones .mastery-track {
+  background: #3b2027 !important;
+}
+
+body.dark-mode .mastery-milestone.progress-complete .mastery-label,
+body.dark-mode .mastery-milestone.progress-complete small {
+  color: #42c5ac !important;
+}
+
+body.dark-mode .mastery-milestone.progress-approaching .mastery-label,
+body.dark-mode .mastery-milestone.progress-approaching small {
+  color: #ffc35c !important;
+}
+
+body.dark-mode .mastery-milestone.progress-future .mastery-dot {
+  background: #4d232c !important;
+  border-color: #76414b !important;
+  color: #d9a7ae !important;
+}
+
+body.dark-mode .mastery-milestone.progress-future .mastery-label,
+body.dark-mode .mastery-milestone.progress-future small {
+  color: #9e747b !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mastery-milestone.progress-approaching .mastery-dot {
+    animation: none !important;
+  }
+}

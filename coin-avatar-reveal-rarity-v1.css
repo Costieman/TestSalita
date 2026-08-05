@@ -1,0 +1,8 @@
+.sq-coin-reveal-art{background:#d6dcda}
+.sq-coin-reveal-colour{background:#d6dcda}
+.sq-coin-reveal-backdrop[data-rarity="common"] .sq-coin-reveal-art{box-shadow:inset 0 0 0 2px rgba(70,128,176,.28)}
+.sq-coin-reveal-backdrop[data-rarity="common"] .sq-coin-reveal-colour{background:#c5e2f7}
+.sq-coin-reveal-backdrop[data-rarity="uncommon"] .sq-coin-reveal-art{box-shadow:inset 0 0 0 2px rgba(183,91,91,.24)}
+.sq-coin-reveal-backdrop[data-rarity="uncommon"] .sq-coin-reveal-colour{background:#f5caca}
+.sq-coin-reveal-backdrop[data-rarity="rare"] .sq-coin-reveal-art{box-shadow:inset 0 0 0 2px rgba(70,139,78,.24)}
+.sq-coin-reveal-backdrop[data-rarity="rare"] .sq-coin-reveal-colour{background:#cbe8ce}

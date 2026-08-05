@@ -1,0 +1,17 @@
+{
+  "name": "salita-quest-social-share",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "check": "node --check index.js"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.16.0",
+    "express": "^4.21.2"
+  }
+}

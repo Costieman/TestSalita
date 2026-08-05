@@ -1,0 +1,558 @@
+/* Space-efficient desktop layout shared by Tagalog and Bisaya. */
+
+@media (min-width: 1001px) {
+  body[data-current-view]:not([data-current-view="home"]) .main-area {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 30px;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]) .topbar {
+    min-height: 64px;
+    gap: 16px;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]) .topbar h2 {
+    margin-top: 2px;
+    font-size: 1.25rem;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]) .topbar .eyebrow {
+    font-size: .62rem;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]) .stat-chip,
+  body[data-current-view]:not([data-current-view="home"]) .level-chip {
+    padding: 7px 10px;
+    border-radius: 11px;
+  }
+
+  /* Keep the full milestone rail on Home; use one concise line elsewhere. */
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-rail-shell {
+    position: relative;
+    top: auto;
+    margin: 0 0 12px;
+    padding: 8px 13px;
+    border-radius: 15px;
+    box-shadow: 0 5px 16px rgba(20, 33, 61, .055);
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-rail-heading {
+    min-height: 34px;
+    align-items: center;
+    margin: 0;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-rail-heading .eyebrow {
+    display: none;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-rail-heading strong {
+    font-size: .88rem;
+    white-space: nowrap;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-next-copy {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+    min-width: 0;
+    text-align: right;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-next-copy span {
+    font-size: .78rem;
+    white-space: nowrap;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-next-copy small {
+    max-width: 430px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .68rem;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-milestones {
+    display: none;
+  }
+
+  /* General density improvements outside lessons. */
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .section-intro {
+    margin: 0 2px 14px;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .section-intro h3 {
+    margin: 3px 0 6px;
+    font-size: 1.62rem;
+    line-height: 1.12;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .section-intro p {
+    margin: 0;
+    max-width: 880px;
+    font-size: .88rem;
+    line-height: 1.42;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .panel {
+    padding: 18px;
+  }
+
+  body[data-current-view="review"] .topic-review-card {
+    padding: 16px;
+    gap: 13px;
+  }
+
+  body[data-current-view="dictionary"] .dictionary-controls {
+    padding: 13px;
+    gap: 8px;
+  }
+
+  body[data-current-view="dictionary"] .dictionary-card {
+    padding: 14px;
+    border-radius: 17px;
+  }
+
+  body[data-current-view="progress"] .metric-card {
+    padding: 15px;
+  }
+
+  body[data-current-view="settings"] .settings-panel {
+    gap: 14px;
+  }
+
+  /* Focused desktop lesson mode: no dashboard header or world rail. */
+  body[data-current-view="learn"] {
+    overflow: hidden;
+  }
+
+  body[data-current-view="learn"] .topbar,
+  body[data-current-view="learn"] .mastery-rail-shell {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .main-area {
+    height: 100dvh;
+    max-width: none;
+    padding: 14px 18px;
+    overflow: hidden;
+  }
+
+  body[data-current-view="learn"] #learnView {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body[data-current-view="learn"] .learn-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 315px);
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+  }
+
+  body[data-current-view="learn"] .lesson-card {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    border-radius: 22px;
+  }
+
+  body[data-current-view="learn"] .lesson-content {
+    min-height: 0;
+    padding: 20px 28px 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  body[data-current-view="learn"] .lesson-content > .eyebrow {
+    margin-bottom: 2px;
+  }
+
+  body[data-current-view="learn"] .lesson-content h3 {
+    margin: 7px auto 6px;
+    max-width: 880px;
+    font-size: clamp(1.45rem, 2.55vw, 2.35rem);
+    line-height: 1.14;
+  }
+
+  body[data-current-view="learn"] .lesson-context {
+    max-width: 820px;
+    margin: 0 auto 8px;
+    font-size: .86rem;
+    line-height: 1.38;
+  }
+
+  body[data-current-view="learn"] .origin-badge {
+    margin-top: 4px;
+  }
+
+  body[data-current-view="learn"] .structure-box {
+    max-width: 860px;
+    margin-top: 9px;
+  }
+
+  body[data-current-view="learn"] .structure-details summary {
+    min-height: 42px;
+    padding: 9px 13px;
+  }
+
+  body[data-current-view="learn"] .structure-content {
+    padding: 0 13px 10px;
+  }
+
+  body[data-current-view="learn"] .gloss-grid {
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+  body[data-current-view="learn"] .gloss-pair {
+    min-width: 74px;
+    padding: 5px 8px;
+  }
+
+  body[data-current-view="learn"] .literal-line,
+  body[data-current-view="learn"] .natural-line {
+    margin-top: 8px;
+    font-size: .8rem;
+  }
+
+  body[data-current-view="learn"] .answer-area {
+    max-width: 820px;
+    margin: 10px auto 0;
+  }
+
+  body[data-current-view="learn"] .choice-grid {
+    gap: 8px;
+  }
+
+  body[data-current-view="learn"] .choice-btn {
+    min-height: 46px;
+    padding: 10px 13px;
+  }
+
+  body[data-current-view="learn"] .built-sentence {
+    min-height: 58px;
+    padding: 9px;
+  }
+
+  body[data-current-view="learn"] .word-bank {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  body[data-current-view="learn"] .word-tile,
+  body[data-current-view="learn"] .selected-word-tile {
+    min-height: 42px;
+    padding: 7px 9px;
+  }
+
+  body[data-current-view="learn"] .builder-controls {
+    margin-top: 7px;
+  }
+
+  body[data-current-view="learn"] .hint-row {
+    min-height: 20px;
+    margin-top: 8px;
+  }
+
+  body[data-current-view="learn"] .feedback-box {
+    max-width: 820px;
+    margin: 9px auto 0;
+    padding: 11px 14px;
+  }
+
+  body[data-current-view="learn"] .feedback-box p {
+    margin: 5px 0;
+    font-size: .82rem;
+  }
+
+  body[data-current-view="learn"] .correct-word-breakdown {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  body[data-current-view="learn"] .correct-word-grid {
+    gap: 6px;
+  }
+
+  body[data-current-view="learn"] .correct-word-pair {
+    min-width: 76px;
+    padding: 6px 8px;
+  }
+
+  body[data-current-view="learn"] .lesson-footer {
+    position: static;
+    z-index: 2;
+    min-height: 64px;
+    margin: 0;
+    padding: 8px 12px;
+    gap: 9px;
+    border-radius: 0 0 22px 22px;
+    background: color-mix(in srgb, var(--paper) 97%, transparent);
+    box-shadow: 0 -8px 22px rgba(20, 33, 61, .09);
+  }
+
+  body[data-current-view="learn"] .lesson-footer .primary-btn {
+    flex: 1 1 240px;
+    min-height: 48px;
+    max-width: 520px;
+    margin-left: auto;
+    font-size: .96rem;
+  }
+
+  body[data-current-view="learn"] .lesson-footer .secondary-btn {
+    flex: 0 0 auto;
+    min-width: 84px;
+    min-height: 46px;
+    padding: 9px 13px;
+  }
+
+  /* One side console combines activity, progress, listening and rewards. */
+  body[data-current-view="learn"] .desktop-session-console {
+    display: flex !important;
+    flex-direction: column;
+    align-self: stretch;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    max-height: 100%;
+    padding: 15px;
+    overflow: hidden;
+    border: 1px solid var(--app-line, var(--line));
+    border-radius: 22px;
+    background: var(--paper);
+    box-shadow: 0 12px 30px rgba(20, 33, 61, .08);
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-topline {
+    position: static;
+    display: block;
+    padding: 0 0 12px;
+    margin: 0 0 11px;
+    background: transparent !important;
+    border-bottom: 1px solid var(--app-line, var(--line));
+    backdrop-filter: none;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-top-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-close-btn {
+    display: none !important;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .pill {
+    justify-self: stretch;
+    min-width: 0;
+    padding: 8px 10px;
+    border-radius: 11px;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-hud {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .combo-chip,
+  body[data-current-view="learn"] .desktop-session-console .lesson-xp-chip,
+  body[data-current-view="learn"] .desktop-session-console #sessionCounter {
+    min-width: 0;
+    padding: 7px 5px;
+    border-radius: 10px;
+    background: var(--soft);
+    color: var(--ink);
+    text-align: center;
+    font-size: .72rem;
+    font-weight: 900;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-progress-track {
+    height: 7px;
+    margin-top: 9px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .audio-btn {
+    width: 100%;
+    min-height: 44px;
+    margin: 0 0 10px;
+    padding: 9px 10px;
+    border-radius: 12px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-console-heading {
+    margin: 1px 0 7px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 2px;
+    border-bottom: 1px solid var(--app-line, var(--line));
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-score span {
+    font-size: .78rem;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-score strong {
+    font-size: 1.05rem;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console > hr {
+    display: none;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-mastery-label {
+    margin: 12px 0 7px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 0;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-list span {
+    min-width: 0;
+    padding: 6px 7px;
+    border-radius: 9px;
+    background: var(--soft);
+    font-size: .67rem;
+    line-height: 1.2;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-list span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  body.dark-mode[data-current-view="learn"] .lesson-footer,
+  body.dark-mode[data-current-view="learn"] .desktop-session-console {
+    background: rgba(23, 33, 49, .98);
+    border-color: var(--line);
+  }
+}
+
+@media (min-width: 1001px) and (max-height: 800px) {
+  body[data-current-view="learn"] .main-area {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  body[data-current-view="learn"] .learn-layout {
+    gap: 12px;
+  }
+
+  body[data-current-view="learn"] .lesson-content {
+    padding: 13px 20px 7px;
+  }
+
+  body[data-current-view="learn"] .lesson-content h3 {
+    margin: 4px auto;
+    font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+  }
+
+  body[data-current-view="learn"] .lesson-context {
+    margin-bottom: 5px;
+    font-size: .78rem;
+  }
+
+  body[data-current-view="learn"] .structure-box,
+  body[data-current-view="learn"] .answer-area,
+  body[data-current-view="learn"] .feedback-box {
+    margin-top: 6px;
+  }
+
+  body[data-current-view="learn"] .structure-details summary {
+    min-height: 36px;
+    padding: 7px 10px;
+  }
+
+  body[data-current-view="learn"] .gloss-pair {
+    padding: 4px 6px;
+  }
+
+  body[data-current-view="learn"] .built-sentence {
+    min-height: 48px;
+  }
+
+  body[data-current-view="learn"] .word-tile,
+  body[data-current-view="learn"] .selected-word-tile {
+    min-height: 37px;
+    padding: 5px 7px;
+  }
+
+  body[data-current-view="learn"] .hint-row {
+    margin-top: 5px;
+  }
+
+  body[data-current-view="learn"] .lesson-footer {
+    min-height: 56px;
+    padding: 6px 10px;
+  }
+
+  body[data-current-view="learn"] .lesson-footer .primary-btn,
+  body[data-current-view="learn"] .lesson-footer .secondary-btn {
+    min-height: 42px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console {
+    padding: 11px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .lesson-topline {
+    padding-bottom: 8px;
+    margin-bottom: 7px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-score {
+    min-height: 36px;
+    padding: 5px 2px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .session-mastery-label {
+    margin-top: 8px;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-list span {
+    padding: 4px 6px;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1250px) {
+  body[data-current-view="learn"] .learn-layout {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 12px;
+  }
+
+  body[data-current-view="learn"] .lesson-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  body[data-current-view]:not([data-current-view="home"]):not([data-current-view="learn"]) .mastery-next-copy small {
+    display: none;
+  }
+}

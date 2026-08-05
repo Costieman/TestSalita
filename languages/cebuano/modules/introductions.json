@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "introductions",
+  "status": "foundation",
+  "reviewStatus": "native-review-required",
+  "items": [
+    {
+      "id": "ceb_i_ako_si",
+      "module": "introductions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Ako si ___",
+      "meaning": "I am ___ / My name is ___",
+      "origin": "Native",
+      "example": "Ako si Lucille.",
+      "natural": "I’m Lucille.",
+      "hint": "Si marks a personal name. Cebuano does not require a separate word corresponding to English ‘am’ in this pattern.",
+      "analysis": {
+        "tokens": [["Ako", "I"], ["si", "personal-name marker"], ["Lucille", "Lucille"]],
+        "literal": "I [name-marker] Lucille."
+      }
+    },
+    {
+      "id": "ceb_i_name_q",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsa imong ngalan?",
+      "meaning": "What is your name?",
+      "origin": "Native",
+      "example": "Unsa imong ngalan?",
+      "natural": "What’s your name?",
+      "hint": "Unsay is a common contracted form of unsa plus the linker. Ngalan and pangalan are both heard in everyday speech.",
+      "analysis": {
+        "tokens": [["Unsa", "what"], ["imong", "your"], ["ngalan", "name"]],
+        "literal": "What your name?"
+      },
+      "accepted": ["Unsay imong ngalan?", "Unsa'y imong ngalan?", "Unsay ngalan nimo?", "Unsay imong pangalan?", "Unsa imong pangalan?"]
+    },
+    {
+      "id": "ceb_i_name_a",
+      "module": "introductions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Akong ngalan kay ___",
+      "meaning": "My name is ___",
+      "origin": "Native",
+      "example": "Akong ngalan kay Mia.",
+      "natural": "My name is Mia.",
+      "hint": "Ang akong ngalan kay ___ is a fuller and slightly more formal alternative.",
+      "analysis": {
+        "tokens": [["Ako-ng", "my-LINK"], ["ngalan", "name"], ["kay", "equative marker"], ["Mia", "Mia"]],
+        "literal": "My name [equative] Mia."
+      },
+      "accepted": ["Ang akong ngalan kay Mia", "Mia akong ngalan"]
+    },
+    {
+      "id": "ceb_i_ikaw",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Ikaw?",
+      "meaning": "And you?",
+      "origin": "Native",
+      "example": "Ako si Alex. Ikaw?",
+      "natural": "I’m Alex. And you?",
+      "hint": "Context makes this one-word follow-up complete.",
+      "analysis": {
+        "tokens": [["Ikaw", "you"]],
+        "literal": "You?"
+      }
+    },
+    {
+      "id": "ceb_i_kinsa_ka",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Kinsa ka?",
+      "meaning": "Who are you?",
+      "origin": "Native",
+      "example": "Kinsa ka?",
+      "natural": "Who are you?",
+      "hint": "This is grammatically useful but can sound direct without a friendly context.",
+      "analysis": {
+        "tokens": [["Kinsa", "who"], ["ka", "you"]],
+        "literal": "Who you?"
+      }
+    },
+    {
+      "id": "ceb_i_kini_si",
+      "module": "introductions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Kini si ___",
+      "meaning": "This is ___",
+      "origin": "Native",
+      "example": "Kini si Ana.",
+      "natural": "This is Ana.",
+      "hint": "Kini refers to someone or something near the speaker; si marks the person’s name.",
+      "analysis": {
+        "tokens": [["Kini", "this"], ["si", "personal-name marker"], ["Ana", "Ana"]],
+        "literal": "This [name-marker] Ana."
+      }
+    },
+    {
+      "id": "ceb_i_nice_meet",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Nalipay ko nga nakaila ko nimo",
+      "meaning": "Nice to meet you / I’m happy to have met you",
+      "origin": "Native",
+      "example": "Nalipay ko nga nakaila ko nimo.",
+      "natural": "Nice to meet you.",
+      "hint": "This is understandable and polite, although English ‘Nice to meet you’ is also common in code-switched conversation.",
+      "analysis": {
+        "tokens": [["Nalipay", "became-happy"], ["ko", "I"], ["nga", "linker"], ["nakaila", "became-acquainted"], ["ko", "I"], ["nimo", "with-you / you"]],
+        "literal": "Happy I that acquainted I with-you."
+      },
+      "accepted": ["Maayo nga nagkaila ta", "Maayong panagkita nimo"]
+    },
+    {
+      "id": "ceb_i_what_call",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsa akong itawag sa imoha?",
+      "meaning": "What should I call you?",
+      "origin": "Native",
+      "example": "Unsa akong itawag sa imoha?",
+      "natural": "What should I call you?",
+      "hint": "Useful when someone uses a nickname or preferred name.",
+      "analysis": {
+        "tokens": [["Unsa", "what"], ["akong", "I-LINK / my"], ["itawag", "call-as"], ["sa", "to"], ["imoha", "you"]],
+        "literal": "What I-call to you?"
+      }
+    },
+    {
+      "id": "ceb_i_call_me",
+      "module": "introductions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Palihug tawga lang ko og ___",
+      "meaning": "Please just call me ___",
+      "origin": "Native",
+      "example": "Palihug tawga lang ko og Lucy.",
+      "natural": "Please just call me Lucy.",
+      "hint": "Tawga is the command form of tawag; lang softens the request and og introduces the name used as a label.",
+      "analysis": {
+        "tokens": [["Palihug", "please"], ["tawag-a", "call-IMP"], ["lang", "just"], ["ko", "me"], ["og", "as"], ["Lucy", "Lucy"]],
+        "literal": "Please call just me as Lucy."
+      },
+      "accepted": ["Palihog tawga lang ko og Lucy"]
+    },
+    {
+      "id": "ceb_i_nickname_q",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay bansag nimo?",
+      "meaning": "What is your nickname?",
+      "origin": "Native",
+      "example": "Unsay bansag nimo?",
+      "natural": "What’s your nickname?",
+      "hint": "Bansag refers to a nickname or name by which someone is commonly known.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["bansag", "nickname"], ["nimo", "your"]],
+        "literal": "What nickname your?"
+      }
+    },
+    {
+      "id": "ceb_i_job_q",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay imong trabaho?",
+      "meaning": "What is your job? / What do you do for work?",
+      "origin": "Spanish",
+      "example": "Unsay imong trabaho?",
+      "natural": "What do you do for work?",
+      "hint": "Trabaho is Spanish-origin but fully integrated into Cebuano.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["imong", "your"], ["trabaho", "job / work"]],
+        "literal": "What your job?"
+      },
+      "accepted": ["Unsay trabaho nimo?"]
+    },
+    {
+      "id": "ceb_i_scientist",
+      "module": "introductions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Data scientist ko",
+      "meaning": "I am a data scientist",
+      "origin": "Mixed",
+      "example": "Data scientist ko.",
+      "natural": "I’m a data scientist.",
+      "hint": "The occupation can remain in English while Cebuano predicate-first order places ko afterward.",
+      "analysis": {
+        "tokens": [["Data scientist", "data scientist"], ["ko", "I"]],
+        "literal": "Data scientist I."
+      }
+    },
+    {
+      "id": "ceb_i_teacher",
+      "module": "introductions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Magtutudlo ko",
+      "meaning": "I am a teacher",
+      "origin": "Native",
+      "example": "Magtutudlo ko.",
+      "natural": "I’m a teacher.",
+      "hint": "Magtutudlo means teacher; ko is the first-person singular pronoun in this position.",
+      "analysis": {
+        "tokens": [["Magtutudlo", "teacher"], ["ko", "I"]],
+        "literal": "Teacher I."
+      }
+    }
+  ],
+  "dialogue": {
+    "title": "Meeting someone in Bisaya",
+    "level": "Beginner 1",
+    "note": "Ako si ___ is the shortest natural self-introduction. Unsa imong ngalan? and Unsay imong ngalan? are both accepted, while pangalan is a common alternative to ngalan.",
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "Maayong buntag. Ako si Alex. Unsa imong ngalan?",
+        "tokens": [["Maayo-ng", "good-LINK"], ["buntag", "morning"], ["Ako", "I"], ["si", "personal-name marker"], ["Alex", "Alex"], ["Unsa", "what"], ["imong", "your"], ["ngalan", "name"]],
+        "literal": "Good morning. I [name-marker] Alex. What your name?",
+        "natural": "Good morning. I’m Alex. What’s your name?"
+      },
+      {
+        "speaker": "B",
+        "text": "Akong ngalan kay Mia. Palihug tawga lang ko og Mia.",
+        "tokens": [["Ako-ng", "my-LINK"], ["ngalan", "name"], ["kay", "equative marker"], ["Mia", "Mia"], ["Palihug", "please"], ["tawag-a", "call-IMP"], ["lang", "just"], ["ko", "me"], ["og", "as"], ["Mia", "Mia"]],
+        "literal": "My name [equative] Mia. Please call just me as Mia.",
+        "natural": "My name is Mia. Please just call me Mia."
+      },
+      {
+        "speaker": "A",
+        "text": "Nalipay ko nga nakaila ko nimo.",
+        "tokens": [["Nalipay", "became-happy"], ["ko", "I"], ["nga", "linker"], ["nakaila", "became-acquainted"], ["ko", "I"], ["nimo", "with-you"]],
+        "literal": "Happy I that acquainted I with-you.",
+        "natural": "Nice to meet you."
+      },
+      {
+        "speaker": "B",
+        "text": "Nalipay pud ko nga nakaila ko nimo.",
+        "tokens": [["Nalipay", "became-happy"], ["pud", "also"], ["ko", "I"], ["nga", "linker"], ["nakaila", "became-acquainted"], ["ko", "I"], ["nimo", "with-you"]],
+        "literal": "Happy also I that acquainted I with-you.",
+        "natural": "Nice to meet you too."
+      }
+    ]
+  },
+  "starterExercises": [
+    {
+      "id": "ceb_i_ex_01",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m Lucille.’",
+      "answerTokens": ["Ako", "si", "Lucille."],
+      "wordBank": ["Lucille.", "Ako", "si", "ka", "ngalan", "imong"],
+      "itemIds": ["ceb_i_ako_si"]
+    },
+    {
+      "id": "ceb_i_ex_02",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘What is your name?’",
+      "answerTokens": ["Unsa", "imong", "ngalan?"],
+      "wordBank": ["ngalan?", "imong", "Unsa", "ko", "si", "kay"],
+      "itemIds": ["ceb_i_name_q"]
+    },
+    {
+      "id": "ceb_i_ex_03",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘My name is Mia.’",
+      "answerTokens": ["Akong", "ngalan", "kay", "Mia."],
+      "wordBank": ["Mia.", "kay", "Akong", "si", "ngalan", "ka"],
+      "itemIds": ["ceb_i_name_a"]
+    },
+    {
+      "id": "ceb_i_ex_04",
+      "type": "choice",
+      "prompt": "Which phrase means ‘What should I call you?’",
+      "answer": "Unsa akong itawag sa imoha?",
+      "choices": ["Unsa akong itawag sa imoha?", "Kinsa ka?", "Ikaw?", "Unsay imong trabaho?"],
+      "itemIds": ["ceb_i_what_call"]
+    },
+    {
+      "id": "ceb_i_ex_05",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Please just call me Lucy.’",
+      "answerTokens": ["Palihug", "tawga", "lang", "ko", "og", "Lucy."],
+      "wordBank": ["Lucy.", "og", "Palihug", "ko", "lang", "tawga"],
+      "itemIds": ["ceb_i_call_me"]
+    },
+    {
+      "id": "ceb_i_ex_06",
+      "type": "choice",
+      "prompt": "What does ‘Unsay imong trabaho?’ mean?",
+      "answer": "What do you do for work?",
+      "choices": ["What do you do for work?", "What is your nickname?", "Where do you live?", "How are you?"],
+      "itemIds": ["ceb_i_job_q"]
+    }
+  ]
+}

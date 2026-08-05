@@ -1,0 +1,71 @@
+/* Desktop-console specificity fixes for the five-stage item mastery bar. */
+@media (min-width: 1001px) {
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    margin: 8px 0 0 !important;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span,
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span:last-child {
+    grid-column: auto !important;
+    min-width: 0;
+    min-height: 46px;
+    padding: 5px 2px !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--app-line, var(--line));
+    border-radius: 12px;
+    background: var(--soft);
+    color: var(--muted);
+    font-size: inherit;
+    opacity: .72;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span b,
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span small {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span.completed {
+    background: color-mix(in srgb, var(--brand-soft) 74%, var(--paper)) !important;
+    border-color: color-mix(in srgb, var(--brand) 42%, var(--app-line)) !important;
+    color: var(--brand-dark, var(--brand)) !important;
+    opacity: .9;
+  }
+
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span.active {
+    background: linear-gradient(145deg, #24b8a5, #0f766e) !important;
+    border-color: #86f5e6 !important;
+    color: #fff !important;
+    opacity: 1;
+    box-shadow: 0 0 0 3px rgba(95, 230, 210, .18), 0 8px 20px rgba(15, 118, 110, .24) !important;
+  }
+
+  body.dark-mode[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span.completed {
+    background: #183b36 !important;
+    border-color: #357b70 !important;
+    color: #a5e9dd !important;
+  }
+
+  body.dark-mode[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span.active {
+    background: linear-gradient(145deg, #24b8a5, #0f766e) !important;
+    border-color: #91f6e8 !important;
+    color: #fff !important;
+  }
+}
+
+@media (min-width: 1001px) and (max-height: 760px) {
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span,
+  body[data-current-view="learn"] .desktop-session-console .mastery-stage-bar > span:last-child {
+    min-height: 39px;
+  }
+}

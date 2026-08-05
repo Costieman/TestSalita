@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "questions",
+  "status": "foundation",
+  "reviewStatus": "native-review-required",
+  "items": [
+    {
+      "id": "ceb_q_unsa_ni",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsa ni?",
+      "meaning": "What is this?",
+      "origin": "Native",
+      "example": "Unsa ni?",
+      "natural": "What is this?",
+      "hint": "Ni is the short form of kini in this common question.",
+      "analysis": {
+        "tokens": [["Unsa", "what"], ["ni", "this"]],
+        "literal": "What this?"
+      },
+      "accepted": ["Unsa kini?"]
+    },
+    {
+      "id": "ceb_q_kinsa_siya",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Kinsa siya?",
+      "meaning": "Who is he / she?",
+      "origin": "Native",
+      "example": "Kinsa siya?",
+      "natural": "Who is she?",
+      "hint": "Siya does not specify gender.",
+      "analysis": {
+        "tokens": [["Kinsa", "who"], ["siya", "he / she"]],
+        "literal": "Who he-or-she?"
+      }
+    },
+    {
+      "id": "ceb_q_banyo",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Asa ang banyo?",
+      "meaning": "Where is the bathroom?",
+      "origin": "Mixed",
+      "example": "Asa ang banyo?",
+      "natural": "Where is the bathroom?",
+      "hint": "Asa asks where. CR is widely used as an everyday alternative to banyo in the Philippines.",
+      "analysis": {
+        "tokens": [["Asa", "where"], ["ang", "subject marker"], ["banyo", "bathroom"]],
+        "literal": "Where [SUBJ] bathroom?"
+      },
+      "accepted": ["Asa ang CR?", "Hain ang banyo?"]
+    },
+    {
+      "id": "ceb_q_price",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Pila ni?",
+      "meaning": "How much is this?",
+      "origin": "Native",
+      "example": "Pila ni?",
+      "natural": "How much is this?",
+      "hint": "Tagpila ni? is a common fuller alternative.",
+      "analysis": {
+        "tokens": [["Pila", "how-much"], ["ni", "this"]],
+        "literal": "How-much this?"
+      },
+      "accepted": ["Tagpila ni?", "Pila kini?"]
+    },
+    {
+      "id": "ceb_q_possible",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Pwede ba?",
+      "meaning": "May I? / Is it allowed? / Is it possible?",
+      "origin": "Spanish",
+      "example": "Pwede ba?",
+      "natural": "May I?",
+      "hint": "Pwede is Spanish-origin; ba marks the yes/no question. Puwede is an accepted spelling.",
+      "analysis": {
+        "tokens": [["Pwede", "possible / allowed"], ["ba", "question"]],
+        "literal": "Allowed Q?"
+      },
+      "accepted": ["Puwede ba?"]
+    },
+    {
+      "id": "ceb_q_ask",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Puwedeng mangutana?",
+      "meaning": "May I ask a question?",
+      "origin": "Mixed",
+      "example": "Kadiyot lang. Puwedeng mangutana?",
+      "natural": "One moment. May I ask something?",
+      "hint": "Mangutana means to ask a question. Pwede and puwede are spelling variants.",
+      "analysis": {
+        "tokens": [["Puwede-ng", "possible-LINK"], ["mangutana", "ask-a-question"]],
+        "literal": "Possible to-ask?"
+      },
+      "accepted": ["Pwedeng mangutana?", "Mahimo bang mangutana?"]
+    },
+    {
+      "id": "ceb_q_dont_understand",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Wala ko kasabot",
+      "meaning": "I do not understand",
+      "origin": "Native",
+      "example": "Wala ko kasabot.",
+      "natural": "I don’t understand.",
+      "hint": "Wa is the common shortened form of wala.",
+      "analysis": {
+        "tokens": [["Wala", "not / none"], ["ko", "I"], ["kasabot", "understand"]],
+        "literal": "Not I understand."
+      },
+      "accepted": ["Wa ko kasabot", "Dili ko kasabot"]
+    },
+    {
+      "id": "ceb_q_understand_now",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Kasabot na ko",
+      "meaning": "I understand now",
+      "origin": "Native",
+      "example": "Kasabot na ko.",
+      "natural": "I understand now.",
+      "hint": "Na marks the changed state: understanding has now been reached.",
+      "analysis": {
+        "tokens": [["Kasabot", "understand"], ["na", "now / already"], ["ko", "I"]],
+        "literal": "Understand now I."
+      },
+      "accepted": ["Nakasabot na ko"]
+    },
+    {
+      "id": "ceb_q_dont_know",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Wala ko kahibalo",
+      "meaning": "I do not know",
+      "origin": "Native",
+      "example": "Wala ko kahibalo.",
+      "natural": "I don’t know.",
+      "hint": "Ambot is a shorter conversational alternative.",
+      "analysis": {
+        "tokens": [["Wala", "not / none"], ["ko", "I"], ["kahibalo", "know / knowledge"]],
+        "literal": "Not I know."
+      },
+      "accepted": ["Wa ko kahibalo", "Wa ko kahibaw", "Ambot"]
+    },
+    {
+      "id": "ceb_q_repeat",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Usba palihug",
+      "meaning": "Please repeat",
+      "origin": "Native",
+      "example": "Usba palihug.",
+      "natural": "Please repeat that.",
+      "hint": "Usba is the command form of usab, repeat; palihug makes the request polite.",
+      "analysis": {
+        "tokens": [["Usab-a", "repeat-IMP"], ["palihug", "please"]],
+        "literal": "Repeat please."
+      },
+      "accepted": ["Usba palihog", "Palihug usba", "Pwede nimo balikon?"]
+    },
+    {
+      "id": "ceb_q_slow",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Palihug hinaya pagsulti",
+      "meaning": "Please speak slowly",
+      "origin": "Native",
+      "example": "Palihug hinaya pagsulti.",
+      "natural": "Please speak slowly.",
+      "hint": "Hinaya asks for slower delivery; pagsulti refers to speaking.",
+      "analysis": {
+        "tokens": [["Palihug", "please"], ["hinay-a", "slow-down-IMP"], ["pagsulti", "speaking"]],
+        "literal": "Please slow speaking."
+      },
+      "accepted": ["Hinay-hinay palihug", "Hinay-hinay lang, palihog", "Palihug hinay-hinaya pagsulti"]
+    },
+    {
+      "id": "ceb_q_moment",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Kadiyot lang",
+      "meaning": "Just a moment",
+      "origin": "Native",
+      "example": "Kadiyot lang.",
+      "natural": "Just a moment.",
+      "hint": "Kadali lang is a common alternative.",
+      "analysis": {
+        "tokens": [["Kadiyot", "short-moment"], ["lang", "just"]],
+        "literal": "Moment just."
+      },
+      "accepted": ["Kadali lang", "Kadiyot palihug"]
+    },
+    {
+      "id": "ceb_q_help",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Tabangi ko, palihug",
+      "meaning": "Please help me",
+      "origin": "Native",
+      "example": "Tabangi ko, palihug.",
+      "natural": "Please help me.",
+      "hint": "Tabangi is the command form directed toward helping the speaker.",
+      "analysis": {
+        "tokens": [["Tabang-i", "help-IMP"], ["ko", "me"], ["palihug", "please"]],
+        "literal": "Help me please."
+      },
+      "accepted": ["Palihug tabangi ko", "Tabang, palihug"]
+    },
+    {
+      "id": "ceb_q_mean",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay imong ipasabot?",
+      "meaning": "What do you mean?",
+      "origin": "Native",
+      "example": "Unsay imong ipasabot?",
+      "natural": "What do you mean?",
+      "hint": "Ipasabot refers to the meaning or explanation someone intends to convey.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["imong", "your"], ["ipasabot", "intended-meaning / explain"]],
+        "literal": "What your intended-meaning?"
+      },
+      "accepted": ["Unsay imo buot pasabot?", "Unsa imong pasabot?"]
+    },
+    {
+      "id": "ceb_q_how_say",
+      "module": "questions",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Unsaon pagsulti og ___ sa Binisaya?",
+      "meaning": "How do you say ___ in Bisaya?",
+      "origin": "Native",
+      "example": "Unsaon pagsulti og water sa Binisaya?",
+      "natural": "How do you say ‘water’ in Bisaya?",
+      "hint": "Unsaon asks how something is done; pagsulti means saying or speaking.",
+      "analysis": {
+        "tokens": [["Unsa-on", "how-do"], ["pagsulti", "saying"], ["og", "object marker"], ["water", "water"], ["sa", "in"], ["Binisaya", "Bisaya"]],
+        "literal": "How-do saying [OBJ] water in Bisaya?"
+      },
+      "accepted": ["Unsaon pagsulti ug water sa Bisaya?", "Unsaon nimo pagsulti kini sa Binisaya?"]
+    },
+    {
+      "id": "ceb_q_called",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay tawag ani sa Binisaya?",
+      "meaning": "What is this called in Bisaya?",
+      "origin": "Native",
+      "example": "Unsay tawag ani sa Binisaya?",
+      "natural": "What is this called in Bisaya?",
+      "hint": "Ani means of this or for this; tawag refers to the name used for it.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["tawag", "name / called"], ["ani", "of-this"], ["sa", "in"], ["Binisaya", "Bisaya"]],
+        "literal": "What name of-this in Bisaya?"
+      },
+      "accepted": ["Unsay tawag ana sa Cebuano?"]
+    },
+    {
+      "id": "ceb_q_what_said",
+      "module": "questions",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Unsay gisulti nimo?",
+      "meaning": "What did you say?",
+      "origin": "Native",
+      "example": "Unsay gisulti nimo?",
+      "natural": "What did you say?",
+      "hint": "Gisulti is the completed form referring to what was said.",
+      "analysis": {
+        "tokens": [["Unsa-y", "what-LINK"], ["gisulti", "said"], ["nimo", "by-you / your"]],
+        "literal": "What said by-you?"
+      },
+      "accepted": ["Unsay gisulti mo?", "Una pa?"]
+    },
+    {
+      "id": "ceb_q_ngano",
+      "module": "questions",
+      "kind": "word",
+      "skill": "vocabulary",
+      "term": "Ngano?",
+      "meaning": "Why?",
+      "origin": "Native",
+      "example": "Ngano?",
+      "natural": "Why?",
+      "hint": "A high-frequency question word.",
+      "analysis": {
+        "tokens": [["Ngano", "why"]],
+        "literal": "Why?"
+      }
+    },
+    {
+      "id": "ceb_q_kanus_a",
+      "module": "questions",
+      "kind": "word",
+      "skill": "vocabulary",
+      "term": "Kanus-a?",
+      "meaning": "When?",
+      "origin": "Native",
+      "example": "Kanus-a?",
+      "natural": "When?",
+      "hint": "A high-frequency question word.",
+      "analysis": {
+        "tokens": [["Kanus-a", "when"]],
+        "literal": "When?"
+      }
+    }
+  ],
+  "dialogue": {
+    "title": "Recovering when you do not understand",
+    "level": "Beginner 3",
+    "note": "The goal is not to understand every word immediately. These phrases let the learner slow the conversation, request repetition, and confirm when meaning becomes clear.",
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "Pasayloa ko. Wala ko kasabot.",
+        "tokens": [["Pasaylo-a", "forgive-IMP"], ["ko", "me"], ["Wala", "not"], ["ko", "I"], ["kasabot", "understand"]],
+        "literal": "Forgive me. Not I understand.",
+        "natural": "Sorry. I don’t understand."
+      },
+      {
+        "speaker": "A",
+        "text": "Usba palihug.",
+        "tokens": [["Usab-a", "repeat-IMP"], ["palihug", "please"]],
+        "literal": "Repeat please.",
+        "natural": "Please repeat that."
+      },
+      {
+        "speaker": "B",
+        "text": "Asa ang banyo?",
+        "tokens": [["Asa", "where"], ["ang", "subject marker"], ["banyo", "bathroom"]],
+        "literal": "Where [SUBJ] bathroom?",
+        "natural": "Where is the bathroom?"
+      },
+      {
+        "speaker": "A",
+        "text": "Palihug hinaya pagsulti.",
+        "tokens": [["Palihug", "please"], ["hinay-a", "slow-down-IMP"], ["pagsulti", "speaking"]],
+        "literal": "Please slow speaking.",
+        "natural": "Please speak slowly."
+      },
+      {
+        "speaker": "B",
+        "text": "Asa ang banyo?",
+        "tokens": [["Asa", "where"], ["ang", "subject marker"], ["banyo", "bathroom"]],
+        "literal": "Where [SUBJ] bathroom?",
+        "natural": "Where is the bathroom?"
+      },
+      {
+        "speaker": "A",
+        "text": "Kasabot na ko. Salamat!",
+        "tokens": [["Kasabot", "understand"], ["na", "now"], ["ko", "I"], ["Salamat", "thanks"]],
+        "literal": "Understand now I. Thanks!",
+        "natural": "I understand now. Thank you!"
+      }
+    ]
+  },
+  "starterExercises": [
+    {
+      "id": "ceb_q_ex_01",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘What is this?’",
+      "answerTokens": ["Unsa", "ni?"],
+      "wordBank": ["ni?", "Unsa", "Asa", "siya", "ka", "ang"],
+      "itemIds": ["ceb_q_unsa_ni"]
+    },
+    {
+      "id": "ceb_q_ex_02",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Where is the bathroom?’",
+      "answerTokens": ["Asa", "ang", "banyo?"],
+      "wordBank": ["banyo?", "ang", "Asa", "ni", "ka", "Pila"],
+      "itemIds": ["ceb_q_banyo"]
+    },
+    {
+      "id": "ceb_q_ex_03",
+      "type": "choice",
+      "prompt": "What does ‘Wala ko kasabot’ mean?",
+      "answer": "I do not understand",
+      "choices": ["I do not understand", "I do not know", "I understand now", "Please repeat"],
+      "itemIds": ["ceb_q_dont_understand"]
+    },
+    {
+      "id": "ceb_q_ex_04",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Please repeat.’",
+      "answerTokens": ["Usba", "palihug."],
+      "wordBank": ["palihug.", "Usba", "hinaya", "ko", "Wala", "kasabot"],
+      "itemIds": ["ceb_q_repeat"]
+    },
+    {
+      "id": "ceb_q_ex_05",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Please speak slowly.’",
+      "answerTokens": ["Palihug", "hinaya", "pagsulti."],
+      "wordBank": ["pagsulti.", "hinaya", "Palihug", "Usba", "ko", "lang"],
+      "itemIds": ["ceb_q_slow"]
+    },
+    {
+      "id": "ceb_q_ex_06",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Just a moment.’",
+      "answerTokens": ["Kadiyot", "lang."],
+      "wordBank": ["lang.", "Kadiyot", "Palihug", "ko", "Asa", "ni"],
+      "itemIds": ["ceb_q_moment"]
+    },
+    {
+      "id": "ceb_q_ex_07",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Please help me.’",
+      "answerTokens": ["Tabangi", "ko,", "palihug."],
+      "wordBank": ["palihug.", "ko,", "Tabangi", "Usba", "ka", "lang"],
+      "itemIds": ["ceb_q_help"]
+    },
+    {
+      "id": "ceb_q_ex_08",
+      "type": "choice",
+      "prompt": "Which phrase means ‘What do you mean?’",
+      "answer": "Unsay imong ipasabot?",
+      "choices": ["Unsay imong ipasabot?", "Unsay gisulti nimo?", "Unsa ni?", "Pila ni?"],
+      "itemIds": ["ceb_q_mean"]
+    },
+    {
+      "id": "ceb_q_ex_09",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘How do you say water in Bisaya?’",
+      "answerTokens": ["Unsaon", "pagsulti", "og", "water", "sa", "Binisaya?"],
+      "wordBank": ["Binisaya?", "sa", "water", "og", "pagsulti", "Unsaon"],
+      "itemIds": ["ceb_q_how_say"]
+    },
+    {
+      "id": "ceb_q_ex_10",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I understand now.’",
+      "answerTokens": ["Kasabot", "na", "ko."],
+      "wordBank": ["ko.", "na", "Kasabot", "Wala", "ka", "palihug"],
+      "itemIds": ["ceb_q_understand_now"]
+    }
+  ]
+}

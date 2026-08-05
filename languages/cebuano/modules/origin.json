@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "origin",
+  "status": "foundation",
+  "reviewStatus": "native-review-required",
+  "items": [
+    {
+      "id": "ceb_o_asa_gikan",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Asa ka gikan?",
+      "meaning": "Where are you from?",
+      "origin": "Native",
+      "example": "Asa ka gikan?",
+      "natural": "Where are you from?",
+      "hint": "Asa asks where; gikan marks the point of origin. Taga-asa ka? and Taga-diin ka? are documented alternatives.",
+      "analysis": {
+        "tokens": [["Asa", "where"], ["ka", "you"], ["gikan", "from / originating"]],
+        "literal": "Where you from?"
+      },
+      "accepted": ["Taga-asa ka?", "Taga-diin ka?", "Taga diin ka?"]
+    },
+    {
+      "id": "ceb_o_taga_place",
+      "module": "origin",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Taga-___ ko",
+      "meaning": "I am from ___",
+      "origin": "Native",
+      "example": "Taga-England ko.",
+      "natural": "I’m from England.",
+      "hint": "Taga- combines with a place to express origin. Ako is also possible, but ko is the compact form used after the predicate.",
+      "analysis": {
+        "tokens": [["Taga-England", "from-England"], ["ko", "I"]],
+        "literal": "From-England I."
+      },
+      "accepted": ["Taga-England ako", "Taga England ko"]
+    },
+    {
+      "id": "ceb_o_asa_puyo",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Asa ka nagpuyo?",
+      "meaning": "Where do you live?",
+      "origin": "Native",
+      "example": "Asa ka nagpuyo?",
+      "natural": "Where do you live?",
+      "hint": "Nagpuyo describes residing or living somewhere. Diin and the shorter puyo occur in documented alternatives.",
+      "analysis": {
+        "tokens": [["Asa", "where"], ["ka", "you"], ["nagpuyo", "residing / living"]],
+        "literal": "Where you residing?"
+      },
+      "accepted": ["Diin ka nagpuyo?", "Asa ka puyo?", "Diin ka nagpuyo dinhi?"]
+    },
+    {
+      "id": "ceb_o_nagpuyo_place",
+      "module": "origin",
+      "kind": "pattern",
+      "skill": "conversation",
+      "term": "Nagpuyo ko sa ___",
+      "meaning": "I live in ___",
+      "origin": "Native",
+      "example": "Nagpuyo ko sa Manila.",
+      "natural": "I live in Manila.",
+      "hint": "The residence follows sa. The predicate nagpuyo normally comes before ko.",
+      "analysis": {
+        "tokens": [["Nagpuyo", "residing"], ["ko", "I"], ["sa", "in / at"], ["Manila", "Manila"]],
+        "literal": "Residing I in Manila."
+      }
+    },
+    {
+      "id": "ceb_o_dinhi",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Dinhi ko nagpuyo",
+      "meaning": "I live here",
+      "origin": "Native",
+      "example": "Dinhi ko nagpuyo.",
+      "natural": "I live here.",
+      "hint": "Dinhi means here. Diri is a common regional alternative.",
+      "analysis": {
+        "tokens": [["Dinhi", "here"], ["ko", "I"], ["nagpuyo", "residing"]],
+        "literal": "Here I reside."
+      },
+      "accepted": ["Diri ko nagpuyo"]
+    },
+    {
+      "id": "ceb_o_karon",
+      "module": "origin",
+      "kind": "word",
+      "skill": "vocabulary",
+      "term": "karon",
+      "meaning": "now / currently",
+      "origin": "Native",
+      "example": "Nagpuyo ko karon sa Manila.",
+      "natural": "I currently live in Manila.",
+      "hint": "Karon places the situation in the present or current period.",
+      "analysis": {
+        "tokens": [["Nagpuyo", "residing"], ["ko", "I"], ["karon", "now"], ["sa", "in"], ["Manila", "Manila"]],
+        "literal": "Residing I now in Manila."
+      }
+    },
+    {
+      "id": "ceb_o_learning",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Nakat-on ko og Binisaya",
+      "meaning": "I am learning Bisaya",
+      "origin": "Native",
+      "example": "Nakat-on ko og Binisaya.",
+      "natural": "I’m learning Bisaya.",
+      "hint": "Og marks what is being learned. The course identifies the target more precisely as Cebuano or Sinugbuanong Binisaya.",
+      "analysis": {
+        "tokens": [["Nakat-on", "learning"], ["ko", "I"], ["og", "object marker"], ["Binisaya", "Bisaya"]],
+        "literal": "Learning I [OBJ] Bisaya."
+      },
+      "accepted": ["Nakat-on ko ug Binisaya", "Nagtuon ko og Binisaya"]
+    },
+    {
+      "id": "ceb_o_still_learning",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Nakat-on pa ko og Binisaya",
+      "meaning": "I am still learning Bisaya",
+      "origin": "Native",
+      "example": "Nakat-on pa ko og Binisaya.",
+      "natural": "I’m still learning Bisaya.",
+      "hint": "Pa contributes the meaning still or yet.",
+      "analysis": {
+        "tokens": [["Nakat-on", "learning"], ["pa", "still"], ["ko", "I"], ["og", "object marker"], ["Binisaya", "Bisaya"]],
+        "literal": "Learning still I [OBJ] Bisaya."
+      }
+    },
+    {
+      "id": "ceb_o_cannot_speak",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Dili ko makasulti og Binisaya",
+      "meaning": "I cannot speak Bisaya",
+      "origin": "Native",
+      "example": "Dili pa ko makasulti og Binisaya.",
+      "natural": "I can’t speak Bisaya yet.",
+      "hint": "Dili negates the clause; pa adds yet. Makasulti expresses being able to speak.",
+      "analysis": {
+        "tokens": [["Dili", "not"], ["pa", "yet"], ["ko", "I"], ["makasulti", "able-to-speak"], ["og", "object marker"], ["Binisaya", "Bisaya"]],
+        "literal": "Not yet I able-to-speak [OBJ] Bisaya."
+      },
+      "accepted": ["Dili ko makasulti'g Cebuano", "Dili pa ko kamao mag-Binisaya"]
+    },
+    {
+      "id": "ceb_o_pamilya",
+      "module": "origin",
+      "kind": "word",
+      "skill": "vocabulary",
+      "term": "pamilya",
+      "meaning": "family",
+      "origin": "Spanish",
+      "example": "Mao ni akong pamilya.",
+      "natural": "This is my family.",
+      "hint": "Pamilya is Spanish-origin and fully integrated. Banay can refer more broadly to a family line or clan.",
+      "analysis": {
+        "tokens": [["Mao", "this-is / that-is"], ["ni", "this"], ["akong", "my"], ["pamilya", "family"]],
+        "literal": "This-is this my family."
+      }
+    },
+    {
+      "id": "ceb_o_this_family",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Mao ni akong pamilya",
+      "meaning": "This is my family",
+      "origin": "Mixed",
+      "example": "Mao ni akong pamilya.",
+      "natural": "This is my family.",
+      "hint": "Mao ni identifies something near the speaker; akong means my.",
+      "analysis": {
+        "tokens": [["Mao", "this-is"], ["ni", "this"], ["akong", "my"], ["pamilya", "family"]],
+        "literal": "This-is this my family."
+      }
+    },
+    {
+      "id": "ceb_o_minyo_q",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Minyo ka?",
+      "meaning": "Are you married?",
+      "origin": "Spanish",
+      "example": "Minyo ka?",
+      "natural": "Are you married?",
+      "hint": "Minyo is a common Spanish-origin word. Ask this only where the personal context makes it appropriate.",
+      "analysis": {
+        "tokens": [["Minyo", "married"], ["ka", "you"]],
+        "literal": "Married you?"
+      },
+      "accepted": ["Minyo ka na?"]
+    },
+    {
+      "id": "ceb_o_minyo",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Minyo ko",
+      "meaning": "I am married",
+      "origin": "Spanish",
+      "example": "Minyo ko.",
+      "natural": "I’m married.",
+      "hint": "The state minyo comes before the pronoun ko.",
+      "analysis": {
+        "tokens": [["Minyo", "married"], ["ko", "I"]],
+        "literal": "Married I."
+      }
+    },
+    {
+      "id": "ceb_o_bana",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "vocabulary",
+      "term": "akong bana",
+      "meaning": "my husband",
+      "origin": "Native",
+      "example": "Mao ni akong bana.",
+      "natural": "This is my husband.",
+      "hint": "Bana means husband.",
+      "analysis": {
+        "tokens": [["Mao", "this-is"], ["ni", "this"], ["akong", "my"], ["bana", "husband"]],
+        "literal": "This-is this my husband."
+      }
+    },
+    {
+      "id": "ceb_o_asawa",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "vocabulary",
+      "term": "akong asawa",
+      "meaning": "my wife / spouse",
+      "origin": "Native",
+      "example": "Mao ni akong asawa.",
+      "natural": "This is my wife.",
+      "hint": "Asawa commonly means wife or spouse; context determines the intended relationship.",
+      "analysis": {
+        "tokens": [["Mao", "this-is"], ["ni", "this"], ["akong", "my"], ["asawa", "wife / spouse"]],
+        "literal": "This-is this my spouse."
+      }
+    },
+    {
+      "id": "ceb_o_one_child",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Naa koy usa ka anak",
+      "meaning": "I have one child",
+      "origin": "Native",
+      "example": "Naa koy usa ka anak.",
+      "natural": "I have one child.",
+      "hint": "Naa koy is a common possession pattern, literally expressing that something exists with the speaker. Ka links a number to a counted noun.",
+      "analysis": {
+        "tokens": [["Naa", "there-is"], ["ko-y", "I-LINK / I-have"], ["usa", "one"], ["ka", "count linker"], ["anak", "child"]],
+        "literal": "There-is with-me one [COUNT] child."
+      }
+    },
+    {
+      "id": "ceb_o_siblings",
+      "module": "origin",
+      "kind": "phrase",
+      "skill": "conversation",
+      "term": "Naa koy duha ka igsoon",
+      "meaning": "I have two siblings",
+      "origin": "Native",
+      "example": "Naa koy duha ka igsoon.",
+      "natural": "I have two siblings.",
+      "hint": "Igsoon is gender-neutral unless lalaki or babaye is added.",
+      "analysis": {
+        "tokens": [["Naa", "there-is"], ["ko-y", "I-LINK / I-have"], ["duha", "two"], ["ka", "count linker"], ["igsoon", "sibling"]],
+        "literal": "There-is with-me two [COUNT] siblings."
+      }
+    }
+  ],
+  "dialogue": {
+    "title": "Where are you from?",
+    "level": "Beginner 2",
+    "note": "Asa ka gikan? asks origin, while Asa ka nagpuyo? asks current residence. The two questions should not be treated as interchangeable.",
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "Asa ka gikan?",
+        "tokens": [["Asa", "where"], ["ka", "you"], ["gikan", "from"]],
+        "literal": "Where you from?",
+        "natural": "Where are you from?"
+      },
+      {
+        "speaker": "B",
+        "text": "Taga-England ko. Ikaw?",
+        "tokens": [["Taga-England", "from-England"], ["ko", "I"], ["Ikaw", "you"]],
+        "literal": "From-England I. You?",
+        "natural": "I’m from England. And you?"
+      },
+      {
+        "speaker": "A",
+        "text": "Taga-Pilipinas ko. Asa ka nagpuyo karon?",
+        "tokens": [["Taga-Pilipinas", "from-Philippines"], ["ko", "I"], ["Asa", "where"], ["ka", "you"], ["nagpuyo", "residing"], ["karon", "now"]],
+        "literal": "From-Philippines I. Where you residing now?",
+        "natural": "I’m from the Philippines. Where do you live now?"
+      },
+      {
+        "speaker": "B",
+        "text": "Nagpuyo ko sa Manila. Nakat-on pa ko og Binisaya.",
+        "tokens": [["Nagpuyo", "residing"], ["ko", "I"], ["sa", "in"], ["Manila", "Manila"], ["Nakat-on", "learning"], ["pa", "still"], ["ko", "I"], ["og", "object marker"], ["Binisaya", "Bisaya"]],
+        "literal": "Residing I in Manila. Learning still I [OBJ] Bisaya.",
+        "natural": "I live in Manila. I’m still learning Bisaya."
+      },
+      {
+        "speaker": "A",
+        "text": "Maayo! Minyo ka?",
+        "tokens": [["Maayo", "good"], ["Minyo", "married"], ["ka", "you"]],
+        "literal": "Good! Married you?",
+        "natural": "Great! Are you married?"
+      },
+      {
+        "speaker": "B",
+        "text": "Oo. Mao ni akong bana.",
+        "tokens": [["Oo", "yes"], ["Mao", "this-is"], ["ni", "this"], ["akong", "my"], ["bana", "husband"]],
+        "literal": "Yes. This-is this my husband.",
+        "natural": "Yes. This is my husband."
+      }
+    ]
+  },
+  "starterExercises": [
+    {
+      "id": "ceb_o_ex_01",
+      "type": "choice",
+      "prompt": "Which phrase means ‘Where are you from?’",
+      "answer": "Asa ka gikan?",
+      "choices": ["Asa ka gikan?", "Asa ka nagpuyo?", "Minyo ka?", "Kinsa ka?"],
+      "itemIds": ["ceb_o_asa_gikan"]
+    },
+    {
+      "id": "ceb_o_ex_02",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m from England.’",
+      "answerTokens": ["Taga-England", "ko."],
+      "wordBank": ["ko.", "Taga-England", "ka", "sa", "nagpuyo", "gikan"],
+      "itemIds": ["ceb_o_taga_place"]
+    },
+    {
+      "id": "ceb_o_ex_03",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘Where do you live?’",
+      "answerTokens": ["Asa", "ka", "nagpuyo?"],
+      "wordBank": ["nagpuyo?", "Asa", "ka", "ko", "gikan", "karon"],
+      "itemIds": ["ceb_o_asa_puyo"]
+    },
+    {
+      "id": "ceb_o_ex_04",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I live in Manila.’",
+      "answerTokens": ["Nagpuyo", "ko", "sa", "Manila."],
+      "wordBank": ["Manila.", "sa", "ko", "Nagpuyo", "ka", "gikan"],
+      "itemIds": ["ceb_o_nagpuyo_place"]
+    },
+    {
+      "id": "ceb_o_ex_05",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I’m learning Bisaya.’",
+      "answerTokens": ["Nakat-on", "ko", "og", "Binisaya."],
+      "wordBank": ["Binisaya.", "og", "Nakat-on", "ko", "ka", "sa"],
+      "itemIds": ["ceb_o_learning"]
+    },
+    {
+      "id": "ceb_o_ex_06",
+      "type": "choice",
+      "prompt": "What does ‘Dili pa ko makasulti og Binisaya’ mean?",
+      "answer": "I cannot speak Bisaya yet",
+      "choices": ["I cannot speak Bisaya yet", "I live in Cebu", "I am married", "I have two siblings"],
+      "itemIds": ["ceb_o_cannot_speak"]
+    },
+    {
+      "id": "ceb_o_ex_07",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘This is my family.’",
+      "answerTokens": ["Mao", "ni", "akong", "pamilya."],
+      "wordBank": ["pamilya.", "akong", "ni", "Mao", "imong", "ka"],
+      "itemIds": ["ceb_o_this_family"]
+    },
+    {
+      "id": "ceb_o_ex_08",
+      "type": "choice",
+      "prompt": "Which question means ‘Are you married?’",
+      "answer": "Minyo ka?",
+      "choices": ["Minyo ka?", "Asa ka gikan?", "Kinsa ka?", "Unsa imong ngalan?"],
+      "itemIds": ["ceb_o_minyo_q"]
+    },
+    {
+      "id": "ceb_o_ex_09",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I have one child.’",
+      "answerTokens": ["Naa", "koy", "usa", "ka", "anak."],
+      "wordBank": ["anak.", "ka", "usa", "koy", "Naa", "duha"],
+      "itemIds": ["ceb_o_one_child"]
+    },
+    {
+      "id": "ceb_o_ex_10",
+      "type": "sentence-builder",
+      "prompt": "Build: ‘I have two siblings.’",
+      "answerTokens": ["Naa", "koy", "duha", "ka", "igsoon."],
+      "wordBank": ["igsoon.", "ka", "duha", "koy", "Naa", "usa"],
+      "itemIds": ["ceb_o_siblings"]
+    }
+  ]
+}

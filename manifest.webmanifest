@@ -1,0 +1,23 @@
+{
+  "name": "Salita Quest — Map Edition",
+  "short_name": "Salita Quest",
+  "description": "Experiential mastery-driven Tagalog and Bisaya learning on an interactive journey map.",
+  "start_url": "./start.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff9ef",
+  "theme_color": "#0b6f67",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait-primary"
+}

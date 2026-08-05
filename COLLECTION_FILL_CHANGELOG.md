@@ -1,0 +1,1 @@
+Collection cards now use the same full-square rarity colour reveal as the shard purchase animation. Locked cards remain fully neutral grey; partial progress reveals the corresponding rarity background and avatar together from the bottom upward.
