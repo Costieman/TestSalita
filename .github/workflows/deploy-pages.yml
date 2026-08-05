@@ -1,0 +1,47 @@
+name: Deploy TestSalita sandbox
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout sandbox
+        uses: actions/checkout@v6
+
+      - name: Verify isolated build before deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat .sandbox-source-commit)" = "2793bc413bfe655cbb695a3323140a13810c44fa"
+          grep -q 'test-salita-sandbox-r73-v1' service-worker.js
+          grep -q '__testsalita_v1__:' sandbox-runtime.js
+          grep -q 'TESTSANDBOX' sandbox-runtime.js
+          ! grep -q 'caches.match(' service-worker.js
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static sandbox
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
