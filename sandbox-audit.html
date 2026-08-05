@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TestSalita Functional Audit</title>
+  <script src="./sandbox-runtime.js?v=1"></script>
+  <style>
+    :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#173a37;background:#edf7f3}
+    body{margin:0;padding:24px 16px 110px}main{max-width:1100px;margin:auto}
+    header,.card{background:#fff;border:1px solid #d5e5df;border-radius:18px;padding:20px;box-shadow:0 8px 28px rgba(23,58,55,.08)}
+    header{margin-bottom:16px}h1{margin:0 0 8px}p{line-height:1.55}code{word-break:break-all}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .actions a,.actions button{padding:10px 13px;border-radius:10px;border:1px solid #0b6f67;background:#0b6f67;color:white;font-weight:800;text-decoration:none;cursor:pointer}
+    .actions .secondary{background:white;color:#0b6f67}
+    table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #dbe8e4;padding:12px 8px;text-align:left;vertical-align:top}
+    th{position:sticky;top:0;background:#f7fbf9}td:nth-child(1){width:37%}td:nth-child(2){width:30%}
+    label{display:inline-flex;gap:4px;margin:2px 8px 6px 0;white-space:nowrap}
+    textarea{width:100%;box-sizing:border-box;border:1px solid #b9cec7;border-radius:8px;padding:8px}
+    #errors{white-space:pre-wrap;background:#2b1613;color:#ffe4dc;border-radius:12px;padding:12px;overflow:auto}
+    @media(max-width:760px){table,thead,tbody,tr,th,td{display:block}thead{display:none}tr{padding:12px 0;border-bottom:2px solid #dbe8e4}td{border:0;width:auto!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p><strong>FUNCTIONAL SANDBOX AUDIT</strong></p>
+      <h1>TestSalita</h1>
+      <p>This is an isolated runnable copy of Salita Quest at <code>2793bc413bfe655cbb695a3323140a13810c44fa</code> (PR #114). Use it like a normal learner and record what works.</p>
+      <div class="actions">
+        <a href="./index.html">Open learner login</a>
+        <a href="./app.html" class="secondary">Open Tagalog loader</a>
+        <a href="./bisaya.html" class="secondary">Open Bisaya loader</a>
+        <button id="exportResults" type="button">Export results</button>
+        <button id="clearResults" type="button" class="secondary">Clear checklist</button>
+      </div>
+      <p id="summary"></p>
+    </header>
+    <section class="card">
+      <table>
+        <thead><tr><th>Test</th><th>Result</th><th>Notes</th></tr></thead>
+        <tbody id="tests"></tbody>
+      </table>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h2>Captured runtime errors</h2>
+      <div id="errors">None captured.</div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const KEY = "sandboxFunctionalAuditV1";
+      const TESTS = [
+        ["Environment","Sandbox banner is visible and identifies PR #114."],
+        ["Environment","Reset sandbox data leaves the live app untouched."],
+        ["Profiles","Create a learner and choose a starter avatar."],
+        ["Profiles","Log out, log back in with the PIN, and retain the learner."],
+        ["Courses","Open the Tagalog course."],
+        ["Courses","Open the Bisaya/Cebuano course."],
+        ["Lessons","Start and complete a lesson."],
+        ["Lessons","Submit a correct answer and receive normal feedback."],
+        ["Lessons","Submit an incorrect sentence order and see the correction."],
+        ["Audio","Play normal lesson audio."],
+        ["Audio","Use pronunciation or speaking controls."],
+        ["Progress","XP, coins, keys and progress update after activity."],
+        ["Progress","Refresh the page and retain progress."],
+        ["Avatars","Open the Avatar Collection."],
+        ["Avatars","Edit the four-slot Avatar Case and retain it after refresh."],
+        ["Avatars","Open the avatar/shard shop."],
+        ["Badges","Open the badge catalogue and long-term badges."],
+        ["Navigation","Desktop navigation works without overlaps."],
+        ["Navigation","Mobile navigation works without overlaps."],
+        ["Resilience","Close and reopen the browser and retain sandbox data."],
+        ["Offline","After one online load, basic pages reopen while offline."],
+        ["Errors","No unexpected red runtime-error count appears in the sandbox banner."]
+      ];
+
+      const tbody = document.getElementById("tests");
+      tbody.innerHTML = TESTS.map(([group,label], index) => `
+        <tr data-test="${index + 1}">
+          <td><strong>${group}</strong><br>${label}</td>
+          <td>
+            <label><input type="radio" name="status-${index + 1}" value="pass"> Pass</label>
+            <label><input type="radio" name="status-${index + 1}" value="fail"> Broken</label>
+            <label><input type="radio" name="status-${index + 1}" value="partial"> Partial</label>
+            <label><input type="radio" name="status-${index + 1}" value="untested"> Not tested</label>
+          </td>
+          <td><textarea rows="2" placeholder="What happened?"></textarea></td>
+        </tr>`).join("");
+
+      const rows = [...tbody.querySelectorAll("tr")];
+      const read = () => {
+        try { return JSON.parse(localStorage.getItem(KEY) || "{}"); }
+        catch { return {}; }
+      };
+
+      function updateSummary(result = read()) {
+        const counts = {pass:0, fail:0, partial:0, untested:0};
+        rows.forEach(row => {
+          const status = result[row.dataset.test]?.status || "untested";
+          counts[status] = (counts[status] || 0) + 1;
+        });
+        document.getElementById("summary").textContent = `Pass: ${counts.pass} · Broken: ${counts.fail} · Partial: ${counts.partial} · Not tested: ${counts.untested}`;
+      }
+
+      function write() {
+        const result = {};
+        rows.forEach(row => {
+          result[row.dataset.test] = {
+            status: row.querySelector("input:checked")?.value || "untested",
+            notes: row.querySelector("textarea").value.trim()
+          };
+        });
+        localStorage.setItem(KEY, JSON.stringify(result));
+        updateSummary(result);
+        return result;
+      }
+
+      const saved = read();
+      rows.forEach(row => {
+        const value = saved[row.dataset.test];
+        const status = value?.status || "untested";
+        row.querySelector(`input[value="${status}"]`).checked = true;
+        row.querySelector("textarea").value = value?.notes || "";
+      });
+      tbody.addEventListener("input", write);
+      tbody.addEventListener("change", write);
+      updateSummary(saved);
+
+      document.getElementById("clearResults").addEventListener("click", () => {
+        localStorage.removeItem(KEY);
+        rows.forEach(row => {
+          row.querySelector('input[value="untested"]').checked = true;
+          row.querySelector("textarea").value = "";
+        });
+        write();
+      });
+
+      document.getElementById("exportResults").addEventListener("click", () => {
+        const payload = {
+          repository: "Costieman/TestSalita",
+          sourceCommit: "2793bc413bfe655cbb695a3323140a13810c44fa",
+          sourcePr: 114,
+          exportedAt: new Date().toISOString(),
+          results: write(),
+          runtimeErrors: JSON.parse(sessionStorage.getItem("sandboxRuntimeErrorsV1") || "[]")
+        };
+        const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"}));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `testsalita-audit-${new Date().toISOString().slice(0,10)}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      let errors = [];
+      try { errors = JSON.parse(sessionStorage.getItem("sandboxRuntimeErrorsV1") || "[]"); } catch {}
+      document.getElementById("errors").textContent = errors.length ? JSON.stringify(errors, null, 2) : "None captured.";
+    })();
+  </script>
+</body>
+</html>
