@@ -1,0 +1,77 @@
+name: Validate runnable TestSalita sandbox
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate source identity and isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat .sandbox-source-commit)" = "2793bc413bfe655cbb695a3323140a13810c44fa"
+          node --check sandbox-runtime.js
+          node --check service-worker.js
+          grep -q '__testsalita_v1__:' sandbox-runtime.js
+          grep -q 'test-salita-sandbox-r73-v1' service-worker.js
+          grep -q 'key.startsWith(SANDBOX_CACHE_PREFIX)' service-worker.js
+          grep -q 'key.startsWith(SANDBOX_CACHE_PREFIX)' mobile-refresh.html
+          ! grep -q 'keys.filter(key => key !== CACHE_NAME)' service-worker.js
+          ! grep -q 'keys.map(key => caches.delete(key))' mobile-refresh.html
+          ! grep -q 'caches.match(' service-worker.js
+          for page in index.html app.html bisaya.html start.html mobile-refresh.html; do
+            grep -q 'sandbox-runtime.js' "$page"
+          done
+
+      - name: Serve and fetch application entry points
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 >/tmp/testsalita-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:4173/index.html >/dev/null && break
+            sleep 0.25
+          done
+          for path in index.html app.html bisaya.html start.html mobile-refresh.html sandbox-audit.html sandbox-runtime.js service-worker.js manifest.webmanifest sandbox-build.json; do
+            curl -fsS "http://127.0.0.1:4173/$path" >/dev/null
+          done
+
+          browser="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -n "$browser" ]; then
+            "$browser" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=5000 \
+              --user-data-dir=/tmp/testsalita-chrome \
+              --dump-dom http://127.0.0.1:4173/index.html > /tmp/testsalita-index-dom.html
+            grep -q 'TESTSANDBOX' /tmp/testsalita-index-dom.html
+            grep -Eq 'Create your first learner|Choose your learner' /tmp/testsalita-index-dom.html
+
+            "$browser" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=3000 \
+              --user-data-dir=/tmp/testsalita-chrome-audit \
+              --dump-dom http://127.0.0.1:4173/sandbox-audit.html > /tmp/testsalita-audit-dom.html
+            grep -q 'FUNCTIONAL SANDBOX AUDIT' /tmp/testsalita-audit-dom.html
+            grep -q 'TESTSANDBOX' /tmp/testsalita-audit-dom.html
+          else
+            echo 'Chrome not available; static HTTP checks passed.'
+          fi
+
+      - name: Confirm production repository was not targeted
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "Costieman/TestSalita"
+          ! grep -R --exclude-dir=.git --exclude='README.md' -n 'git push.*Costieman/SalitaQuest' .
+          echo 'Runnable sandbox checks passed.'
