@@ -1,0 +1,52 @@
+name: Bootstrap exact Salita refactor snapshot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/bootstrap-sandbox.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace repository with exact PR 114 snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_COMMIT="2793bc413bfe655cbb695a3323140a13810c44fa"
+          WORKDIR="$(mktemp -d)"
+          curl -L --fail --retry 3 \
+            "https://github.com/Costieman/SalitaQuest/archive/${SOURCE_COMMIT}.zip" \
+            -o "${WORKDIR}/source.zip"
+          unzip -q "${WORKDIR}/source.zip" -d "${WORKDIR}/source"
+          SOURCE_DIR="$(find "${WORKDIR}/source" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+          test -n "${SOURCE_DIR}"
+          rsync -a --delete \
+            --exclude ".git/" \
+            --exclude ".github/" \
+            "${SOURCE_DIR}/" ./
+          echo "${SOURCE_COMMIT}" > .sandbox-source-commit
+
+      - name: Verify snapshot and publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f app.html
+          test -f bisaya.html
+          test -f service-worker.js
+          test "$(cat .sandbox-source-commit)" = "2793bc413bfe655cbb695a3323140a13810c44fa"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import PR 114 refactor snapshot into sandbox"
+          git push origin HEAD:main
