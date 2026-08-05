@@ -1,0 +1,176 @@
+name: Apply TestSalita isolation layer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/apply-sandbox-isolation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply browser storage and cache isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          source_commit = "2793bc413bfe655cbb695a3323140a13810c44fa"
+          script_tag = '<script src="./sandbox-runtime.js?v=1"></script>'
+
+          for filename in ["index.html", "app.html", "bisaya.html", "start.html", "mobile-refresh.html"]:
+              path = Path(filename)
+              text = path.read_text(encoding="utf-8")
+              if "sandbox-runtime.js" not in text:
+                  marker = "<head>"
+                  if marker not in text:
+                      raise SystemExit(f"Missing head marker in {filename}")
+                  text = text.replace(marker, marker + "\n  " + script_tag, 1)
+              path.write_text(text, encoding="utf-8")
+
+          sw_path = Path("service-worker.js")
+          sw = sw_path.read_text(encoding="utf-8")
+          lines = sw.splitlines()
+          if not lines[0].startswith("const PREVIOUS_CACHE_NAME"):
+              raise SystemExit("Unexpected service-worker previous cache declaration")
+          if not lines[1].startswith("const CACHE_NAME"):
+              raise SystemExit("Unexpected service-worker current cache declaration")
+          lines[0] = 'const PREVIOUS_CACHE_NAME = "test-salita-sandbox-r72-v0";'
+          lines[1] = 'const CACHE_NAME = "test-salita-sandbox-r73-v1";'
+          if not any("SANDBOX_CACHE_PREFIX" in line for line in lines[:5]):
+              lines.insert(2, 'const SANDBOX_CACHE_PREFIX = "test-salita-sandbox-";')
+          sw = "\n".join(lines) + "\n"
+
+          core_marker = '"./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html",'
+          if core_marker not in sw:
+              raise SystemExit("Service-worker core file marker changed")
+          sw = sw.replace(
+              core_marker,
+              '"./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html", "./sandbox-runtime.js", "./sandbox-audit.html",',
+              1,
+          )
+
+          static_marker = "const STATIC_FILES = [...CORE_FILES, ...APP_ENHANCEMENTS, ...AVATAR_PROGRESSION_FILES, ...COURSE_FILES, ...AVATAR_FILES];"
+          if static_marker not in sw:
+              raise SystemExit("Service-worker static file marker changed")
+          if "async function matchSandbox" not in sw:
+              sw = sw.replace(
+                  static_marker,
+                  static_marker + '\n\nasync function matchSandbox(request, options) {\n  const cache = await caches.open(CACHE_NAME);\n  return cache.match(request, options);\n}',
+                  1,
+              )
+
+          old_delete = "keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))"
+          new_delete = "keys.filter(key => key.startsWith(SANDBOX_CACHE_PREFIX) && key !== CACHE_NAME).map(key => caches.delete(key))"
+          if old_delete in sw:
+              sw = sw.replace(old_delete, new_delete, 1)
+          if "key.startsWith(SANDBOX_CACHE_PREFIX)" not in sw:
+              raise SystemExit("Service-worker activation is not cache-isolated")
+          sw = sw.replace("caches.match(", "matchSandbox(")
+          sw_path.write_text(sw, encoding="utf-8")
+
+          refresh_path = Path("mobile-refresh.html")
+          refresh = refresh_path.read_text(encoding="utf-8")
+          release_marker = 'const RELEASE = "5.5.6";'
+          if "SANDBOX_CACHE_PREFIX" not in refresh:
+              if release_marker not in refresh:
+                  raise SystemExit("Mobile refresh release marker changed")
+              refresh = refresh.replace(
+                  release_marker,
+                  release_marker + '\n    const SANDBOX_CACHE_PREFIX = "test-salita-sandbox-";',
+                  1,
+              )
+          refresh = refresh.replace(
+              "await Promise.all(keys.map(key => caches.delete(key)));",
+              "await Promise.all(keys.filter(key => key.startsWith(SANDBOX_CACHE_PREFIX)).map(key => caches.delete(key)));",
+          )
+          old_unregister = "await Promise.all(registrations.map(registration => registration.unregister()));"
+          new_unregister = "const basePath = new URL(\"./\", location.href).pathname;\n          await Promise.all(registrations.filter(registration => new URL(registration.scope).pathname.startsWith(basePath)).map(registration => registration.unregister()));"
+          refresh = refresh.replace(old_unregister, new_unregister)
+          refresh_path.write_text(refresh, encoding="utf-8")
+
+          manifest_path = Path("manifest.webmanifest")
+          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          manifest["name"] = "TestSalita — Modular Refactor Sandbox"
+          manifest["short_name"] = "TestSalita"
+          manifest["description"] = "Isolated functional audit build of the Salita Quest modular refactor."
+          manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+          Path(".nojekyll").touch()
+          Path("sandbox-build.json").write_text(json.dumps({
+              "repository": "Costieman/TestSalita",
+              "sourceRepository": "Costieman/SalitaQuest",
+              "sourcePullRequest": 114,
+              "sourceCommit": source_commit,
+              "storagePrefix": "__testsalita_v1__:",
+              "cachePrefix": "test-salita-sandbox-"
+          }, indent=2) + "\n", encoding="utf-8")
+
+          Path("README.md").write_text(f'''# TestSalita — isolated functional audit
+
+This repository is a runnable sandbox of the Salita Quest modular refactor.
+
+- Source repository: `Costieman/SalitaQuest`
+- Source pull request: `#114`
+- Exact source commit: `{source_commit}`
+- Live repository changed: **No**
+- Live deployment changed: **No**
+
+## Test links
+
+After GitHub Pages deploys:
+
+- App: `https://costieman.github.io/TestSalita/`
+- Audit checklist: `https://costieman.github.io/TestSalita/sandbox-audit.html`
+
+## Isolation controls
+
+- local and session storage keys are prefixed with `__testsalita_v1__:`
+- Cache Storage names begin with `test-salita-sandbox-`
+- the sandbox service worker cannot read or delete live-app caches
+- the mobile refresh page cannot delete live caches or unregister live service workers
+- every entry page displays a TESTSANDBOX banner and exact source commit
+- the reset button deletes only sandbox profiles, progress, service workers and caches
+
+Do not use this repository as the production source.
+''', encoding="utf-8")
+          PY
+
+      - name: Validate isolation rules
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check sandbox-runtime.js
+          grep -q 'test-salita-sandbox-r73-v1' service-worker.js
+          grep -q 'key.startsWith(SANDBOX_CACHE_PREFIX)' service-worker.js
+          grep -q 'key.startsWith(SANDBOX_CACHE_PREFIX)' mobile-refresh.html
+          ! grep -q 'keys.filter(key => key !== CACHE_NAME)' service-worker.js
+          ! grep -q 'keys.map(key => caches.delete(key))' mobile-refresh.html
+          ! grep -q 'caches.match(' service-worker.js
+          for page in index.html app.html bisaya.html start.html mobile-refresh.html; do
+            grep -q 'sandbox-runtime.js' "$page"
+          done
+          test -f sandbox-audit.html
+          test -f sandbox-build.json
+          test "$(cat .sandbox-source-commit)" = "2793bc413bfe655cbb695a3323140a13810c44fa"
+
+      - name: Commit isolation layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Apply isolated functional audit environment"
+          git push origin HEAD:main
