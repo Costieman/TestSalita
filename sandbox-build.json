@@ -1,0 +1,8 @@
+{
+  "repository": "Costieman/TestSalita",
+  "sourceRepository": "Costieman/SalitaQuest",
+  "sourcePullRequest": 114,
+  "sourceCommit": "2793bc413bfe655cbb695a3323140a13810c44fa",
+  "storagePrefix": "__testsalita_v1__:",
+  "cachePrefix": "test-salita-sandbox-"
+}

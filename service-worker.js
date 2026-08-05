@@ -1,12 +1,13 @@
-const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72";
-const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73";
+const PREVIOUS_CACHE_NAME = "test-salita-sandbox-r72-v0";
+const CACHE_NAME = "test-salita-sandbox-r73-v1";
+const SANDBOX_CACHE_PREFIX = "test-salita-sandbox-";
 const AVATAR_CASE_DISPLAY_HOTFIX = "2026-08-01-compact-display-share-stack-1";
 const TOPBAR_WORLD_PROGRESS_HOTFIX = "2026-08-01-separated-heading-rail-1";
 const SHARE_IMAGE_TRANSPORT_DELIVERY = "2026-08-02-direct-loader-1";
 const EXPLICIT_SHARING_ROUTER_DELIVERY = "2026-08-02-feed-private-image-router-1";
 
 const CORE_FILES = [
-  "./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html",
+  "./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html", "./sandbox-runtime.js", "./sandbox-audit.html",
   "./style.css", "./app.js", "./src/config/course-manifest.js", "./src/app/course-bootstrap.js",
   "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png",
   "./profile-shell.css", "./profile-app.js", "./profile-emblem-control.js", "./profile-emblem-control.css",
@@ -94,6 +95,11 @@ const AVATAR_FILES = [
 
 const STATIC_FILES = [...CORE_FILES, ...APP_ENHANCEMENTS, ...AVATAR_PROGRESSION_FILES, ...COURSE_FILES, ...AVATAR_FILES];
 
+async function matchSandbox(request, options) {
+  const cache = await caches.open(CACHE_NAME);
+  return cache.match(request, options);
+}
+
 function isSameOriginAudio(url) {
   return url.origin === self.location.origin && /\.(?:mp3|m4a|ogg|wav)$/i.test(url.pathname);
 }
@@ -168,7 +174,7 @@ self.addEventListener("install", event => {
 
 self.addEventListener("activate", event => {
   event.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+    .then(keys => Promise.all(keys.filter(key => key.startsWith(SANDBOX_CACHE_PREFIX) && key !== CACHE_NAME).map(key => caches.delete(key))))
     .then(() => self.clients.claim()));
 });
 
@@ -178,7 +184,7 @@ self.addEventListener("fetch", event => {
 
   if (isSameOriginAudio(url)) {
     event.respondWith(audioCacheFirst(event.request).catch(async () => {
-      const cached = await caches.match(event.request, {ignoreSearch:true});
+      const cached = await matchSandbox(event.request, {ignoreSearch:true});
       return cached || Response.error();
     }));
     return;
@@ -195,14 +201,14 @@ self.addEventListener("fetch", event => {
       return delivered;
     })
     .catch(async () => {
-      let cached = await caches.match(event.request, {ignoreSearch:true});
+      let cached = await matchSandbox(event.request, {ignoreSearch:true});
       if (cached && isProfileNavigation(event.request, url)) cached = await withInstallControl(cached);
       if (cached) return cached;
       if (event.request.mode === "navigate") {
-        if (url.pathname.endsWith("/bisaya.html")) return caches.match("./bisaya.html");
-        if (url.pathname.endsWith("/app.html")) return caches.match("./app.html");
-        if (url.pathname.endsWith("/mobile-refresh.html")) return caches.match("./mobile-refresh.html");
-        const profile = await caches.match("./index.html");
+        if (url.pathname.endsWith("/bisaya.html")) return matchSandbox("./bisaya.html");
+        if (url.pathname.endsWith("/app.html")) return matchSandbox("./app.html");
+        if (url.pathname.endsWith("/mobile-refresh.html")) return matchSandbox("./mobile-refresh.html");
+        const profile = await matchSandbox("./index.html");
         return profile ? withInstallControl(profile) : Response.error();
       }
       return Response.error();
