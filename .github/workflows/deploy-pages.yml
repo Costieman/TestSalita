@@ -34,8 +34,10 @@ jobs:
           grep -q 'TESTSANDBOX' sandbox-runtime.js
           ! grep -q 'caches.match(' service-worker.js
 
-      - name: Configure GitHub Pages
+      - name: Configure and enable GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload static sandbox
         uses: actions/upload-pages-artifact@v4
