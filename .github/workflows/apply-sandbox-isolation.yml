@@ -116,35 +116,6 @@ jobs:
               "storagePrefix": "__testsalita_v1__:",
               "cachePrefix": "test-salita-sandbox-"
           }, indent=2) + "\n", encoding="utf-8")
-
-          Path("README.md").write_text(f'''# TestSalita — isolated functional audit
-
-This repository is a runnable sandbox of the Salita Quest modular refactor.
-
-- Source repository: `Costieman/SalitaQuest`
-- Source pull request: `#114`
-- Exact source commit: `{source_commit}`
-- Live repository changed: **No**
-- Live deployment changed: **No**
-
-## Test links
-
-After GitHub Pages deploys:
-
-- App: `https://costieman.github.io/TestSalita/`
-- Audit checklist: `https://costieman.github.io/TestSalita/sandbox-audit.html`
-
-## Isolation controls
-
-- local and session storage keys are prefixed with `__testsalita_v1__:`
-- Cache Storage names begin with `test-salita-sandbox-`
-- the sandbox service worker cannot read or delete live-app caches
-- the mobile refresh page cannot delete live caches or unregister live service workers
-- every entry page displays a TESTSANDBOX banner and exact source commit
-- the reset button deletes only sandbox profiles, progress, service workers and caches
-
-Do not use this repository as the production source.
-''', encoding="utf-8")
           PY
 
       - name: Validate isolation rules
