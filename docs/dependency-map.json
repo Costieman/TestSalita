@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T13:07:10.926Z",
+  "generatedAt": "2026-08-06T13:07:24.704Z",
   "roots": [
     "index.html",
     "app.html",
@@ -14,9 +14,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 201,
+    "files": 200,
     "reachable": 163,
-    "notStaticallyReachable": 38,
+    "notStaticallyReachable": 37,
     "events": 40,
     "globals": 31
   },
@@ -2760,11 +2760,6 @@
       "outgoing": []
     },
     "scripts/validate-avatar-collection-screen.mjs": {
-      "reachable": false,
-      "incoming": [],
-      "outgoing": []
-    },
-    "scripts/validate-avatar-hotfix-v551.mjs": {
       "reachable": false,
       "incoming": [],
       "outgoing": []

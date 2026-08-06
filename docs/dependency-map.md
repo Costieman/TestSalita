@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-06T13:07:10.926Z
+Generated: 2026-08-06T13:07:24.704Z
 
-- Text/code files scanned: **201**
+- Text/code files scanned: **200**
 - Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **38**
+- Not statically reachable: **37**
 - Custom events mapped: **40**
 - Shared globals mapped: **31**
 
@@ -53,7 +53,6 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `scripts/validate-avatar-case.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-catalogue.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-collection-screen.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-hotfix-v551.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-onboarding.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-progression-v550.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-runtime-v556.mjs` — reachable: **false**; incoming: none found statically
