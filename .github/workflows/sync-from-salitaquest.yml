@@ -27,11 +27,12 @@ jobs:
           ref: main
           path: source-salitaquest
 
-      - name: Replace cleanroom contents with SalitaQuest snapshot
+      - name: Replace application contents with SalitaQuest snapshot
         shell: bash
         run: |
           rsync -a --delete \
             --exclude '.git/' \
+            --exclude '.github/workflows/' \
             --exclude 'source-salitaquest/' \
             source-salitaquest/ ./
           rm -rf source-salitaquest
@@ -43,8 +44,8 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           if git diff --cached --quiet; then
-            echo 'TestSalita already matches SalitaQuest.'
+            echo 'Application files already match SalitaQuest.'
             exit 0
           fi
-          git commit -m 'Sync cleanroom baseline from SalitaQuest main'
+          git commit -m 'Sync cleanroom application baseline from SalitaQuest main'
           git push origin HEAD:consolidation/phase-4-cleanroom
