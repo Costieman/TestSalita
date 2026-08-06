@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-06T08:04:36.536Z
+Generated: 2026-08-06T08:59:33.178Z
 
-- Text/code files scanned: **211**
+- Text/code files scanned: **210**
 - Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **48**
+- Not statically reachable: **47**
 - Custom events mapped: **40**
 - Shared globals mapped: **31**
 
@@ -47,7 +47,6 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `coin-avatar-shop-reveal-v1.js` — reachable: **false**; incoming: coin-avatar-shard-shop-v1.js (html-asset)
 - `coin-avatar-shop-topbar-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shop-topbar-v1.js` — reachable: **false**; incoming: none found statically
-- `coin-testing-grant-100k-v1.js` — reachable: **false**; incoming: none found statically
 - `coin-testing-grant-50k-phase5-v1.js` — reachable: **false**; incoming: none found statically
 - `collection-key-translation-hotfix.js` — reachable: **true**; incoming: app.html (html-asset)
 - `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
@@ -95,7 +94,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `salita:avatar-unlock-animation-finished` — dispatch: avatar-unlock-celebration-v1.js; listen: none
 - `salita:avatar-unlock-animation-started` — dispatch: avatar-unlock-celebration-v1.js; listen: achievement-sharing-v4.js
 - `salita:coin-avatar-shop-ready` — dispatch: coin-avatar-shard-shop-v1.js; listen: none
-- `salita:coin-balance-changed` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js, coin-testing-grant-100k-v1.js, coin-testing-grant-50k-phase5-v1.js; listen: none
+- `salita:coin-balance-changed` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js, coin-testing-grant-50k-phase5-v1.js; listen: none
 - `salita:coin-shard-pack-purchased` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js; listen: coin-avatar-shop-reveal-v1.js, coin-avatar-shop-topbar-v1.js, mystery-rarity-roll-v1.js
 - `salita:coin-shop-badges-ready` — dispatch: coin-avatar-shop-badges-v1.js; listen: none
 - `salita:open-avatar-collection` — dispatch: avatar-progression-hotfix-v551.js, avatar-unlock-celebration-v1.js, desktop-navigation-refinement.js, weekly-avatar-shard-rewards-v1.js; listen: avatar-case-v1.js, avatar-collection-page-v2.js, avatar-collection-screen-v1.js, avatar-collection-summary-v1.js

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T08:04:36.536Z",
+  "generatedAt": "2026-08-06T08:59:33.178Z",
   "roots": [
     "index.html",
     "app.html",
@@ -14,9 +14,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 211,
+    "files": 210,
     "reachable": 163,
-    "notStaticallyReachable": 48,
+    "notStaticallyReachable": 47,
     "events": 40,
     "globals": 31
   },
@@ -1496,11 +1496,6 @@
       "outgoing": []
     },
     "coin-avatar-shop-topbar-v1.js": {
-      "reachable": false,
-      "incoming": [],
-      "outgoing": []
-    },
-    "coin-testing-grant-100k-v1.js": {
       "reachable": false,
       "incoming": [],
       "outgoing": []
@@ -4574,7 +4569,6 @@
       "dispatchers": [
         "coin-avatar-shard-shop-v1.js",
         "coin-avatar-shop-reveal-v1.js",
-        "coin-testing-grant-100k-v1.js",
         "coin-testing-grant-50k-phase5-v1.js"
       ],
       "listeners": []
