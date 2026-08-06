@@ -52,21 +52,17 @@
 
     assetPromise = (async () => {
       if (!window.SalitaAvatarModel) {
-        await loadScript("catalogue", `./src/features/avatar/avatar-catalogue-v1.js?v=${RELEASE_VERSION}`, "Avatar catalogue could not be loaded.");
+        await loadScript("catalogue", `./avatar-catalogue-v1.js?v=${RELEASE_VERSION}`, "Avatar catalogue could not be loaded.");
       }
-      await loadScript("artwork-runtime", `./src/features/avatar/avatar-artwork-registry-v554.js?v=${RELEASE_VERSION}`, "Avatar artwork resolver could not be loaded.");
-      await loadScript("hotfix-model", `./src/features/avatar/avatar-progression-model-v551.js?v=${RELEASE_VERSION}`, "Avatar progression model compatibility could not be loaded.");
-      await loadScript("hotfix-navigation", `./src/adapters/navigation/avatar-collections-navigation-v551.js?v=${RELEASE_VERSION}`, "Avatar collections navigation compatibility could not be loaded.");
+      await loadScript("artwork-runtime", `./avatar-artwork-registry-v554.js?v=${RELEASE_VERSION}`, "Avatar artwork resolver could not be loaded.");
       await loadScript("hotfix-runtime", `./avatar-progression-hotfix-v551.js?v=${RELEASE_VERSION}`, "Avatar progression compatibility could not be loaded.");
       await window.SalitaAvatarHotfixReady;
       await window.SalitaAvatarArtworkReady;
-      await loadScript("migration", `./src/features/avatar/avatar-progression-migration-v1.js?v=${RELEASE_VERSION}`, "Avatar progression migration could not be loaded.");
+      await loadScript("migration", `./avatar-progression-migration-v1.js?v=${RELEASE_VERSION}`, "Avatar progression migration could not be loaded.");
       await loadScript("collection", `./avatar-collection-screen-v1.js?v=${RELEASE_VERSION}`, "Avatar collection screen could not be loaded.");
-      await loadScript("case-profile-runtime", `./src/adapters/avatar/avatar-case-profile-runtime-v1.js?v=${AVATAR_CASE_VERSION}`, "Avatar Case profile runtime could not be loaded.");
-      await loadScript("case-feature", `./src/features/avatar/avatar-case-v1.js?v=${AVATAR_CASE_VERSION}`, "Avatar Case feature could not be loaded.");
       await loadScript("case", `./avatar-case-v1.js?v=${AVATAR_CASE_VERSION}`, "Avatar Case could not be loaded.");
       await loadScript("weekly", `./weekly-avatar-shard-rewards-v1.js?v=${RELEASE_VERSION}`, "Weekly avatar rewards could not be loaded.");
-      await loadScript("level", `./src/features/avatar/level-avatar-rewards-v1.js?v=${RELEASE_VERSION}`, "Level avatar rewards could not be loaded.");
+      await loadScript("level", `./level-avatar-rewards-v1.js?v=${RELEASE_VERSION}`, "Level avatar rewards could not be loaded.");
       await loadScript("unlock", `./avatar-unlock-celebration-v1.js?v=${RELEASE_VERSION}`, "Avatar unlock celebration could not be loaded.");
       await loadScript(
         "achievement-sharing-router",
@@ -79,16 +75,6 @@
         "Avatar-aware sharing could not be loaded."
       );
       await loadScript(
-        "long-term-badge-runtime",
-        `./src/adapters/badges/badge-catalogue-runtime-v1.js?v=${BADGE_EXPANSION_VERSION}`,
-        "Badge catalogue runtime adapter could not be loaded."
-      );
-      await loadScript(
-        "long-term-badge-family",
-        `./src/features/badges/long-term-badges-v1.js?v=${BADGE_EXPANSION_VERSION}`,
-        "Long-term badge family could not be loaded."
-      );
-      await loadScript(
         "long-term-badges",
         `./long-term-badges-v1.js?v=${BADGE_EXPANSION_VERSION}`,
         "Long-term badge catalogue could not be loaded."
@@ -97,16 +83,6 @@
         "coin-avatar-shop",
         `./coin-avatar-shard-shop-v1.js?v=${COIN_SHOP_VERSION}`,
         "Coin avatar shard shop could not be loaded."
-      );
-      await loadScript(
-        "coin-avatar-shop-badge-runtime",
-        `./src/adapters/badges/coin-shop-badge-runtime-v1.js?v=${COIN_SHOP_VERSION}`,
-        "Coin shop badge runtime adapter could not be loaded."
-      );
-      await loadScript(
-        "coin-avatar-shop-badge-family",
-        `./src/features/economy/coin-avatar-shop-badges-v1.js?v=${COIN_SHOP_VERSION}`,
-        "Coin shop badge family could not be loaded."
       );
       await loadScript(
         "coin-avatar-shop-badges",

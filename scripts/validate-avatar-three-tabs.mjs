@@ -1,12 +1,12 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-const js = fs.readFileSync('src/features/avatar/avatar-collection-tabs-phase6-1-v1.js','utf8');
+const js = fs.readFileSync('avatar-collection-tabs-phase6-1-v1.js','utf8');
 const css = fs.readFileSync('avatar-collection-tabs-phase6-1-v1.css','utf8');
 const loader = fs.readFileSync('coin-avatar-shop-topbar-v1.js','utf8');
 const fail = message => { throw new Error(message); };
 
-new vm.Script(js,{filename:'src/features/avatar/avatar-collection-tabs-phase6-1-v1.js'});
+new vm.Script(js,{filename:'avatar-collection-tabs-phase6-1-v1.js'});
 [
   'data-avatar-collection-tab="case"',
   'data-avatar-collection-tab="collection"',

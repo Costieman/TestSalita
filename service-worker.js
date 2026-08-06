@@ -1,15 +1,13 @@
-const PREVIOUS_CACHE_NAME = "test-salita-sandbox-r72-v0";
-const CACHE_NAME = "test-salita-sandbox-r73-v1";
-const SANDBOX_CACHE_PREFIX = "test-salita-sandbox-";
+const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51";
+const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52";
 const AVATAR_CASE_DISPLAY_HOTFIX = "2026-08-01-compact-display-share-stack-1";
 const TOPBAR_WORLD_PROGRESS_HOTFIX = "2026-08-01-separated-heading-rail-1";
 const SHARE_IMAGE_TRANSPORT_DELIVERY = "2026-08-02-direct-loader-1";
 const EXPLICIT_SHARING_ROUTER_DELIVERY = "2026-08-02-feed-private-image-router-1";
 
 const CORE_FILES = [
-  "./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html", "./sandbox-runtime.js", "./sandbox-audit.html",
-  "./style.css", "./app.js", "./src/config/course-manifest.js", "./src/app/course-bootstrap.js",
-  "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png",
+  "./", "./index.html", "./app.html", "./bisaya.html", "./mobile-refresh.html",
+  "./style.css", "./app.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png",
   "./profile-shell.css", "./profile-app.js", "./profile-emblem-control.js", "./profile-emblem-control.css",
   "./profile-install-prompt-v1.js", "./profile-install-prompt-v1.css",
   "./audio/audio_manifest.json"
@@ -18,48 +16,31 @@ const CORE_FILES = [
 const APP_ENHANCEMENTS = [
   "./bisaya-app-loader.js", "./bisaya-review-regions.js", "./bisaya-review-regions.css",
   "./ui-quality-fixes.js", "./ui-quality-fixes.css", "./ui-answer-breakdown.css",
-  "./incorrect-order-feedback.js", "./incorrect-order-feedback.css",
-  "./src/adapters/exercise/incorrect-order-feedback-runtime-v1.js", "./src/features/exercise/incorrect-order-feedback.js",
-  "./compact-desktop-layout.js",
-  "./src/features/interface/compact-desktop-layout.js",
+  "./incorrect-order-feedback.js", "./incorrect-order-feedback.css", "./compact-desktop-layout.js",
   "./compact-desktop-layout.css", "./compact-home-dashboard.css", "./weekly-avatar-chest.js",
   "./weekly-avatar-polish.js", "./weekly-avatar-chest.css", "./daily-goal-refinement.js",
-  "./key-run-refinement.js", "./even-progress-rail.js",
-  "./src/features/progression/even-progress-rail.js", "./world-progress-status.css",
-  "./clean-topbar.js", "./src/features/interface/clean-topbar.js",
-  "./clean-topbar.css", "./topbar-world-progress-hotfix.css", "./mastery-feedback.js", "./mastery-feedback.css",
+  "./key-run-refinement.js", "./even-progress-rail.js", "./world-progress-status.css",
+  "./clean-topbar.js", "./clean-topbar.css", "./topbar-world-progress-hotfix.css", "./mastery-feedback.js", "./mastery-feedback.css",
   "./mastery-console-overrides.css", "./lesson-side-launcher.js", "./lesson-side-launcher.css",
   "./mobile-session-refinement.js", "./mobile-session-refinement.css", "./popup-governor-v1.js",
-  "./src/features/interface/popup-governor-v1.js",
   "./level-progression-v2.js", "./level-progression-v2.css", "./level-up-mobile-safety-v552.js",
-  "./src/features/interface/level-up-mobile-safety-v552.js",
   "./fluid-desktop-app.css", "./adaptive-scenarios.js", "./adaptive-scenarios.css",
   "./desktop-navigation-refinement.js", "./desktop-navigation-refinement.css",
-  "./pronunciation-release-control.js", "./src/features/audio/pronunciation-release-control.js",
-  "./home-reward-coordinator.js", "./src/features/progression/home-reward-coordinator.js", "./badge-catalogue-v2.js",
+  "./pronunciation-release-control.js", "./home-reward-coordinator.js", "./badge-catalogue-v2.js",
   "./badge-catalogue-v2.css", "./badge-layout-v3.css", "./badge-chest-v2.js", "./badge-chest-v2.css",
   "./placement-onboarding-v1.js", "./placement-onboarding-v1.css", "./social-connections-v2.js",
   "./social-connections-v2.css", "./achievement-sharing-v4.js", "./achievement-sharing-v4.css",
-  "./achievement-sharing-router-v2.js", "./achievement-sharing-router-v2.css", "./achievement-sharing-router-v3.js", "./src/features/sharing/achievement-sharing-router-v3.js",
-  "./facebook-share-link-v1.js", "./src/features/sharing/facebook-share-link-v1.js",
-  "./progression-v54.js", "./exercise-fixes-v545.js",
-  "./collection-key-translation-hotfix.js", "./src/features/interface/collection-key-translation-hotfix.js",
-  "./long-term-badges-v1.js", "./src/adapters/badges/badge-catalogue-runtime-v1.js", "./src/features/badges/long-term-badges-v1.js",
-  "./coin-avatar-shop-badges-v1.js", "./src/adapters/badges/coin-shop-badge-runtime-v1.js",
-  "./src/features/economy/coin-avatar-shop-badges-v1.js"
+  "./achievement-sharing-router-v2.js", "./achievement-sharing-router-v2.css",
+  "./progression-v54.js", "./exercise-fixes-v545.js"
 ];
 
 const AVATAR_PROGRESSION_FILES = [
-  "./avatars/canonical/manifest.json", "./avatar-catalogue-v1.js", "./src/features/avatar/avatar-catalogue-v1.js", "./avatar-artwork-registry-v554.js", "./src/features/avatar/avatar-artwork-registry-v554.js",
-  "./avatar-progression-hotfix-v551.js", "./src/features/avatar/avatar-progression-model-v551.js",
-      "./src/adapters/navigation/avatar-collections-navigation-v551.js", "./avatar-progression-hotfix-v551.css",
-  "./avatar-progression-migration-v1.js", "./src/features/avatar/avatar-progression-migration-v1.js", "./avatar-collection-screen-v1.js", "./avatar-collection-screen-v1.css",
-  "./avatar-case-v1.js", "./src/adapters/avatar/avatar-case-profile-runtime-v1.js", "./src/features/avatar/avatar-case-v1.js", "./avatar-case-v1.css",
-  "./avatar-collection-summary-v1.js", "./src/features/avatar/avatar-collection-summary-v1.js", "./avatar-collection-summary-v1.css",
-  "./economy-tracking-phase6-v1.js", "./src/features/economy/economy-tracking-phase6-v1.js", "./economy-tracking-phase6-v1.css",
-  "./avatar-collection-tabs-phase6-1-v1.js", "./src/features/avatar/avatar-collection-tabs-phase6-1-v1.js", "./avatar-collection-tabs-phase6-1-v1.css",
+  "./avatars/canonical/manifest.json", "./avatar-catalogue-v1.js", "./avatar-artwork-registry-v554.js",
+  "./avatar-progression-hotfix-v551.js", "./avatar-progression-hotfix-v551.css",
+  "./avatar-progression-migration-v1.js", "./avatar-collection-screen-v1.js", "./avatar-collection-screen-v1.css",
+  "./avatar-case-v1.js", "./avatar-case-v1.css",
   "./weekly-avatar-shard-rewards-v1.js", "./weekly-avatar-shard-rewards-v1.css",
-  "./level-avatar-rewards-v1.js", "./src/features/avatar/level-avatar-rewards-v1.js", "./avatar-unlock-celebration-v1.js", "./avatar-unlock-celebration-v1.css",
+  "./level-avatar-rewards-v1.js", "./avatar-unlock-celebration-v1.js", "./avatar-unlock-celebration-v1.css",
   "./achievement-sharing-avatar-bridge-v1.js"
 ];
 
@@ -94,11 +75,6 @@ const AVATAR_FILES = [
 ];
 
 const STATIC_FILES = [...CORE_FILES, ...APP_ENHANCEMENTS, ...AVATAR_PROGRESSION_FILES, ...COURSE_FILES, ...AVATAR_FILES];
-
-async function matchSandbox(request, options) {
-  const cache = await caches.open(CACHE_NAME);
-  return cache.match(request, options);
-}
 
 function isSameOriginAudio(url) {
   return url.origin === self.location.origin && /\.(?:mp3|m4a|ogg|wav)$/i.test(url.pathname);
@@ -174,7 +150,7 @@ self.addEventListener("install", event => {
 
 self.addEventListener("activate", event => {
   event.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(key => key.startsWith(SANDBOX_CACHE_PREFIX) && key !== CACHE_NAME).map(key => caches.delete(key))))
+    .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
     .then(() => self.clients.claim()));
 });
 
@@ -184,7 +160,7 @@ self.addEventListener("fetch", event => {
 
   if (isSameOriginAudio(url)) {
     event.respondWith(audioCacheFirst(event.request).catch(async () => {
-      const cached = await matchSandbox(event.request, {ignoreSearch:true});
+      const cached = await caches.match(event.request, {ignoreSearch:true});
       return cached || Response.error();
     }));
     return;
@@ -201,14 +177,14 @@ self.addEventListener("fetch", event => {
       return delivered;
     })
     .catch(async () => {
-      let cached = await matchSandbox(event.request, {ignoreSearch:true});
+      let cached = await caches.match(event.request, {ignoreSearch:true});
       if (cached && isProfileNavigation(event.request, url)) cached = await withInstallControl(cached);
       if (cached) return cached;
       if (event.request.mode === "navigate") {
-        if (url.pathname.endsWith("/bisaya.html")) return matchSandbox("./bisaya.html");
-        if (url.pathname.endsWith("/app.html")) return matchSandbox("./app.html");
-        if (url.pathname.endsWith("/mobile-refresh.html")) return matchSandbox("./mobile-refresh.html");
-        const profile = await matchSandbox("./index.html");
+        if (url.pathname.endsWith("/bisaya.html")) return caches.match("./bisaya.html");
+        if (url.pathname.endsWith("/app.html")) return caches.match("./app.html");
+        if (url.pathname.endsWith("/mobile-refresh.html")) return caches.match("./mobile-refresh.html");
+        const profile = await caches.match("./index.html");
         return profile ? withInstallControl(profile) : Response.error();
       }
       return Response.error();

@@ -33,9 +33,9 @@
 
   loadScript('script[data-sq-testing-grant-100k]', "./coin-testing-grant-100k-v1.js?v=5.6.8", "sqTestingGrant100k");
   loadScript('script[data-sq-testing-grant-50k-phase5]', "./coin-testing-grant-50k-phase5-v1.js?v=5.6.9", "sqTestingGrant50kPhase5");
-  loadScript('script[data-sq-collection-summary]', "./src/features/avatar/avatar-collection-summary-v1.js?v=5.6.9", "sqCollectionSummary");
-  loadScript('script[data-sq-economy-phase6]', "./src/features/economy/economy-tracking-phase6-v1.js?v=5.7.3", "sqEconomyPhase6");
-  loadScript('script[data-sq-collection-tabs-phase61]', "./src/features/avatar/avatar-collection-tabs-phase6-1-v1.js?v=5.7.4", "sqCollectionTabsPhase61");
+  loadScript('script[data-sq-collection-summary]', "./avatar-collection-summary-v1.js?v=5.6.9", "sqCollectionSummary");
+  loadScript('script[data-sq-economy-phase6]', "./economy-tracking-phase6-v1.js?v=5.7.3", "sqEconomyPhase6");
+  loadScript('script[data-sq-collection-tabs-phase61]', "./avatar-collection-tabs-phase6-1-v1.js?v=5.7.4", "sqCollectionTabsPhase61");
 
   // Compatibility markers retained for earlier regression suites:
   // economy-tracking-phase6-v1.css?v=5.7.0

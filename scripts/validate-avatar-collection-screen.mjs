@@ -5,7 +5,7 @@ const root = new URL("../", import.meta.url);
 const read = path => fs.readFileSync(new URL(path, root), "utf8");
 const fail = message => { throw new Error(message); };
 
-const catalogueSource = read("src/features/avatar/avatar-catalogue-v1.js");
+const catalogueSource = read("avatar-catalogue-v1.js");
 const screenSource = read("avatar-collection-screen-v1.js");
 const screenCss = read("avatar-collection-screen-v1.css");
 const hotfixCss = read("avatar-progression-hotfix-v551.css");

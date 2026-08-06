@@ -25,7 +25,7 @@
         return;
       }
       const script = document.createElement("script");
-      script.src = "./src/features/avatar/avatar-catalogue-v1.js?v=5.5.4";
+      script.src = "./avatar-catalogue-v1.js?v=5.5.4";
       script.dataset.avatarCatalogue = "true";
       script.onload = () => resolve(window.SalitaAvatarModel);
       script.onerror = () => reject(new Error("Avatar catalogue could not be loaded."));

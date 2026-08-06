@@ -8,7 +8,7 @@ const read = path => fs.readFileSync(new URL(path, root), "utf8");
 const index = read("index.html");
 const profileApp = read("profile-app.js");
 
-if (!index.includes('src="src/features/avatar/avatar-catalogue-v1.js?v=5.5.0"')) {
+if (!index.includes('src="avatar-catalogue-v1.js?v=5.5.0"')) {
   fail("Profile gate must load the central avatar catalogue.");
 }
 if (!index.includes('model.list({rarity:"starter"})')) {
@@ -30,7 +30,7 @@ if (index.includes("AVATARS=[")) {
   fail("The legacy hard-coded eight-avatar onboarding list must not remain.");
 }
 
-if (!profileApp.includes("./src/features/avatar/avatar-catalogue-v1.js?v=5.5.4") && !profileApp.includes("./src/features/avatar/avatar-catalogue-v1.js?v=5.5.0")) {
+if (!profileApp.includes("./avatar-catalogue-v1.js?v=5.5.4") && !profileApp.includes("./avatar-catalogue-v1.js?v=5.5.0")) {
   fail("The in-app profile control must load the central avatar catalogue.");
 }
 if (!profileApp.includes("data-avatar-choice")) {

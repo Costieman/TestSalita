@@ -9,16 +9,12 @@ const fail = message => { throw new Error(message); };
 
 for (const file of [
   "pronunciation-release-control.js",
-  "src/features/audio/pronunciation-release-control.js",
   "home-reward-coordinator.js",
-  "src/features/progression/home-reward-coordinator.js",
   "badge-catalogue-v2.js",
-  "src/config/course-manifest.js",
   "service-worker.js"
 ]) new vm.Script(read(file),{filename:file});
 
-const pronunciationLoader = read("pronunciation-release-control.js");
-const pronunciation = read("src/features/audio/pronunciation-release-control.js");
+const pronunciation = read("pronunciation-release-control.js");
 for (const marker of [
   'const BUTTON_SELECTOR = "#audioBtn"',
   'document.addEventListener("pointerup"',
@@ -31,15 +27,7 @@ for (const marker of [
   'Audio could not play'
 ]) if (!pronunciation.includes(marker)) fail(`Missing release-audio marker: ${marker}`);
 
-for (const marker of [
-  'const TARGET = "./src/features/audio/pronunciation-release-control.js?v=5.4.22"',
-  "document.currentScript",
-  "document.write",
-  "script.async = false",
-  "salitaCompatibilityLoader"
-]) if (!pronunciationLoader.includes(marker)) fail(`Missing pronunciation compatibility-loader marker: ${marker}`);
-
-const reward = read("src/features/progression/home-reward-coordinator.js");
+const reward = read("home-reward-coordinator.js");
 for (const marker of [
   '__salitaQuestHomeRewardCoordinatorInstalled',
   'pendingKeyAwards',
@@ -92,35 +80,21 @@ for (const marker of [
   '@media (prefers-reduced-motion:reduce)'
 ]) if (!badgeCss.includes(marker)) fail(`Missing badge style: ${marker}`);
 
-const manifestSource = read("src/config/course-manifest.js");
-const manifestContext = {window:{}};
-vm.createContext(manifestContext);
-vm.runInContext(manifestSource,manifestContext,{filename:"src/config/course-manifest.js"});
-const courseManifest = manifestContext.window.SalitaQuestCourseManifest;
-if (!courseManifest?.courses) fail("The modular course manifest was not installed.");
-
-for (const [htmlFile,courseId] of [["app.html","tagalog"],["bisaya.html","cebuano"]]) {
+for (const htmlFile of ["app.html","bisaya.html"]) {
   const html = read(htmlFile);
   const inline = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match=>match[1].trim()).filter(Boolean);
   inline.forEach((source,index)=>new vm.Script(source,{filename:`${htmlFile}#${index+1}`}));
-  for (const marker of [
-    "src/config/course-manifest.js?v=5.6.0",
-    "src/app/course-bootstrap.js?v=5.6.0",
-    `courseId: "${courseId}"`
-  ]) if (!html.includes(marker)) fail(`${htmlFile} does not load ${marker}`);
-
-  const course = courseManifest.courses[courseId];
-  if (!course) fail(`${courseId} is missing from the course manifest.`);
-  if (!course.styles.includes('badge-catalogue-v2.css?v=5.4.23')) fail(`${htmlFile} does not load badge-catalogue-v2.css?v=5.4.23`);
   for (const asset of [
-    'src/features/audio/pronunciation-release-control.js?v=5.4.22',
-    'src/features/progression/home-reward-coordinator.js?v=5.4.22',
+    'badge-catalogue-v2.css?v=5.4.23',
+    'pronunciation-release-control.js?v=5.4.22',
+    'home-reward-coordinator.js?v=5.4.22',
     'badge-catalogue-v2.js?v=5.4.23'
-  ]) if (!course.scripts.includes(asset)) fail(`${htmlFile} does not load ${asset}`);
-  const nav = course.scripts.findIndex(asset => /^desktop-navigation-refinement\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)$/.test(asset));
-  const audio = course.scripts.indexOf('src/features/audio/pronunciation-release-control.js?v=5.4.22');
-  const rewardIndex = course.scripts.indexOf('src/features/progression/home-reward-coordinator.js?v=5.4.22');
-  const catalogue = course.scripts.indexOf('badge-catalogue-v2.js?v=5.4.23');
+  ]) if (!html.includes(asset)) fail(`${htmlFile} does not load ${asset}`);
+  const navMatch = html.match(/desktop-navigation-refinement\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)/);
+  const nav = navMatch ? navMatch.index : -1;
+  const audio = html.indexOf('pronunciation-release-control.js?v=5.4.22');
+  const rewardIndex = html.indexOf('home-reward-coordinator.js?v=5.4.22');
+  const catalogue = html.indexOf('badge-catalogue-v2.js?v=5.4.23');
   if (!(nav >= 0 && audio > nav && rewardIndex > audio && catalogue > rewardIndex)) fail(`${htmlFile} has incorrect final runtime order`);
 }
 
@@ -128,9 +102,7 @@ const serviceWorker = read("service-worker.js");
 for (const asset of [
   'const CACHE_NAME = "salita-quest-',
   '"./pronunciation-release-control.js"',
-  '"./src/features/audio/pronunciation-release-control.js"',
   '"./home-reward-coordinator.js"',
-  '"./src/features/progression/home-reward-coordinator.js"',
   '"./badge-catalogue-v2.js"',
   '"./badge-catalogue-v2.css"'
 ]) if (!serviceWorker.includes(asset)) fail(`Offline cache missing ${asset}`);
@@ -160,4 +132,4 @@ for (const marker of [
   'validate-audio-badge-release.mjs'
 ]) if (!readme.includes(marker)) fail(`README is missing ${marker}`);
 
-console.log("Validated release-based pronunciation, Home-only key recovery, ordered complete badge catalogue, badge celebrations, custom-art paths, Cebuano Gemini-TTS generator, modular language loaders and offline delivery.");
+console.log("Validated release-based pronunciation, Home-only key recovery, ordered complete badge catalogue, badge celebrations, custom-art paths, Cebuano Gemini-TTS generator, both language loaders and offline delivery.");

@@ -15,19 +15,15 @@ const check = (condition, message) => {
 };
 
 const sources = {
-  catalogue:read("src/features/avatar/avatar-catalogue-v1.js"),
-  artwork:read("src/features/avatar/avatar-artwork-registry-v554.js"),
-  modelHotfix:read("src/features/avatar/avatar-progression-model-v551.js"),
-      navigationAdapter:read("src/adapters/navigation/avatar-collections-navigation-v551.js"),
-      compatibility:read("avatar-progression-hotfix-v551.js"),
+  catalogue:read("avatar-catalogue-v1.js"),
+  artwork:read("avatar-artwork-registry-v554.js"),
+  compatibility:read("avatar-progression-hotfix-v551.js"),
   profileLoader:read("profile-emblem-control.js"),
   profile:read("profile-app.js"),
   collection:read("avatar-collection-screen-v1.js"),
-  avatarCaseRoot:read("avatar-case-v1.js"),
-  avatarCaseProfile:read("src/adapters/avatar/avatar-case-profile-runtime-v1.js"),
-  avatarCase:read("src/features/avatar/avatar-case-v1.js"),
+  avatarCase:read("avatar-case-v1.js"),
   weekly:read("weekly-avatar-shard-rewards-v1.js"),
-  level:read("src/features/avatar/level-avatar-rewards-v1.js"),
+  level:read("level-avatar-rewards-v1.js"),
   unlock:read("avatar-unlock-celebration-v1.js"),
   sharing:read("achievement-sharing-avatar-bridge-v1.js"),
   worker:read("service-worker.js"),
@@ -51,8 +47,6 @@ sandbox.window = sandbox;
 sandbox.globalThis = sandbox;
 vm.createContext(sandbox);
 new vm.Script(sources.catalogue).runInContext(sandbox);
-new vm.Script(sources.modelHotfix).runInContext(sandbox);
-new vm.Script(sources.navigationAdapter).runInContext(sandbox);
 new vm.Script(sources.compatibility).runInContext(sandbox);
 await sandbox.SalitaAvatarHotfixReady;
 const model = sandbox.SalitaAvatarModel;
@@ -81,7 +75,7 @@ check(representative.shards.dugong === 44, "Partial shard totals are preserved")
 check(representative.pendingUnlocks[0]?.avatarId === "dugong", "Pending unlocks are preserved");
 check(representative.levelRewardsClaimed.join(",") === "10,20", "Level reward claims are preserved and deduplicated");
 
-const artworkRuntime = sources.artwork + sources.modelHotfix + sources.navigationAdapter + sources.compatibility;
+const artworkRuntime = sources.artwork + sources.compatibility;
 for (const [needle, message] of [
   ["MutationObserver", "No avatar-source observer remains"],
   ['createElement("canvas")', "No avatar canvas extraction remains"],
@@ -99,8 +93,8 @@ check(sources.css.includes("image-rendering:auto!important"), "Avatar scaling us
 check(sources.profile.includes("data-sq-avatar-id"), "Profile images carry stable avatar IDs");
 check(sources.collection.includes("data-sq-avatar-id"), "Collection images carry stable avatar IDs");
 check(sources.avatarCase.includes("const MAX_CASE_AVATARS = 4"), "Avatar Case uses four slots");
-check(sources.avatarCaseProfile.includes("profile.avatarCaseIds = cleaned"), "Avatar Case persists separately on the profile");
-check(!/profile\.avatarId\s*=|equippedAvatarId\s*=/.test(sources.avatarCase + sources.avatarCaseProfile), "Avatar Case does not change the equipped avatar");
+check(sources.avatarCase.includes("profile.avatarCaseIds = cleaned"), "Avatar Case persists separately on the profile");
+check(!/profile\.avatarId\s*=|equippedAvatarId\s*=/.test(sources.avatarCase), "Avatar Case does not change the equipped avatar");
 check(sources.weekly.includes("item.image") || sources.weekly.includes("SalitaAvatarArtwork"), "Weekly rewards resolve canonical artwork");
 check(sources.level.includes("avatar:item") && sources.level.includes("avatarId:item.id"), "Level rewards hand the canonical avatar record to the unlock renderer");
 check(sources.unlock.includes("item.image") || sources.unlock.includes("getAvatarImagePath") || sources.unlock.includes("SalitaAvatarArtwork"), "Unlock celebrations resolve canonical artwork");
@@ -119,8 +113,8 @@ check(cached.length === 48, "Service worker lists exactly 48 canonical PNGs");
 check(new Set(cached).size === 48, "Service-worker canonical paths are unique");
 check(manifestPaths.every(file => cached.includes(file)), "Service worker precaches every manifest image");
 check(!/"\.\/avatars\/(?!canonical\/)/.test(sources.worker), "Service worker does not cache legacy avatar artwork");
-check(sources.worker.includes('PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"'), "Service worker records the pre-modular cache boundary");
-check(sources.worker.includes('CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"'), "Service-worker cache revision is the modular-bootstrap release");
+check(sources.worker.includes('PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"'), "Service worker records the Avatar Case cache boundary");
+check(sources.worker.includes('CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"'), "Service-worker cache revision is the persistent-navigation release");
 check(sources.worker.includes('"./avatar-case-v1.js"') && sources.worker.includes('"./avatar-case-v1.css"'), "Service worker precaches Avatar Case assets");
 check(sources.worker.includes('"./desktop-navigation-refinement.js"') && sources.worker.includes('"./desktop-navigation-refinement.css"'), "Service worker precaches persistent-navigation assets");
 
@@ -142,7 +136,7 @@ for (const item of manifest.avatars) {
 
 const report = {
   status:errors.length ? "FAIL" : "PASS",
-  release:"5.6.0-modular-bootstrap",
+  release:"5.5.10-persistent-navigation",
   canonicalAvatarCount:model.catalogue.length,
   serviceWorkerCanonicalAssets:cached.length,
   checksPassed:checks.filter(item => item.passed).length,

@@ -7,14 +7,12 @@ const reveal = read("coin-avatar-shop-reveal-v1.js");
 const revealCss = read("coin-avatar-shop-reveal-v1.css");
 const rarityCss = read("coin-avatar-reveal-rarity-v1.css");
 const testingGrant = read("coin-testing-grant-100k-v1.js");
-const badgeCoordinator = read("coin-avatar-shop-badges-v1.js");
-const badgeAdapter = read("src/adapters/badges/coin-shop-badge-runtime-v1.js");
-const badges = read("src/features/economy/coin-avatar-shop-badges-v1.js");
+const badges = read("coin-avatar-shop-badges-v1.js");
 const loader = read("profile-emblem-control.js");
 const weekly = read("weekly-avatar-shard-rewards-v1.js");
 const topbar = read("coin-avatar-shop-topbar-v1.js");
 
-for (const [name,source] of [["shop",shop],["reveal",reveal],["testingGrant",testingGrant],["badgeCoordinator",badgeCoordinator],["badgeAdapter",badgeAdapter],["badges",badges],["loader",loader],["topbar",topbar]]) {
+for (const [name,source] of [["shop",shop],["reveal",reveal],["testingGrant",testingGrant],["badges",badges],["loader",loader],["topbar",topbar]]) {
   new vm.Script(source,{filename:name});
 }
 
@@ -28,8 +26,7 @@ const required = [
   [shop,"No shards were awarded"],
   [shop,"coin-avatar-shop-reveal-v1.js?v=5.6.4"],
   [shop,"coin-avatar-shop-reveal-v1.css?v=5.6.4"],
-  [loader,"coin-avatar-shard-shop-v1.js"],[loader,"src/adapters/badges/coin-shop-badge-runtime-v1.js"],
-  [loader,"src/features/economy/coin-avatar-shop-badges-v1.js"],[loader,"coin-avatar-shop-badges-v1.js"],
+  [loader,"coin-avatar-shard-shop-v1.js"],[loader,"coin-avatar-shop-badges-v1.js"],
   [loader,'const COIN_SHOP_VERSION = "5.6.4"'],
   [reveal,'const GRANT_AMOUNT = 10000'],[reveal,'coinShopAnimation10000V1'],
   [reveal,'payload.testingGrants[GRANT_ID]'],[reveal,'payload.coins ='],
@@ -51,8 +48,8 @@ const required = [
   [rarityCss,'data-rarity="rare"'],[rarityCss,'#cbe8ce'],
   [rarityCss,'.sq-coin-reveal-colour{background:#d6dcda}'],
   [badges,"lt_coins_500000"],[badges,"lt_coins_1000000"],
-  [badges,"chain(runtime,\"coins_spent\""],[badges,"chain(runtime,\"packs\""],
-  [badges,"chain(runtime,\"common_owned\""],[badges,"chain(runtime,\"uncommon_owned\""],[badges,"chain(runtime,\"rare_owned\""]
+  [badges,"chain(\"coins_spent\""],[badges,"chain(\"packs\""],
+  [badges,"chain(\"common_owned\""],[badges,"chain(\"uncommon_owned\""],[badges,"chain(\"rare_owned\""]
 ];
 for (const [source,token] of required) if (!source.includes(token)) throw new Error(`Missing required token: ${token}`);
 

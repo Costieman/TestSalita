@@ -5,21 +5,17 @@ const root = new URL("../", import.meta.url);
 const read = path => fs.readFileSync(new URL(path, root), "utf8");
 const fail = message => { throw new Error(message); };
 
-const catalogueSource = read("src/features/avatar/avatar-catalogue-v1.js");
-const compatibilitySource = read("level-avatar-rewards-v1.js");
-const rewardSource = read("src/features/avatar/level-avatar-rewards-v1.js");
+const catalogueSource = read("avatar-catalogue-v1.js");
+const rewardSource = read("level-avatar-rewards-v1.js");
 const loaderSource = read("profile-emblem-control.js");
 
-new vm.Script(compatibilitySource, {filename:"level-avatar-rewards-v1.js"});
-new vm.Script(rewardSource, {filename:"src/features/avatar/level-avatar-rewards-v1.js"});
+new vm.Script(rewardSource, {filename:"level-avatar-rewards-v1.js"});
 new vm.Script(loaderSource, {filename:"profile-emblem-control.js"});
-
-if (!compatibilitySource.includes('const TARGET = "./src/features/avatar/level-avatar-rewards-v1.js?v=5.5.6"') || !compatibilitySource.includes("document.write") || !compatibilitySource.includes("script.async = false")) fail("Historical level reward URL is not compatibility-only");
 
 const sandbox = {};
 vm.createContext(sandbox);
 vm.runInContext(catalogueSource, sandbox, {filename:"avatar-catalogue-v1.js"});
-vm.runInContext(rewardSource, sandbox, {filename:"src/features/avatar/level-avatar-rewards-v1.js"});
+vm.runInContext(rewardSource, sandbox, {filename:"level-avatar-rewards-v1.js"});
 
 const model = sandbox.SalitaAvatarModel;
 const logic = sandbox.SalitaLevelAvatarRewardLogic;
@@ -120,8 +116,8 @@ for (const required of [
   if (!rewardSource.includes(required)) fail(`Milestone runtime is missing ${required}`);
 }
 if (/state\.xp\s*(?:\+|-|\*|\/)?=/.test(rewardSource)) fail("Milestone rewards must not alter XP or existing levels");
-if (!loaderSource.includes('const RELEASE_VERSION = "5.5.6"')) fail("Shared profile runtime release version is not 5.5.1");
-if (!loaderSource.includes("src/features/avatar/level-avatar-rewards-v1.js") || !loaderSource.includes('loadScript("level"')) {
+if (!loaderSource.includes('const RELEASE_VERSION = "5.5.1"')) fail("Shared profile runtime release version is not 5.5.1");
+if (!loaderSource.includes("level-avatar-rewards-v1.js") || !loaderSource.includes('loadScript("level"')) {
   fail("Shared profile runtime does not load milestone rewards");
 }
 if (!loaderSource.includes("await window.SalitaAvatarHotfixReady")) fail("Milestones load before the safe model hotfix");

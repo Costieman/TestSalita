@@ -1,15 +1,13 @@
 import fs from "node:fs";
 import vm from "node:vm";
 
-const rootLoader = fs.readFileSync("avatar-collection-summary-v1.js", "utf8");
-const summary = fs.readFileSync("src/features/avatar/avatar-collection-summary-v1.js", "utf8");
+const summary = fs.readFileSync("avatar-collection-summary-v1.js", "utf8");
 const css = fs.readFileSync("avatar-collection-summary-v1.css", "utf8");
 const grant = fs.readFileSync("coin-testing-grant-50k-phase5-v1.js", "utf8");
 const loader = fs.readFileSync("coin-avatar-shop-topbar-v1.js", "utf8");
 const fail = message => { throw new Error(message); };
 
-new vm.Script(rootLoader, {filename:"avatar-collection-summary-v1.js"});
-new vm.Script(summary, {filename:"src/features/avatar/avatar-collection-summary-v1.js"});
+new vm.Script(summary, {filename:"avatar-collection-summary-v1.js"});
 new vm.Script(grant, {filename:"coin-testing-grant-50k-phase5-v1.js"});
 new vm.Script(loader, {filename:"coin-avatar-shop-topbar-v1.js"});
 
@@ -31,7 +29,7 @@ if (!grant.includes('key.startsWith(PROGRESS_PREFIX)')) fail("Grant must apply t
 
 [
   'avatar-collection-summary-v1.css?v=5.6.9',
-  'src/features/avatar/avatar-collection-summary-v1.js?v=5.6.9',
+  'avatar-collection-summary-v1.js?v=5.6.9',
   'coin-testing-grant-50k-phase5-v1.js?v=5.6.9'
 ].forEach(marker => { if (!loader.includes(marker)) fail(`Loader missing Phase 5 asset: ${marker}`); });
 

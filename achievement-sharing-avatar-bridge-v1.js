@@ -103,7 +103,7 @@
 
   if (!document.querySelector('script[data-facebook-share-link]')) {
     const script = document.createElement("script");
-    script.src = "./src/features/sharing/facebook-share-link-v1.js?v=1.0.0";
+    script.src = "./facebook-share-link-v1.js?v=1.0.0";
     script.dataset.facebookShareLink = "true";
     script.onerror = () => console.warn("Facebook share link formatting could not be loaded.");
     document.body.appendChild(script);

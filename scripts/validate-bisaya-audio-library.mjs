@@ -134,12 +134,10 @@ check(serviceWorker.includes("function isSameOriginAudio"),
   "service worker lacks the audio request classifier");
 check(serviceWorker.includes("audioCacheFirst"),
   "service worker lacks cache-first audio delivery");
-check(serviceWorker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"'),
-  "service worker no longer records the pre-modular persistent-navigation boundary");
-check(serviceWorker.includes('const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"'),
-  "service-worker cache revision is not the modular-bootstrap release");
-check(serviceWorker.includes('"./src/config/course-manifest.js"') && serviceWorker.includes('"./src/app/course-bootstrap.js"'),
-  "service worker does not precache the modular course bootstrap");
+check(serviceWorker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"'),
+  "service worker no longer records the Avatar Case release boundary");
+check(serviceWorker.includes('const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"'),
+  "service-worker cache revision is not the persistent-navigation release");
 
 const audioReleaseNotes = readText("docs/releases/5.5.7-complete-bisaya-audio.md");
 check(audioReleaseNotes.includes("salita-quest-v5-5-7-complete-bisaya-audio-r49"),

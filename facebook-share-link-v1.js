@@ -1,24 +1,45 @@
 (() => {
   "use strict";
-  const TARGET = "./src/features/sharing/facebook-share-link-v1.js?v=1.0.0";
-  const LOADING_FLAG = "__salitaFacebookShareLinkV1CompatibilityLoading";
-  if (window.__salitaFacebookShareLinkV1Installed || window[LOADING_FLAG]) return;
-  window[LOADING_FLAG] = true;
-  const current = document.currentScript;
-  const targetUrl = new URL(TARGET, current?.src || document.baseURI).href;
-  if (document.readyState === "loading" && current) {
-    document.write(`<script src="${targetUrl}"><\/script>`);
-    window[LOADING_FLAG] = false;
-    return;
+
+  if (window.__salitaFacebookShareLinkV1Installed) return;
+  window.__salitaFacebookShareLinkV1Installed = true;
+
+  const CTA_PATTERN = /\n\nPlay Salita Quest free:\n(https:\/\/\S+)\s*$/i;
+
+  function linkedCaption(value) {
+    const text = String(value || "");
+    const match = text.match(CTA_PATTERN);
+    if (!match) return text;
+
+    const shareUrl = match[1];
+    const caption = text.replace(CTA_PATTERN, "").trim();
+    if (/Salita Quest\s*[—:-]\s*https:\/\//i.test(caption)) return caption;
+    if (/Salita Quest/i.test(caption)) {
+      return caption.replace(/Salita Quest/i, `Salita Quest — ${shareUrl}`);
+    }
+    return `${caption}\n\nSalita Quest — ${shareUrl}`;
   }
-  const script = document.createElement("script");
-  script.src = targetUrl;
-  script.async = false;
-  script.dataset.salitaCompatibilityLoader = "facebook-share-link-v1";
-  script.addEventListener("load", () => { window[LOADING_FLAG] = false; }, {once:true});
-  script.addEventListener("error", () => {
-    window[LOADING_FLAG] = false;
-    console.warn("Facebook share link formatting could not be loaded.");
-  }, {once:true});
-  (document.head || document.documentElement).appendChild(script);
+
+  try {
+    if (typeof navigator.share === "function") {
+      const nativeShare = navigator.share.bind(navigator);
+      navigator.share = payload => nativeShare({
+        ...payload,
+        text:payload?.text ? linkedCaption(payload.text) : payload?.text
+      });
+    }
+  } catch {}
+
+  try {
+    const clipboard = navigator.clipboard;
+    if (clipboard && typeof clipboard.writeText === "function") {
+      const nativeWriteText = clipboard.writeText.bind(clipboard);
+      clipboard.writeText = value => nativeWriteText(linkedCaption(value));
+    }
+  } catch {}
+
+  window.SalitaFacebookShareLink = Object.freeze({
+    format:linkedCaption,
+    release:"1.0.0"
+  });
 })();

@@ -10,9 +10,7 @@ const requireMarkers = (source, markers, label) => markers.forEach(marker => {
   if (!source.includes(marker)) fail(`${label} is missing: ${marker}`);
 });
 
-const rootRuntime = read("avatar-case-v1.js");
-const profileRuntime = read("src/adapters/avatar/avatar-case-profile-runtime-v1.js");
-const runtime = read("src/features/avatar/avatar-case-v1.js");
+const runtime = read("avatar-case-v1.js");
 const sharing = read("achievement-sharing-v4.js");
 const sharingCss = read("achievement-sharing-v4.css");
 const loader = read("profile-emblem-control.js");
@@ -20,35 +18,19 @@ const worker = read("service-worker.js");
 const css = read("avatar-case-v1.css");
 const collectionCss = read("avatar-collection-screen-v1.css");
 const service = read("services/social-share/index.js");
-const courseManifestSource = read("src/config/course-manifest.js");
 
-new vm.Script(rootRuntime,{filename:"avatar-case-v1.js"});
-new vm.Script(profileRuntime,{filename:"src/adapters/avatar/avatar-case-profile-runtime-v1.js"});
-new vm.Script(runtime,{filename:"src/features/avatar/avatar-case-v1.js"});
+new vm.Script(runtime,{filename:"avatar-case-v1.js"});
 new vm.Script(sharing,{filename:"achievement-sharing-v4.js"});
-new vm.Script(courseManifestSource,{filename:"src/config/course-manifest.js"});
 
-requireMarkers(rootRuntime,[
-  "__salitaQuestAvatarCaseV1CoordinatorInstalled",
-  "SalitaAvatarCaseProfileRuntimeV1",
-  "SalitaAvatarCaseFeatureV1",
-  "document.write",
-  "script.async = false",
-  "RETRY_MS = 120"
-],"Avatar Case compatibility coordinator");
-requireMarkers(profileRuntime,[
-  'const PROFILE_STORE = "salitaQuestLocalProfilesV1"',
-  'const ACTIVE_PROFILE = "salitaQuestActiveProfileId"',
-  "profile.avatarCaseIds = cleaned",
-  "caseAvatarIds",
-  "cleanIds",
-  "ownedIds",
-  "localStorage.setItem"
-],"Avatar Case profile runtime adapter");
 requireMarkers(runtime,[
   "const MAX_CASE_AVATARS = 4",
   'const RELEASE = "5.5.10-avatar-case-compact"',
   'const MOBILE_COLLAPSE_QUERY = "(max-width: 650px)"',
+  "profile.avatarCaseIds = cleaned",
+  "cleanIds",
+  "ownedIds",
+  "result.includes(item.id)",
+  "result.length >= MAX_CASE_AVATARS",
   "data-avatar-case-toggle",
   'aria-expanded="${panelExpanded}"',
   "sq-avatar-case-body",
@@ -65,7 +47,7 @@ requireMarkers(runtime,[
   "data-share-avatar-case",
   "salita:avatar-case-changed",
   "SalitaQuestAvatarCase"
-],"Compact Avatar Case feature");
+],"Compact Avatar Case runtime");
 if (/profile\.avatarId\s*=/.test(runtime)) fail("Avatar Case must not change the equipped profile avatar");
 if (/equippedAvatarId\s*=/.test(runtime)) fail("Avatar Case must not change equippedAvatarId");
 const slotSource = runtime.slice(runtime.indexOf("function slotMarkup"),runtime.indexOf("function ensurePanel"));
@@ -84,25 +66,21 @@ requireMarkers(sharing,[
 ],"Unified Avatar Case sharing");
 
 const collectionIndex = loader.indexOf('loadScript("collection"');
-const runtimeIndex = loader.indexOf('loadScript("case-profile-runtime"');
-const featureIndex = loader.indexOf('loadScript("case-feature"');
 const caseIndex = loader.indexOf('loadScript("case"');
 const weeklyIndex = loader.indexOf('loadScript("weekly"');
-if (!(collectionIndex >= 0 && runtimeIndex > collectionIndex && featureIndex > runtimeIndex && caseIndex > featureIndex && weeklyIndex > caseIndex)) {
-  fail("Avatar Case runtime, feature and coordinator must load after collection and before reward modules");
+if (!(collectionIndex >= 0 && caseIndex > collectionIndex && weeklyIndex > caseIndex)) {
+  fail("Avatar Case must load after the collection and before reward modules");
 }
 requireMarkers(loader,[
   'addStylesheet("case-css"',
   "avatar-case-v1.css",
-  "src/adapters/avatar/avatar-case-profile-runtime-v1.js",
-  "src/features/avatar/avatar-case-v1.js",
   "avatar-case-v1.js",
   'const AVATAR_CASE_VERSION = "5.5.9"'
 ],"Shared avatar loader");
 
 requireMarkers(worker,[
-  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"',
-  'const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"',
+  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"',
+  'const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"',
   'const AVATAR_CASE_DISPLAY_HOTFIX = "2026-08-01-compact-display-share-stack-1"',
   '"./avatar-case-v1.js"',
   '"./avatar-case-v1.css"',
@@ -174,22 +152,9 @@ requireMarkers(service,[
   "supportedTypes: Object.keys(SHARE_TYPE_META)"
 ],"Hosted Avatar Case contract");
 
-const manifestContext = {window:{}};
-vm.createContext(manifestContext);
-vm.runInContext(courseManifestSource,manifestContext,{filename:"src/config/course-manifest.js"});
-const courseManifest = manifestContext.window.SalitaQuestCourseManifest;
-if(!courseManifest?.courses)fail("The modular course manifest was not installed");
-for (const [htmlFile,courseId] of [["app.html","tagalog"],["bisaya.html","cebuano"]]) {
+for (const htmlFile of ["app.html","bisaya.html"]) {
   const html = read(htmlFile);
-  requireMarkers(html,[
-    "src/config/course-manifest.js?v=5.6.0",
-    "src/app/course-bootstrap.js?v=5.6.0",
-    `courseId: "${courseId}"`
-  ],`${htmlFile} modular entry point`);
-  const scripts=courseManifest.courses[courseId]?.scripts;
-  if(!Array.isArray(scripts)||!scripts.includes("profile-emblem-control.js?v=5.5.4")) {
-    fail(`${htmlFile} does not load the shared avatar progression entry point through its course manifest`);
-  }
+  if (!html.includes("profile-emblem-control.js")) fail(`${htmlFile} does not load the shared avatar progression entry point`);
 }
 
 const records = ["a","b","c","d","e"].map((id,index) => ({
@@ -239,9 +204,7 @@ context.SalitaAvatarModel={
   })
 };
 vm.createContext(context);
-vm.runInContext(profileRuntime,context,{filename:"avatar-case-profile-runtime-v1.behavior.js"});
-vm.runInContext(runtime,context,{filename:"avatar-case-feature-v1.behavior.js"});
-vm.runInContext(rootRuntime,context,{filename:"avatar-case-v1.behavior.js"});
+vm.runInContext(runtime,context,{filename:"avatar-case-v1.behavior.js"});
 const api=context.SalitaQuestAvatarCase;
 if(!api)fail("Avatar Case API was not installed in the deterministic harness");
 if(api.max!==4)fail(`Avatar Case maximum is ${api.max}, expected 4`);

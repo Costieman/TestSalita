@@ -32,14 +32,10 @@ for (const validator of validators) {
 
 const runtimeFiles = [
   "avatar-catalogue-v1.js",
-  "src/features/avatar/avatar-catalogue-v1.js",
-  "src/features/avatar/avatar-artwork-registry-v554.js",
-  "src/features/avatar/avatar-progression-model-v551.js",
-  "src/adapters/navigation/avatar-collections-navigation-v551.js",
+  "avatar-artwork-registry-v554.js",
   "avatar-progression-hotfix-v551.js",
   "profile-app.js",
   "popup-governor-v1.js",
-  "src/features/interface/popup-governor-v1.js",
   "profile-emblem-control.js",
   "avatar-collection-screen-v1.js",
   "avatar-case-v1.js",
@@ -47,24 +43,18 @@ const runtimeFiles = [
   "level-avatar-rewards-v1.js",
   "level-progression-v2.js",
   "level-up-mobile-safety-v552.js",
-  "src/features/interface/level-up-mobile-safety-v552.js",
   "avatar-unlock-celebration-v1.js",
   "achievement-sharing-router-v2.js",
-  "achievement-sharing-router-v3.js",
-  "src/features/sharing/achievement-sharing-router-v3.js",
   "achievement-sharing-avatar-bridge-v1.js",
   "avatar-progression-migration-v1.js",
-  "src/features/avatar/avatar-progression-migration-v1.js",
   "desktop-navigation-refinement.js",
-  "src/config/course-manifest.js",
-  "src/app/course-bootstrap.js",
   "service-worker.js"
 ];
 for (const file of runtimeFiles) new vm.Script(read(file), {filename:file});
 
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(read("src/features/avatar/avatar-catalogue-v1.js"), sandbox, {filename:"avatar-catalogue-v1.js"});
+vm.runInContext(read("avatar-catalogue-v1.js"), sandbox, {filename:"avatar-catalogue-v1.js"});
 const model = sandbox.SalitaAvatarModel;
 if (!model || model.catalogue.length !== 48) fail("The integrated catalogue must contain exactly 48 avatars");
 if (model.manifestPath !== "avatars/canonical/manifest.json") fail("The integrated catalogue must declare the canonical manifest");
@@ -76,8 +66,6 @@ const loader = read("profile-emblem-control.js");
 const orderedTokens = [
   'await loadScript("catalogue"',
   'await loadScript("artwork-runtime"',
-  'await loadScript("hotfix-model"',
-  'await loadScript("hotfix-navigation"',
   'await loadScript("hotfix-runtime"',
   "await window.SalitaAvatarHotfixReady",
   "await window.SalitaAvatarArtworkReady",
@@ -98,14 +86,12 @@ for (const token of orderedTokens) {
 }
 if (!loader.includes('const RELEASE_VERSION = "5.5.6"')) fail("Shared avatar loader is not cache-busted to its canonical runtime release");
 if (!loader.includes('const AVATAR_CASE_VERSION = "5.5.9"')) fail("Shared avatar loader does not version the Avatar Case runtime");
-if (!loader.includes('const SHARING_VERSION = "5.5.20.1"')) fail("Shared avatar loader does not version the current social sharing runtime");
+if (!loader.includes('const SHARING_VERSION = "5.5.16.1"')) fail("Shared avatar loader does not version the streamlined social sharing runtime");
 if (loader.includes("repair(document)")) fail("Shared loader must not run a document-wide avatar repair pass");
 
-const artwork = read("src/features/avatar/avatar-artwork-registry-v554.js");
-const modelHotfix = read("src/features/avatar/avatar-progression-model-v551.js");
-const navigationAdapter = read("src/adapters/navigation/avatar-collections-navigation-v551.js");
+const artwork = read("avatar-artwork-registry-v554.js");
 const compatibility = read("avatar-progression-hotfix-v551.js");
-const combinedArtworkRuntime = artwork + modelHotfix + navigationAdapter + compatibility;
+const combinedArtworkRuntime = artwork + compatibility;
 for (const prohibited of [
   "raw.githubusercontent.com",
   "rare-animals-set2-sprite",
@@ -119,12 +105,6 @@ if (artwork.includes("MutationObserver") || compatibility.includes("MutationObse
   fail("Avatar artwork runtimes must not install a source mutation observer");
 }
 
-const sharingShim = read("achievement-sharing-router-v2.js");
-if (!sharingShim.includes('src/features/sharing/achievement-sharing-router-v3.js?v=5.5.21')) fail("Sharing compatibility shim does not load the current v3 router");
-const sharingRouter = read("src/features/sharing/achievement-sharing-router-v3.js");
-if (!sharingRouter.includes('const RELEASE = "5.5.21-mobile-share-desktop-save-only"')) fail("Current achievement sharing release marker is missing");
-if (!sharingRouter.includes('modes:Object.freeze(["mobile_native_image_share","desktop_save_only"])')) fail("Current achievement sharing modes are missing");
-
 const sharingBridge = read("achievement-sharing-avatar-bridge-v1.js");
 if (!sharingBridge.includes("compatibilityOnly:true")) fail("Avatar sharing bridge is not explicitly compatibility-only");
 if (!sharingBridge.includes("controller()?.openAvatar")) fail("Avatar bridge does not delegate avatar sharing to the shared controller");
@@ -132,13 +112,10 @@ if (!sharingBridge.includes("controller()?.openAvatarCase")) fail("Avatar bridge
 if (sharingBridge.includes("window.SalitaQuestAchievementSharing =")) fail("Avatar bridge must not replace the shared achievement controller");
 if (sharingBridge.includes('document.addEventListener("click"')) fail("Avatar bridge must not intercept share clicks");
 
-const avatarCaseRoot = read("avatar-case-v1.js");
-const avatarCaseProfile = read("src/adapters/avatar/avatar-case-profile-runtime-v1.js");
-const avatarCase = read("src/features/avatar/avatar-case-v1.js");
+const avatarCase = read("avatar-case-v1.js");
 if (!avatarCase.includes("const MAX_CASE_AVATARS = 4")) fail("Avatar Case does not enforce four slots");
-if (!avatarCaseProfile.includes("profile.avatarCaseIds = cleaned")) fail("Avatar Case state is not persisted account-wide on the profile");
-if (/profile\.avatarId\s*=|equippedAvatarId\s*=/.test(avatarCase + avatarCaseProfile)) fail("Avatar Case must not change the equipped avatar");
-if (!avatarCaseRoot.includes("SalitaAvatarCaseProfileRuntimeV1") || !avatarCaseRoot.includes("SalitaAvatarCaseFeatureV1")) fail("Avatar Case compatibility coordinator does not load both extracted owners");
+if (!avatarCase.includes("profile.avatarCaseIds = cleaned")) fail("Avatar Case state is not persisted account-wide on the profile");
+if (/profile\.avatarId\s*=|equippedAvatarId\s*=/.test(avatarCase)) fail("Avatar Case must not change the equipped avatar");
 
 const navigation = read("desktop-navigation-refinement.js");
 if (!navigation.includes('const RELEASE = "5.5.10-persistent-navigation"')) fail("Persistent navigation release marker is missing");
@@ -146,13 +123,12 @@ if (!navigation.includes('action:"avatar-collection"')) fail("Persistent navigat
 if (navigation.includes("salitaQuestDesktopNavigationCollapsed")) fail("Persistent navigation retains the obsolete collapsed-sidebar preference");
 
 const serviceWorker = read("service-worker.js");
-if (!serviceWorker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"')) fail("Service worker does not retain the pre-modular release boundary");
-if (!serviceWorker.includes('const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"')) fail("Service worker cache version is not the modular-bootstrap release");
+if (!serviceWorker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"')) fail("Service worker does not retain the Avatar Case release boundary");
+if (!serviceWorker.includes('const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"')) fail("Service worker cache version is not the persistent-navigation release");
 if (!serviceWorker.includes('const EXPLICIT_SHARING_ROUTER_DELIVERY = "2026-08-02-feed-private-image-router-1"')) fail("Service worker does not advertise the explicit sharing-router update");
-if (!serviceWorker.includes('"./achievement-sharing-router-v2.js"') || !serviceWorker.includes('"./achievement-sharing-router-v2.css"')) fail("Service worker does not precache the sharing compatibility router");
+if (!serviceWorker.includes('"./achievement-sharing-router-v2.js"') || !serviceWorker.includes('"./achievement-sharing-router-v2.css"')) fail("Service worker does not precache the explicit sharing router");
 if (!serviceWorker.includes('"./avatar-case-v1.js"') || !serviceWorker.includes('"./avatar-case-v1.css"')) fail("Service worker does not precache the Avatar Case runtime");
 if (!serviceWorker.includes('"./desktop-navigation-refinement.js"') || !serviceWorker.includes('"./desktop-navigation-refinement.css"')) fail("Service worker does not precache persistent navigation");
-if (!serviceWorker.includes('"./src/config/course-manifest.js"') || !serviceWorker.includes('"./src/app/course-bootstrap.js"')) fail("Service worker does not precache the modular course bootstrap");
 const cachedCanonical = [...serviceWorker.matchAll(/"\.\/avatars\/canonical\/[^"]+\.png"/g)];
 if (cachedCanonical.length !== 48) fail(`Service worker must cache exactly 48 canonical PNGs, found ${cachedCanonical.length}`);
 if (/"\.\/avatars\/(?!canonical\/)/.test(serviceWorker)) fail("Service worker still caches legacy avatar artwork");
@@ -173,4 +149,4 @@ for (const marker of [
   if (!releaseNotes.toLowerCase().includes(marker.toLowerCase())) fail(`5.5.6 release notes are missing ${marker}`);
 }
 
-console.log(`Avatar progression integration validation passed: ${model.catalogue.length} direct canonical avatars, four-slot Avatar Case, persistent labelled navigation, current social sharing, modular course bootstrap, compatibility-only bridge, preserved learner state and r53 offline delivery.`);
+console.log(`Avatar progression integration validation passed: ${model.catalogue.length} direct canonical avatars, four-slot Avatar Case, persistent labelled navigation, streamlined social sharing, compatibility-only bridge, preserved learner state and r52 offline delivery.`);

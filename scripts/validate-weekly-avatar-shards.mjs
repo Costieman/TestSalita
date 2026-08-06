@@ -7,13 +7,11 @@ const fail = message => { throw new Error(message); };
 
 const source = read("weekly-avatar-shard-rewards-v1.js");
 const css = read("weekly-avatar-shard-rewards-v1.css");
-const hotfix = read("src/features/avatar/avatar-progression-model-v551.js");
-const coordinator = read("avatar-progression-hotfix-v551.js");
+const hotfix = read("avatar-progression-hotfix-v551.js");
 const loader = read("profile-emblem-control.js");
 
 new vm.Script(source, {filename:"weekly-avatar-shard-rewards-v1.js"});
-new vm.Script(hotfix, {filename:"src/features/avatar/avatar-progression-model-v551.js"});
-new vm.Script(coordinator, {filename:"avatar-progression-hotfix-v551.js"});
+new vm.Script(hotfix, {filename:"avatar-progression-hotfix-v551.js"});
 new vm.Script(loader, {filename:"profile-emblem-control.js"});
 
 for (const required of [

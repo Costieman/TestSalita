@@ -2,7 +2,7 @@ import fs from "node:fs";
 import vm from "node:vm";
 
 const root = new URL("../", import.meta.url);
-const source = fs.readFileSync(new URL("src/features/avatar/avatar-catalogue-v1.js", root), "utf8");
+const source = fs.readFileSync(new URL("avatar-catalogue-v1.js", root), "utf8");
 const fail = message => { throw new Error(message); };
 
 const sandbox = {};

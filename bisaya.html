@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="./sandbox-runtime.js?v=1"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0b6f67" />
@@ -13,15 +12,23 @@
   </style>
 </head>
 <body>
-  <main class="loader" id="loader">
-    <div class="mark">B★</div>
-    <h1>Opening your Bisaya journey…</h1>
-    <p>Loading the Cebuano course pack.</p>
-  </main>
-  <script src="src/config/course-manifest.js?v=5.6.0"></script>
-  <script src="src/app/course-bootstrap.js?v=5.6.0"></script>
+  <main class="loader" id="loader"><div class="mark">B★</div><h1>Opening your Bisaya journey…</h1><p>Loading the Cebuano course pack.</p></main>
   <script>
-    window.SalitaQuestCourseBootstrap.start({courseId: "cebuano"});
+    (async () => {
+      "use strict";
+      const SOURCE="https://raw.githubusercontent.com/Costieman/SalitaQuest/cb89fa4778737b16408bd5a66dd8fcc7f7f37f81/index.html";
+      const DOCUMENT_CACHE="salitaQuestBisayaAppDocumentV554",PROFILE_STORE="salitaQuestLocalProfilesV1",ACTIVE_PROFILE="salitaQuestActiveProfileId",ACTIVE_COURSE="salitaQuestActiveCourse",COURSE_ID="cebuano",BASE_PROGRESS="salitaQuestProgress",BASE_OWNER="salitaQuestBaseProgressOwner",PROFILE_PROGRESS_PREFIX="salitaQuestProgress.profile.";
+      function readProfiles(){try{const store=JSON.parse(localStorage.getItem(PROFILE_STORE)||"null");return store&&Array.isArray(store.profiles)?store.profiles:[];}catch{return[];}}
+      function saveSharedProgress(owner,progress){if(!owner||!progress)return;const separator=owner.lastIndexOf(":");const profileId=separator>0?owner.slice(0,separator):owner;const courseId=separator>0?owner.slice(separator+1):"tagalog";if(!readProfiles().some(item=>item.id===profileId))return;localStorage.setItem(`${PROFILE_PROGRESS_PREFIX}${profileId}.${courseId}`,progress);if(courseId==="tagalog")localStorage.setItem(`${PROFILE_PROGRESS_PREFIX}${profileId}`,progress);}
+      const activeId=sessionStorage.getItem(ACTIVE_PROFILE),profile=readProfiles().find(item=>item.id===activeId);if(!activeId||!profile){window.location.replace("./");return;}
+      const previousOwner=localStorage.getItem(BASE_OWNER),sharedProgress=localStorage.getItem(BASE_PROGRESS);saveSharedProgress(previousOwner,sharedProgress);
+      const courseProgressKey=`${PROFILE_PROGRESS_PREFIX}${activeId}.${COURSE_ID}`,activeProgress=localStorage.getItem(courseProgressKey);if(activeProgress)localStorage.setItem(BASE_PROGRESS,activeProgress);else localStorage.removeItem(BASE_PROGRESS);localStorage.setItem(BASE_OWNER,`${activeId}:${COURSE_ID}`);sessionStorage.setItem(ACTIVE_COURSE,COURSE_ID);
+      let html="";try{const response=await fetch(SOURCE,{cache:"force-cache"});if(!response.ok)throw new Error(`Cebuano course unavailable (${response.status})`);html=await response.text();if(!html.includes('id="homeView"')||!html.includes('src="app.js"'))throw new Error("The retrieved course document was not recognised.");try{localStorage.setItem(DOCUMENT_CACHE,html);}catch{}}catch(error){try{html=localStorage.getItem(DOCUMENT_CACHE)||"";}catch{}if(!html){console.error(error);document.getElementById("loader").innerHTML='<div class="mark">B★</div><h1>Bisaya course files could not be loaded</h1><p class="error">Check your connection, then reload this page. Saved Tagalog and Bisaya progress remain separate on this device.</p>';return;}}
+      html=html.replace(/<head([^>]*)>/i,'<head$1><base href="./"><link rel="stylesheet" href="bisaya-review-regions.css?v=0.3.2"><link rel="stylesheet" href="ui-quality-fixes.css?v=5.4.21"><link rel="stylesheet" href="ui-answer-breakdown.css?v=5.4.21"><link rel="stylesheet" href="incorrect-order-feedback.css?v=5.4.21"><link rel="stylesheet" href="compact-desktop-layout.css?v=5.4.21"><link rel="stylesheet" href="compact-home-dashboard.css?v=5.4.21"><link rel="stylesheet" href="weekly-avatar-chest.css?v=5.4.21"><link rel="stylesheet" href="clean-topbar.css?v=5.4.21"><link rel="stylesheet" href="world-progress-status.css?v=5.4.21"><link rel="stylesheet" href="mastery-feedback.css?v=5.4.21"><link rel="stylesheet" href="mastery-console-overrides.css?v=5.4.21"><link rel="stylesheet" href="lesson-side-launcher.css?v=5.4.21"><link rel="stylesheet" href="mobile-session-refinement.css?v=5.4.21"><link rel="stylesheet" href="profile-emblem-control.css?v=5.5.4"><link rel="stylesheet" href="level-progression-v2.css?v=5.5.3"><link rel="stylesheet" href="fluid-desktop-app.css?v=5.4.21"><link rel="stylesheet" href="adaptive-scenarios.css?v=5.4.21"><link rel="stylesheet" href="desktop-navigation-refinement.css?v=5.5.3"><link rel="stylesheet" href="badge-catalogue-v2.css?v=5.4.23"><link rel="stylesheet" href="badge-layout-v3.css?v=5.4.25"><link rel="stylesheet" href="badge-chest-v2.css?v=5.4.29"><link rel="stylesheet" href="placement-onboarding-v1.css?v=5.4.23"><link rel="stylesheet" href="social-connections-v2.css?v=5.4.27"><link rel="stylesheet" href="achievement-sharing-v4.css?v=5.4.29">');
+      html=html.replace(/<body([^>]*)>/i,'<body$1 data-course="cebuano">').replaceAll("Tagalog","Bisaya").replaceAll("Taglish","Bisaya-English").replace("Magandang araw!","Maayong adlaw!").replace("taga-saan?</span>","taga-asa?</span>");
+      html=html.replace(/<script\s+src=["']app\.js["']\s*><\/script>/i,'<script src="bisaya-app-loader.js?v=0.3.2"><\/script><script src="ui-quality-fixes.js?v=5.4.21"><\/script><script src="daily-goal-refinement.js?v=5.4.21"><\/script><script src="weekly-avatar-chest.js?v=5.4.21"><\/script><script src="key-run-refinement.js?v=5.4.21"><\/script><script src="weekly-avatar-polish.js?v=5.4.21"><\/script><script src="incorrect-order-feedback.js?v=5.4.21"><\/script><script src="compact-desktop-layout.js?v=5.4.21"><\/script><script src="clean-topbar.js?v=5.4.21"><\/script><script src="even-progress-rail.js?v=5.4.21"><\/script><script src="mastery-feedback.js?v=5.4.21"><\/script><script src="lesson-side-launcher.js?v=5.4.21"><\/script><script src="mobile-session-refinement.js?v=5.4.21"><\/script><script src="popup-governor-v1.js?v=5.5.3"><\/script><script src="profile-emblem-control.js?v=5.5.4"><\/script><script src="adaptive-scenarios.js?v=5.4.21"><\/script><script src="level-progression-v2.js?v=5.5.3"><\/script><script src="level-up-mobile-safety-v552.js?v=5.5.3"><\/script><script src="desktop-navigation-refinement.js?v=5.5.3"><\/script><script src="pronunciation-release-control.js?v=5.4.22"><\/script><script src="home-reward-coordinator.js?v=5.4.22"><\/script><script src="badge-catalogue-v2.js?v=5.4.23"><\/script><script src="badge-chest-v2.js?v=5.4.29"><\/script><script src="placement-onboarding-v1.js?v=5.4.23"><\/script><script src="social-connections-v2.js?v=5.4.27"><\/script><script src="achievement-sharing-v4.js?v=5.4.29"><\/script>');
+      document.open();document.write(html);document.close();
+    })();
   </script>
 </body>
 </html>

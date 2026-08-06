@@ -1,28 +1,74 @@
 (() => {
   "use strict";
 
-  const TARGET = "./src/features/interface/compact-desktop-layout.js?v=5.4.21";
-  const LOADING_FLAG = "__salitaQuestCompactDesktopCompatibilityLoading";
+  const INSTALL_FLAG = "__salitaQuestCompactDesktopInstalled";
+  const DESKTOP_QUERY = "(min-width: 1001px)";
 
-  if (window.__salitaQuestCompactDesktopInstalled || window[LOADING_FLAG]) return;
-  window[LOADING_FLAG] = true;
+  function installCompactDesktopLayout() {
+    if (window[INSTALL_FLAG]) return;
 
-  const current = document.currentScript;
-  const targetUrl = new URL(TARGET, current?.src || document.baseURI).href;
-  if (document.readyState === "loading" && current) {
-    document.write(`<script src="${targetUrl}"><\/script>`);
-    window[LOADING_FLAG] = false;
-    return;
+    const learnLayout = document.querySelector("#learnView .learn-layout");
+    const lessonCard = document.getElementById("lessonCard");
+    const lessonTopline = lessonCard?.querySelector(".lesson-topline");
+    const lessonContent = lessonCard?.querySelector(".lesson-content");
+    const structureBox = document.getElementById("structureBox");
+    const audioButton = document.getElementById("audioBtn");
+    const sessionPanel = learnLayout?.querySelector(":scope > .session-panel") || document.querySelector("#learnView .session-panel");
+
+    if (!learnLayout || !lessonCard || !lessonTopline || !lessonContent || !audioButton || !sessionPanel) {
+      window.setTimeout(installCompactDesktopLayout, 60);
+      return;
+    }
+
+    window[INSTALL_FLAG] = true;
+
+    const toplineAnchor = document.createComment("lesson-topline-home");
+    lessonTopline.parentNode.insertBefore(toplineAnchor, lessonTopline);
+
+    const audioAnchor = document.createComment("lesson-audio-home");
+    audioButton.parentNode.insertBefore(audioAnchor, audioButton);
+
+    const panelAnchor = document.createComment("session-panel-home");
+    sessionPanel.parentNode.insertBefore(panelAnchor, sessionPanel);
+
+    sessionPanel.classList.remove("session-rewards-strip");
+    sessionPanel.classList.add("desktop-session-console");
+
+    const rewardHeading = sessionPanel.querySelector(":scope > .eyebrow");
+    if (rewardHeading) {
+      rewardHeading.classList.add("session-console-heading");
+      rewardHeading.textContent = "Session console";
+    }
+
+    const masteryHeadings = [...sessionPanel.querySelectorAll(":scope > .eyebrow")].filter(node => node !== rewardHeading);
+    masteryHeadings.forEach(node => node.classList.add("session-mastery-label"));
+
+    const media = window.matchMedia(DESKTOP_QUERY);
+
+    function moveAfter(anchor, node) {
+      anchor.parentNode.insertBefore(node, anchor.nextSibling);
+    }
+
+    function applyLayout() {
+      const desktop = media.matches;
+      document.body.classList.toggle("desktop-lesson-layout", desktop);
+
+      if (desktop) {
+        if (sessionPanel.parentNode !== learnLayout) learnLayout.appendChild(sessionPanel);
+        sessionPanel.insertBefore(lessonTopline, sessionPanel.firstChild);
+        lessonTopline.insertAdjacentElement("afterend", audioButton);
+      } else {
+        moveAfter(toplineAnchor, lessonTopline);
+        if (structureBox?.parentNode === lessonContent) structureBox.insertAdjacentElement("afterend", audioButton);
+        else moveAfter(audioAnchor, audioButton);
+        moveAfter(panelAnchor, sessionPanel);
+      }
+    }
+
+    applyLayout();
+    media.addEventListener?.("change", applyLayout);
+    window.addEventListener("resize", applyLayout, {passive:true});
   }
 
-  const script = document.createElement("script");
-  script.src = targetUrl;
-  script.async = false;
-  script.dataset.salitaCompatibilityLoader = "compact-desktop-layout";
-  script.addEventListener("load", () => { window[LOADING_FLAG] = false; }, {once:true});
-  script.addEventListener("error", () => {
-    window[LOADING_FLAG] = false;
-    console.error("Salita Quest could not load the extracted compact desktop-layout module.");
-  }, {once:true});
-  (document.head || document.documentElement).appendChild(script);
+  installCompactDesktopLayout();
 })();

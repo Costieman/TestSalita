@@ -1,7 +1,7 @@
 {
-  "name": "TestSalita \u2014 Modular Refactor Sandbox",
-  "short_name": "TestSalita",
-  "description": "Isolated functional audit build of the Salita Quest modular refactor.",
+  "name": "Salita Quest — Map Edition",
+  "short_name": "Salita Quest",
+  "description": "Experiential mastery-driven Tagalog and Bisaya learning on an interactive journey map.",
   "start_url": "./start.html",
   "scope": "./",
   "display": "standalone",

@@ -15,9 +15,7 @@ const requirePatterns=(source,patterns,label)=>patterns.forEach(([pattern,descri
 const runtime=read("desktop-navigation-refinement.js");
 const styles=read("desktop-navigation-refinement.css");
 const worker=read("service-worker.js");
-const manifestSource=read("src/config/course-manifest.js");
 new vm.Script(runtime,{filename:"desktop-navigation-refinement.js"});
-new vm.Script(manifestSource,{filename:"src/config/course-manifest.js"});
 
 requireMarkers(runtime,[
   '__salitaQuestPersistentNavigationV1Installed',
@@ -83,30 +81,17 @@ if(/\.desktop-nav-collapsed[\s\S]*?width:\s*76px/.test(styles)){
   fail("Retired collapsed-sidebar geometry remains active");
 }
 
-const manifestContext={window:{}};
-vm.createContext(manifestContext);
-vm.runInContext(manifestSource,manifestContext,{filename:"src/config/course-manifest.js"});
-const courseManifest=manifestContext.window.SalitaQuestCourseManifest;
-if(!courseManifest?.courses)fail("The modular course manifest was not installed");
-for(const [htmlFile,courseId] of [["app.html","tagalog"],["bisaya.html","cebuano"]]){
+for(const htmlFile of ["app.html","bisaya.html"]){
   const html=read(htmlFile);
   requireMarkers(html,[
-    "src/config/course-manifest.js?v=5.6.0",
-    "src/app/course-bootstrap.js?v=5.6.0",
-    `courseId: "${courseId}"`
-  ],`${htmlFile} modular navigation loader`);
-  const course=courseManifest.courses[courseId];
-  if(!course?.styles.includes("desktop-navigation-refinement.css?v=5.5.3")){
-    fail(`${htmlFile} navigation loader is missing desktop-navigation-refinement.css?v=5.5.3`);
-  }
-  if(!course?.scripts.includes("desktop-navigation-refinement.js?v=5.5.3")){
-    fail(`${htmlFile} navigation loader is missing desktop-navigation-refinement.js?v=5.5.3`);
-  }
+    "desktop-navigation-refinement.css",
+    "desktop-navigation-refinement.js"
+  ],`${htmlFile} navigation loader`);
 }
 
 requireMarkers(worker,[
-  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"',
-  'const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"',
+  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"',
+  'const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"',
   '"./desktop-navigation-refinement.js"',
   '"./desktop-navigation-refinement.css"'
 ],"Persistent navigation offline release");
@@ -116,4 +101,4 @@ if(!workflow.includes("node scripts/validate-persistent-navigation.mjs")){
   fail("Bisaya workflow does not run the persistent-navigation validator");
 }
 
-console.log("Validated one persistent navigation owner, complete desktop routes, permanent mobile More access, full-height internally scrollable sidebar, small-desktop wrapping, modular course loading and r53 offline delivery.");
+console.log("Validated one persistent navigation owner, complete desktop routes, permanent mobile More access, full-height internally scrollable sidebar, small-desktop wrapping and r52 offline delivery.");

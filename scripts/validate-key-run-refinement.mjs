@@ -13,7 +13,6 @@ for (const file of [
   "daily-goal-refinement.js",
   "key-run-refinement.js",
   "even-progress-rail.js",
-  "src/features/progression/even-progress-rail.js",
   "profile-emblem-control.js",
   "service-worker.js"
 ]) new vm.Script(read(file), {filename:file});
@@ -60,7 +59,7 @@ if (keyRun.includes("this week") || keyRun.includes("currentWeekKey")) {
   fail("The key-run layer must not use calendar-week language or grouping.");
 }
 
-const rail = read("src/features/progression/even-progress-rail.js");
+const rail = read("even-progress-rail.js");
 requireMarkers(rail, [
   "renderMasteryRailWithEvenMilestones",
   "(index + 1) / count * 100",
@@ -89,8 +88,7 @@ const serviceWorker = read("service-worker.js");
 requireMarkers(serviceWorker, [
   '"./daily-goal-refinement.js"',
   '"./key-run-refinement.js"',
-  '"./even-progress-rail.js"',
-  '"./src/features/progression/even-progress-rail.js"'
+  '"./even-progress-rail.js"'
 ], "Offline delivery");
 
 console.log("Validated repaired cumulative Quick Review counting, harder Daily Quests, six consecutive Daily Keys, learner-avatar menus, even mastery nodes, both course loaders, and offline assets.");

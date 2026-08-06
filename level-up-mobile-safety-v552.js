@@ -1,28 +1,31 @@
 (() => {
   "use strict";
 
-  const TARGET = "./src/features/interface/level-up-mobile-safety-v552.js?v=5.5.3";
-  const LOADING_FLAG = "__salitaQuestLevelUpMobileSafetyV552CompatibilityLoading";
+  const INSTALL_FLAG = "__salitaQuestLevelUpMobileSafetyV552Installed";
+  const RELEASE = "5.5.3";
 
-  if (window.SalitaLevelUpMobileSafety || window[LOADING_FLAG]) return;
-  window[LOADING_FLAG] = true;
-
-  const current = document.currentScript;
-  const targetUrl = new URL(TARGET, current?.src || document.baseURI).href;
-  if (document.readyState === "loading" && current) {
-    document.write(`<script src="${targetUrl}"><\/script>`);
-    window[LOADING_FLAG] = false;
-    return;
+  function retry() { window.setTimeout(install, 100); }
+  function install() {
+    if (window[INSTALL_FLAG]) return;
+    if (!window.SalitaLevelProgression || !window.SalitaPopupGovernor) { retry(); return; }
+    window[INSTALL_FLAG] = true;
+    window.SalitaLevelProgression.sanitise();
+    window.addEventListener("pageshow", () => {
+      window.SalitaLevelProgression.sanitise();
+      window.SalitaLevelProgression.requestCelebration();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        window.SalitaLevelProgression.sanitise();
+        window.SalitaPopupGovernor.notify();
+      }
+    });
+    document.documentElement.dataset.levelUpSafety = RELEASE;
+    window.SalitaLevelUpMobileSafety = Object.freeze({
+      version:RELEASE,
+      sanitise:window.SalitaLevelProgression.sanitise,
+      acknowledge:window.SalitaLevelProgression.sanitise
+    });
   }
-
-  const script = document.createElement("script");
-  script.src = targetUrl;
-  script.async = false;
-  script.dataset.salitaCompatibilityLoader = "level-up-mobile-safety-v552";
-  script.addEventListener("load", () => { window[LOADING_FLAG] = false; }, {once:true});
-  script.addEventListener("error", () => {
-    window[LOADING_FLAG] = false;
-    console.error("Salita Quest could not load the extracted level-up mobile-safety module.");
-  }, {once:true});
-  (document.head || document.documentElement).appendChild(script);
+  install();
 })();

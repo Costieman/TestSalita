@@ -5,7 +5,7 @@ const root = new URL("../", import.meta.url);
 const read = path => fs.readFileSync(new URL(path, root), "utf8");
 const fail = message => { throw new Error(message); };
 
-const catalogueSource = read("src/features/avatar/avatar-catalogue-v1.js");
+const catalogueSource = read("avatar-catalogue-v1.js");
 const unlockSource = read("avatar-unlock-celebration-v1.js");
 const unlockCss = read("avatar-unlock-celebration-v1.css");
 const bridgeSource = read("achievement-sharing-avatar-bridge-v1.js");
@@ -68,30 +68,23 @@ if (seenOnly) fail("Seen unlocks must never replay");
 
 for (const required of [
   "sq-avatar-unlock-layer",
-  "View collection",
+  "Add to collection",
   "window.SalitaAvatarCollectionScreen",
   "salita:open-avatar-collection",
-  "data-unlock-add",
-  "finish(true)",
+  "data-avatar-card",
+  "scrollIntoView",
+  "flyer.animate",
   "avatarUnlockHistory",
-  "salita:avatar-unlock-acknowledged",
   "salita:avatar-unlock-animation-started",
   "salita:avatar-unlock-animation-finished",
-  "let finished = false",
-  "acknowledgePending(pendingEntry, item)",
-  "window.SalitaPopupGovernor",
-  "governor.enqueue",
-  "acknowledge:() => acknowledgePending(pendingEntry, item)",
-  "show:() => showUnlock(item, pendingEntry)",
-  "acknowledgedBeforePopup:true"
+  "let finishing = false",
+  "saveCompletion(pendingEntry,item)",
+  "if (useFlight) await flyToCollection(item)"
 ]) {
   if (!unlockSource.includes(required)) fail(`Unlock runtime is missing ${required}`);
 }
-if (unlockSource.indexOf("acknowledge:() => acknowledgePending(pendingEntry, item)") > unlockSource.indexOf("show:() => showUnlock(item, pendingEntry)")) {
-  fail("Unlock request must declare durable acknowledgement before rendering");
-}
-if (unlockSource.includes("flyer.animate") || unlockSource.includes("flyToCollection")) {
-  fail("Unlock runtime must use the governed dialog flow rather than the retired flyer implementation");
+if (unlockSource.indexOf("saveCompletion(pendingEntry,item)") > unlockSource.indexOf("if (useFlight) await flyToCollection(item)")) {
+  fail("Unlock acknowledgement must be saved before the flight animation");
 }
 
 for (const required of [
@@ -104,48 +97,28 @@ for (const required of [
 }
 
 for (const required of [
-  'const RELEASE = "5.5.11-explicit-sharing-router"',
-  "profile?.avatarCollection?.equippedAvatarId",
+  "avatarCollection?.equippedAvatarId",
   "window.SalitaAvatarModel?.get",
-  "window.SalitaAvatarArtwork?.getAvatarImagePath",
-  "window.getAvatarImagePath",
-  "normaliseCollectionState",
-  "decorateAvatarDetails",
-  "dataset.shareAvatar",
-  'button.textContent = "Share avatar"',
-  "window.SalitaAchievementAvatarBridge = compatibilityApi",
-  "openBadge(...args)",
-  "openChest(...args)",
-  "openAvatar(...args)",
-  "openAvatarCase(...args)",
-  "openLevel(...args)",
-  "new MutationObserver",
-  'document.addEventListener("salita:avatar-collection-changed"',
-  'script.src = "./src/features/sharing/facebook-share-link-v1.js?v=1.0.0"',
-  'new CustomEvent("salita:avatar-sharing-bridge-ready"',
-  "compatibilityOnly:true",
-  "transportOwner:false"
+  "LEGACY_AVATAR_PATTERN",
+  "RedirectedImage",
+  "stampAvatar",
+  "HTMLCanvasElement.prototype.toBlob",
+  "stampBadge:method === \"openBadge\"",
+  '"openBadge", "openChest", "openLevel"',
+  "document.addEventListener(\"click\", interceptSharingClicks, true)"
 ]) {
   if (!bridgeSource.includes(required)) fail(`Achievement avatar bridge is missing ${required}`);
 }
-for (const retired of ["LEGACY_AVATAR_PATTERN","RedirectedImage","HTMLCanvasElement.prototype.toBlob","interceptSharingClicks","stampAvatar","stampBadge"]) {
-  if (bridgeSource.includes(retired)) fail(`Compatibility bridge must not retain retired transport ownership: ${retired}`);
-}
 
-if (!loaderSource.includes('const RELEASE_VERSION = "5.5.6"')) fail("Shared profile runtime release version is not 5.5.6");
+if (!loaderSource.includes('const RELEASE_VERSION = "5.5.1"')) fail("Shared profile runtime release version is not 5.5.1");
 for (const required of [
   "avatar-unlock-celebration-v1.css",
   "avatar-unlock-celebration-v1.js",
   "achievement-sharing-avatar-bridge-v1.js",
   'loadScript("unlock"',
-  '"sharing",'
+  'loadScript("sharing"'
 ]) {
   if (!loaderSource.includes(required)) fail(`Shared loader is missing ${required}`);
 }
-const sharingRouterIndex = loaderSource.indexOf("achievement-sharing-router-v2.js");
-const sharingBridgeIndex = loaderSource.indexOf("achievement-sharing-avatar-bridge-v1.js");
-if (!(sharingRouterIndex >= 0 && sharingBridgeIndex > sharingRouterIndex)) {
-  fail("Shared loader must install the central sharing router before the avatar compatibility bridge");
-}
 
-console.log("Avatar unlock and sharing validation passed: persisted once-only governed reveals, duplicate consumption, collection opening, compatibility-only avatar sharing decoration and centralized transport ownership.");
+console.log("Avatar unlock and sharing validation passed: persisted once-only reveals, duplicate consumption, collection flight, reduced-motion fallback and equipped-avatar cards.");

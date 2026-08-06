@@ -12,11 +12,9 @@ const requireMarkers = (source, markers, label) => markers.forEach(marker => {
 for (const file of [
   "daily-goal-refinement.js",
   "even-progress-rail.js",
-  "src/features/progression/even-progress-rail.js",
   "level-progression-v2.js",
   "adaptive-scenarios.js",
   "desktop-navigation-refinement.js",
-  "src/config/course-manifest.js",
   "service-worker.js"
 ]) new vm.Script(read(file), {filename:file});
 
@@ -62,7 +60,7 @@ for (const file of [
   if (context.state.dailyActivity.dailySessions !== 1) fail("A completed Daily Session did not increment dailySessions.");
 }
 
-const rail = read("src/features/progression/even-progress-rail.js");
+const rail = read("even-progress-rail.js");
 requireMarkers(rail, [
   "visualProgress(points, milestones)",
   "(index + 1) / count * 100",
@@ -181,44 +179,29 @@ requireMarkers(navigationCss, [
 if (navigationCss.includes("body.desktop-nav-collapsed .app-shell")) fail("Persistent navigation CSS must not restore the retired icon rail.");
 if (navigationCss.includes("grid-template-columns: 78px minmax(0, 1fr)")) fail("Persistent navigation CSS must keep labels visible at laptop widths.");
 
-const manifestSource = read("src/config/course-manifest.js");
-const manifestContext = {window:{}};
-vm.createContext(manifestContext);
-vm.runInContext(manifestSource, manifestContext, {filename:"src/config/course-manifest.js"});
-const courseManifest = manifestContext.window.SalitaQuestCourseManifest;
-if (!courseManifest?.courses) fail("The modular course manifest was not installed.");
-
-for (const [htmlFile, courseId] of [["app.html", "tagalog"], ["bisaya.html", "cebuano"]]) {
+for (const htmlFile of ["app.html", "bisaya.html"]) {
   const html = read(htmlFile);
   requireMarkers(html, [
-    "src/config/course-manifest.js?v=5.6.0",
-    "src/app/course-bootstrap.js?v=5.6.0",
-    `courseId: "${courseId}"`
-  ], `${htmlFile} modular progression loader`);
-  const course = courseManifest.courses[courseId];
-  if (!course) fail(`${courseId} is missing from the course manifest.`);
-  requireMarkers(course.styles.join("\n"), [
     "world-progress-status.css?v=5.4.21",
     "fluid-desktop-app.css?v=5.4.21",
-    "adaptive-scenarios.css?v=5.4.21"
-  ], `${htmlFile} progression release styles`);
-  requireMarkers(course.scripts.join("\n"), [
-    "src/features/progression/even-progress-rail.js?v=5.4.21",
+    "adaptive-scenarios.css?v=5.4.21",
     "adaptive-scenarios.js?v=5.4.21"
-  ], `${htmlFile} progression release scripts`);
-  for (const [asset, kind, collection] of [
-    ["level-progression-v2.css", "Level Progression styles", course.styles],
-    ["desktop-navigation-refinement.css", "navigation styles", course.styles],
-    ["level-progression-v2.js", "Level Progression runtime", course.scripts],
-    ["desktop-navigation-refinement.js", "navigation runtime", course.scripts]
+  ], `${htmlFile} progression release`);
+  for (const [asset, kind] of [
+    ["level-progression-v2.css", "Level Progression styles"],
+    ["desktop-navigation-refinement.css", "navigation styles"],
+    ["level-progression-v2.js", "Level Progression runtime"],
+    ["desktop-navigation-refinement.js", "navigation runtime"]
   ]) {
-    const pattern = new RegExp(`^${asset.replaceAll(".", "\\.")}\\?v=(?:5\\.4\\.21|5\\.5\\.2|5\\.5\\.3)$`);
-    if (!collection.some(path => pattern.test(path))) fail(`${htmlFile} progression release is missing ${kind}.`);
+    const pattern = new RegExp(`${asset.replaceAll(".", "\\.")}\\?v=(?:5\\.4\\.21|5\\.5\\.2|5\\.5\\.3)`);
+    if (!pattern.test(html)) fail(`${htmlFile} progression release is missing ${kind}.`);
   }
-  const mobileIndex = course.scripts.indexOf("mobile-session-refinement.js?v=5.4.21");
-  const adaptiveIndex = course.scripts.indexOf("adaptive-scenarios.js?v=5.4.21");
-  const levelIndex = course.scripts.findIndex(path => /^level-progression-v2\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)$/.test(path));
-  const navigationIndex = course.scripts.findIndex(path => /^desktop-navigation-refinement\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)$/.test(path));
+  const mobileIndex = html.indexOf("mobile-session-refinement.js?v=5.4.21");
+  const adaptiveIndex = html.indexOf("adaptive-scenarios.js?v=5.4.21");
+  const levelMatch = html.match(/level-progression-v2\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)/);
+  const navigationMatch = html.match(/desktop-navigation-refinement\.js\?v=(?:5\.4\.21|5\.5\.2|5\.5\.3)/);
+  const levelIndex = levelMatch ? levelMatch.index : -1;
+  const navigationIndex = navigationMatch ? navigationMatch.index : -1;
   if (!(mobileIndex >= 0 && adaptiveIndex > mobileIndex && levelIndex > adaptiveIndex && navigationIndex > levelIndex)) {
     fail(`${htmlFile} must load mobile state, scenarios, governed Level 99, then the final navigation wrapper.`);
   }
@@ -226,10 +209,8 @@ for (const [htmlFile, courseId] of [["app.html", "tagalog"], ["bisaya.html", "ce
 
 const serviceWorker = read("service-worker.js");
 requireMarkers(serviceWorker, [
-  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"',
-  'const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"',
-  '"./even-progress-rail.js"',
-  '"./src/features/progression/even-progress-rail.js"',
+  'const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"',
+  'const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"',
   '"./world-progress-status.css"',
   '"./level-progression-v2.js"',
   '"./level-progression-v2.css"',
@@ -240,4 +221,4 @@ requireMarkers(serviceWorker, [
   '"./desktop-navigation-refinement.css"'
 ], "Offline progression release");
 
-console.log(`Validated live Quick Review item counting, World Progress states, ${totalXpTo99} XP to Level 99, governed acknowledgement-before-render level celebrations, ${scenarioCount} adaptive scenarios, persistent labelled navigation, dedicated Badges and Avatar Collection routes, small-desktop safety, modular course loading and offline delivery.`);
+console.log(`Validated live Quick Review item counting, World Progress states, ${totalXpTo99} XP to Level 99, governed acknowledgement-before-render level celebrations, ${scenarioCount} adaptive scenarios, persistent labelled navigation, dedicated Badges and Avatar Collection routes, small-desktop safety, both courses and offline delivery.`);

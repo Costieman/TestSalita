@@ -10,7 +10,6 @@ for (const file of [
   "placement-onboarding-v1.js",
   "badge-catalogue-v2.js",
   "badge-chest-v2.js",
-  "src/config/course-manifest.js",
   "service-worker.js"
 ]) new vm.Script(read(file), {filename: file});
 
@@ -64,42 +63,26 @@ for (const marker of [
 ]) if (!chest.includes(marker)) fail(`Missing stable Badge Chest marker: ${marker}`);
 if (chest.includes("MutationObserver")) fail("Badge Chest must not observe and rewrite its own shelf mutations.");
 
-const manifestContext = {window:{}};
-vm.createContext(manifestContext);
-vm.runInContext(read("src/config/course-manifest.js"), manifestContext, {filename:"src/config/course-manifest.js"});
-const courseManifest = manifestContext.window.SalitaQuestCourseManifest;
-if (!courseManifest?.courses) fail("The modular course manifest was not installed.");
-
-for (const [htmlFile, courseId] of [["app.html", "tagalog"], ["bisaya.html", "cebuano"]]) {
+for (const htmlFile of ["app.html", "bisaya.html"]) {
   const html = read(htmlFile);
   const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match => match[1].trim()).filter(Boolean);
   scripts.forEach((source, index) => new vm.Script(source, {filename: `${htmlFile}#inline-${index + 1}`}));
-  for (const marker of [
-    "src/config/course-manifest.js?v=5.6.0",
-    "src/app/course-bootstrap.js?v=5.6.0",
-    `courseId: "${courseId}"`
-  ]) if (!html.includes(marker)) fail(`${htmlFile} does not load ${marker}`);
-
-  const course = courseManifest.courses[courseId];
-  if (!course) fail(`${courseId} is missing from the course manifest.`);
   for (const asset of [
     "badge-catalogue-v2.css?v=5.4.23",
     "badge-chest-v2.css?v=5.4.29",
-    "placement-onboarding-v1.css?v=5.4.23"
-  ]) if (!course.styles.includes(asset)) fail(`${htmlFile} does not load ${asset}`);
-  for (const asset of [
+    "placement-onboarding-v1.css?v=5.4.23",
     "badge-catalogue-v2.js?v=5.4.23",
     "badge-chest-v2.js?v=5.4.29",
     "placement-onboarding-v1.js?v=5.4.23"
-  ]) if (!course.scripts.includes(asset)) fail(`${htmlFile} does not load ${asset}`);
-  const catalogueIndex = course.scripts.indexOf("badge-catalogue-v2.js?v=5.4.23");
-  const chestIndex = course.scripts.indexOf("badge-chest-v2.js?v=5.4.29");
-  const placementIndex = course.scripts.indexOf("placement-onboarding-v1.js?v=5.4.23");
+  ]) if (!html.includes(asset)) fail(`${htmlFile} does not load ${asset}`);
+  const catalogueIndex = html.indexOf("badge-catalogue-v2.js?v=5.4.23");
+  const chestIndex = html.indexOf("badge-chest-v2.js?v=5.4.29");
+  const placementIndex = html.indexOf("placement-onboarding-v1.js?v=5.4.23");
   if (!(catalogueIndex >= 0 && chestIndex > catalogueIndex && placementIndex > chestIndex)) {
     fail(`${htmlFile} must load catalogue, stable Badge Chest, then placement.`);
   }
   for (const obsolete of ["badge-sharing-v1", "social-links-v1"]) {
-    if ([...course.styles, ...course.scripts].some(asset => asset.includes(obsolete))) fail(`${htmlFile} still loads obsolete ${obsolete}`);
+    if (html.includes(obsolete)) fail(`${htmlFile} still loads obsolete ${obsolete}`);
   }
 }
 
@@ -113,15 +96,13 @@ for (const asset of [
   '"./avatar-case-v1.css"',
   '"./desktop-navigation-refinement.js"',
   '"./desktop-navigation-refinement.css"',
-  '"./exercise-fixes-v545.js"',
-  '"./src/config/course-manifest.js"',
-  '"./src/app/course-bootstrap.js"'
+  '"./exercise-fixes-v545.js"'
 ]) if (!worker.includes(asset)) fail(`Offline cache is missing ${asset}`);
-if (!worker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-6-19-long-term-badge-adapter-extraction-r72"')) {
+if (!worker.includes('const PREVIOUS_CACHE_NAME = "salita-quest-v5-5-9-avatar-case-r51"')) {
   fail("Previous service-worker cache boundary is missing");
 }
-if (!worker.includes('const CACHE_NAME = "salita-quest-v5-6-20-avatar-case-profile-adapter-extraction-r73"')) {
-  fail("Current modular-bootstrap service-worker cache is missing");
+if (!worker.includes('const CACHE_NAME = "salita-quest-v5-5-10-persistent-navigation-r52"')) {
+  fail("Current persistent-navigation service-worker cache is missing");
 }
 
 const index = read("index.html");
@@ -161,4 +142,4 @@ for (const marker of [
   "validate-placement-sharing.mjs"
 ]) if (!readme.includes(marker)) fail(`README is missing: ${marker}`);
 
-console.log("Validated pre-placement Tagalog/Bisaya choice, per-course local progress, 20-question placement, non-destructive content access, badge catalogue render boundary, stable Badge Chest ownership, modular language loaders and r53 offline release.");
+console.log("Validated pre-placement Tagalog/Bisaya choice, per-course local progress, 20-question placement, non-destructive content access, badge catalogue render boundary, stable Badge Chest ownership, both language loaders and persistent-navigation offline release.");
