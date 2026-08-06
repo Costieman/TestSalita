@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-06T09:34:39.579Z
+Generated: 2026-08-06T10:58:24.845Z
 
-- Text/code files scanned: **206**
+- Text/code files scanned: **203**
 - Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **43**
+- Not statically reachable: **40**
 - Custom events mapped: **40**
 - Shared globals mapped: **31**
 
@@ -51,14 +51,11 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
 - `level-avatar-rewards-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `scripts/validate-avatar-artwork-v554.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-case-mobile-flow-hotfix.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-case.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-catalogue.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-collection-pane-flow.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-collection-screen.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-hotfix-v551.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-onboarding.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-pool-phase3.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-progression-v550.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-release-v550.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-runtime-v556.mjs` — reachable: **false**; incoming: none found statically

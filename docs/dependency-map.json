@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T09:34:39.579Z",
+  "generatedAt": "2026-08-06T10:58:24.845Z",
   "roots": [
     "index.html",
     "app.html",
@@ -14,9 +14,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 206,
+    "files": 203,
     "reachable": 163,
-    "notStaticallyReachable": 43,
+    "notStaticallyReachable": 40,
     "events": 40,
     "globals": 31
   },
@@ -2737,11 +2737,6 @@
       "incoming": [],
       "outgoing": []
     },
-    "scripts/validate-avatar-case-mobile-flow-hotfix.mjs": {
-      "reachable": false,
-      "incoming": [],
-      "outgoing": []
-    },
     "scripts/validate-avatar-case.mjs": {
       "reachable": false,
       "incoming": [],
@@ -2769,11 +2764,6 @@
       "incoming": [],
       "outgoing": []
     },
-    "scripts/validate-avatar-collection-pane-flow.mjs": {
-      "reachable": false,
-      "incoming": [],
-      "outgoing": []
-    },
     "scripts/validate-avatar-collection-screen.mjs": {
       "reachable": false,
       "incoming": [],
@@ -2793,11 +2783,6 @@
           "kind": "html-asset"
         }
       ]
-    },
-    "scripts/validate-avatar-pool-phase3.mjs": {
-      "reachable": false,
-      "incoming": [],
-      "outgoing": []
     },
     "scripts/validate-avatar-progression-v550.mjs": {
       "reachable": false,
