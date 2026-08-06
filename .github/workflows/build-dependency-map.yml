@@ -1,0 +1,34 @@
+name: Build dependency map
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/dependency-map.json'
+      - 'docs/dependency-map.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dependency-map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate dependency graph
+        run: node scripts/build-dependency-map.mjs
+      - name: Commit generated report
+        run: |
+          if git diff --quiet -- docs/dependency-map.json docs/dependency-map.md; then
+            echo "Dependency report unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/dependency-map.json docs/dependency-map.md
+          git commit -m "Update generated dependency map"
+          git push
