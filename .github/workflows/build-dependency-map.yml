@@ -23,7 +23,7 @@ jobs:
         run: node scripts/build-dependency-map.mjs
       - name: Commit generated report
         run: |
-          if git diff --quiet -- docs/dependency-map.json docs/dependency-map.md; then
+          if [ -z "$(git status --porcelain -- docs/dependency-map.json docs/dependency-map.md)" ]; then
             echo "Dependency report unchanged"
             exit 0
           fi
