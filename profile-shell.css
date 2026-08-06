@@ -1,4 +1,5 @@
 @import url("./profile-shell-base.css?v=5.5.5");
+@import url("./test-environment-badge.css?v=1.0.0");
 
 /* Keep the login actions behind the mobile PIN keypad so the keyboard's Done/OK
    action is not confused with the page-level Continue button. */
