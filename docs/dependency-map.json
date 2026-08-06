@@ -1,0 +1,5037 @@
+{
+  "generatedAt": "2026-08-06T08:04:36.536Z",
+  "roots": [
+    "index.html",
+    "app.html",
+    "bisaya.html",
+    "service-worker.js",
+    "manifest.webmanifest",
+    ".github/workflows/apply-sandbox-isolation.yml",
+    ".github/workflows/bootstrap-sandbox.yml",
+    ".github/workflows/build-dependency-map.yml",
+    ".github/workflows/deploy-pages.yml",
+    ".github/workflows/sandbox-smoke-test.yml",
+    ".github/workflows/sync-from-salitaquest.yml"
+  ],
+  "counts": {
+    "files": 211,
+    "reachable": 163,
+    "notStaticallyReachable": 48,
+    "events": 40,
+    "globals": 31
+  },
+  "files": {
+    ".github/workflows/apply-sandbox-isolation.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "index.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "app.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-refresh.html",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    ".github/workflows/bootstrap-sandbox.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": []
+    },
+    ".github/workflows/build-dependency-map.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "scripts/build-dependency-map.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    ".github/workflows/deploy-pages.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": []
+    },
+    ".github/workflows/sandbox-smoke-test.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": []
+    },
+    ".github/workflows/sync-from-salitaquest.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": []
+    },
+    "AGENTS.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "COLLECTION_FILL_CHANGELOG.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "CURRICULUM_NOTES.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "DESIGN_RESEARCH.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "GITHUB_UPLOAD_CHECKLIST.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "MOBILE_PROGRESS_TRANSFER.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "README.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "services/social-share/deploy-cloud-shell.sh",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/generate_cebuano_google_audio.py",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/generate_missing_bisaya_english_audio.py",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-persistent-navigation.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-ui-quality.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-home-dashboard.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-mobile-refinement.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-key-run-refinement.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-audio-badge-release.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-placement-sharing.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-bisaya-audio-library.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "scripts/validate-badge-stability.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "target": "audio",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "README_GITHUB.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "README_V5.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "UPGRADE_FROM_V3_2.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "V5_PROGRESS_MIGRATION.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "achievement-sharing-avatar-bridge-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "facebook-share-link-v1.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "achievement-sharing-image-transport-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "achievement-sharing-router-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-achievement-image-transport.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "achievement-sharing-router-v2.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-achievement-image-transport.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "achievement-sharing-router-v3.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "achievement-sharing-router-v3.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "achievement-sharing-router-v2.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "achievement-sharing-v4.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-avatar-case.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "achievement-sharing-v4.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "adaptive-scenarios.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "adaptive-scenarios.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "app.html": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "dependency-audit.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "app.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-quality-fixes.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-answer-breakdown.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "incorrect-order-feedback.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-desktop-layout.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-home-dashboard.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-chest.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "clean-topbar.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "world-progress-status.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-feedback.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-console-overrides.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "lesson-side-launcher.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mobile-session-refinement.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-emblem-control.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-progression-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "fluid-desktop-app.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "adaptive-scenarios.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-catalogue-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-layout-v3.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "placement-onboarding-v1.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "social-connections-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "progression-v54.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "exercise-fixes-v545.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-quality-fixes.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "daily-goal-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-chest.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "key-run-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-polish.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "incorrect-order-feedback.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-desktop-layout.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "clean-topbar.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "even-progress-rail.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "translation-gloss-completion-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-feedback.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "lesson-side-launcher.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mobile-session-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "popup-governor-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-app.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-emblem-control.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "adaptive-scenarios.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-progression-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-up-mobile-safety-v552.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "pronunciation-release-control.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "home-reward-coordinator.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-catalogue-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "placement-onboarding-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "social-connections-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "collection-key-translation-hotfix.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "app.js",
+          "kind": "dynamic-script"
+        }
+      ]
+    },
+    "app.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "app.html",
+          "kind": "dynamic-script"
+        },
+        {
+          "source": "bisaya-app-loader.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "dynamic-script"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "fetch"
+        },
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "apply_patch.py": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "audio/audio_manifest.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.js",
+          "kind": "fetch"
+        },
+        {
+          "source": "app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "connect_audio_library.py",
+          "kind": "fetch"
+        },
+        {
+          "source": "connect_audio_library.py",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-bisaya-audio-library.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-artwork-registry-v554.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-case-desktop-safety.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "collection-key-translation-hotfix.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-case-mobile-flow-hotfix-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-case-page-tab-v1.css": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "avatar-case-page-tab-v1.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-case-page-tab-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "avatar-case-page-tab-v1.css",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "avatar-case-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-avatar-case.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-runtime-v556.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-case-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-avatar-case.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-runtime-v556.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-stage1-popup-governance-v553.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-catalogue-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "index.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "profile-app.js",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-avatar-onboarding.mjs",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-collection-page-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "collection-key-translation-hotfix.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-collection-page-v2.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-collection-rarity-fill-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-collection-screen-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-avatar-case.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-collection-screen-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-collection-summary-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-collection-summary-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-collection-tabs-phase6-1-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-collection-tabs-phase6-1-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "avatar-progression-hotfix-v551.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-progression-hotfix-v551.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-progression-migration-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-unlock-celebration-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatar-unlock-celebration-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-stage1-popup-governance-v553.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "avatars/canonical/manifest.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "badge-catalogue-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-audio-badge-release.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "badge-catalogue-v2.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-audio-badge-release.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "badge-chest-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "badge-chest-v2.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "badge-layout-v3.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "bisaya-app-loader.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "languages/cebuano/course.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "app.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "bisaya-review-regions.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "bisaya-review-regions.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "languages/cebuano/README.md",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "profile-app.js",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-bisaya.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "bisaya.html": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "app.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "bisaya-review-regions.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-quality-fixes.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-answer-breakdown.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "incorrect-order-feedback.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-desktop-layout.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-home-dashboard.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-chest.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "clean-topbar.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "world-progress-status.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-feedback.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-console-overrides.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "lesson-side-launcher.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mobile-session-refinement.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-emblem-control.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-progression-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "fluid-desktop-app.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "adaptive-scenarios.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-catalogue-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-layout-v3.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "placement-onboarding-v1.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "social-connections-v2.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "bisaya-app-loader.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "ui-quality-fixes.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "daily-goal-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-chest.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "key-run-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "weekly-avatar-polish.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "incorrect-order-feedback.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "compact-desktop-layout.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "clean-topbar.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "even-progress-rail.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mastery-feedback.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "lesson-side-launcher.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "mobile-session-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "popup-governor-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-emblem-control.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "adaptive-scenarios.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-progression-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "level-up-mobile-safety-v552.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "pronunciation-release-control.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "home-reward-coordinator.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-catalogue-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "placement-onboarding-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "social-connections-v2.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "app.js",
+          "kind": "dynamic-script"
+        }
+      ]
+    },
+    "clean-topbar.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "test-environment-badge.css",
+          "kind": "css-url"
+        }
+      ]
+    },
+    "clean-topbar.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "coin-avatar-reveal-rarity-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-avatar-shard-shop-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-avatar-shard-shop-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "coin-avatar-shop-reveal-v1.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "coin-avatar-shop-reveal-v1.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "coin-avatar-shop-badges-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-avatar-shop-reveal-v1.css": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "coin-avatar-shard-shop-v1.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "coin-avatar-shop-reveal-v1.js": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "coin-avatar-shard-shop-v1.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "coin-avatar-shop-topbar-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-avatar-shop-topbar-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-testing-grant-100k-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "coin-testing-grant-50k-phase5-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "collection-key-translation-hotfix.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "avatar-case-desktop-safety.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "avatar-collection-page-v2.css",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "compact-desktop-layout.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "compact-desktop-layout.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "compact-home-dashboard.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "connect_audio_library.py": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "fetch"
+        },
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "daily-goal-refinement.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-key-run-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "dependency-audit.html": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "app.html",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "desktop-navigation-refinement.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-runtime-v556.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-persistent-navigation-ci.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-persistent-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "desktop-navigation-refinement.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-avatar-progression-v550.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-avatar-runtime-v556.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-badge-stability.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-mobile-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-persistent-navigation-ci.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-persistent-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-stage1-popup-governance-v553.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "economy-tracking-phase6-v1.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "economy-tracking-phase6-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "even-progress-rail.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-key-run-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "exercise-fixes-v545.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-bisaya.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-bisaya.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "facebook-share-link-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "achievement-sharing-avatar-bridge-v1.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "fluid-desktop-app.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "generate_audio_library.py": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "generate_audio_library.py",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "generate_audio_library.py",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "home-reward-coordinator.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-audio-badge-release.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "incorrect-order-feedback.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "incorrect-order-feedback.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-ui-quality.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "index.html": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "start.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "start.html",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "manifest.webmanifest",
+          "kind": "html-asset"
+        },
+        {
+          "target": "icons/icon-192.png",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-shell.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "avatar-catalogue-v1.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "key-run-refinement.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-key-run-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/README.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "bisaya-review-regions.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "languages/cebuano/course.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "bisaya-app-loader.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/code-switching.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/food.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/grammar.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/introductions.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/manifest.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "bisaya-app-loader.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/origin.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/questions.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/spanish.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/verbs.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "languages/cebuano/modules/wellbeing.json": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "lesson-side-launcher.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "lesson-side-launcher.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-ui-quality.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "level-avatar-rewards-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-stage1-popup-governance-v553.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "level-progression-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "level-progression-v2.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "avatars/tarsier.png",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "level-up-mobile-safety-v552.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-mobile-level-up-hotfix-v552.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "long-term-badges-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "manifest.webmanifest": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "index.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "start.html",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "start.html",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "mastery-console-overrides.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mastery-feedback.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mastery-feedback.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-ui-quality.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mobile-refresh.html": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": ".github/workflows/apply-sandbox-isolation.yml",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-mobile-level-up-hotfix-v552.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mobile-session-refinement.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-mobile-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mobile-session-refinement.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-mobile-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-ui-quality.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "mobile-world-progress-flow.css": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "mystery-rarity-roll-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "placement-onboarding-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "placement-onboarding-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-placement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "popup-governor-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-stage1-popup-governance-v553.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-app.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-mobile-refinement.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "avatar-catalogue-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "bisaya-review-regions.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "profile-emblem-control.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-emblem-control.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-achievement-image-transport.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-install-prompt-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-install-prompt-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-shell-base.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "profile-shell.css",
+          "kind": "css-url"
+        }
+      ],
+      "outgoing": []
+    },
+    "profile-shell.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "index.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "profile-shell-base.css",
+          "kind": "css-url"
+        },
+        {
+          "target": "test-environment-badge.css",
+          "kind": "css-url"
+        }
+      ]
+    },
+    "profile-shell.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "progression-v54.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "prompt-distinction-clarity-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "pronoun-clarity-daily-quest-collapse-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "pronunciation-release-control.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-audio-badge-release.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "scripts/audit-course-content.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/build-dependency-map.mjs": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/build-dependency-map.yml",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": []
+    },
+    "scripts/generate_cebuano_google_audio.py": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": []
+    },
+    "scripts/generate_missing_bisaya_english_audio.py": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": []
+    },
+    "scripts/validate-achievement-image-transport.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "achievement-sharing-router-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-router-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-emblem-control.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-audio-badge-release.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "pronunciation-release-control.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "home-reward-coordinator.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-catalogue-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-catalogue-v2.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-avatar-artwork-v554.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-case-mobile-flow-hotfix.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-case.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-collection-screen-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-avatar-catalogue.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-collection-pane-flow.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-collection-rarity-fill.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-collection-screen.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-hotfix-v551.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-onboarding.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "avatar-catalogue-v1.js",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "scripts/validate-avatar-pool-phase3.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-progression-v550.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "achievement-sharing-router-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-router-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-avatar-release-v550.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-runtime-v556.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-avatar-three-tabs.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-avatar-unlock-sharing.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-badge-stability.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-bisaya-audio-library.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "scripts/validate-bisaya-audio-library.mjs",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "scripts/validate-bisaya-audio-library.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "scripts/validate-bisaya.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "exercise-fixes-v545.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya-review-regions.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-canonical-avatar-mapping.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-coin-avatar-shop.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-economy-v2-phase1.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-economy-v2-phase4.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-economy-v2-phase5.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-economy-v2-phase6.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-home-dashboard.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "profile-app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-polish.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-chest.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "clean-topbar.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "topbar-world-progress-hotfix.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-hosted-achievement-sharing.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "social-connections-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-key-run-refinement.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "daily-goal-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "key-run-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "even-progress-rail.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-level-avatar-rewards.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-long-term-badges.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-mobile-level-up-hotfix-v552.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "mobile-refresh.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-up-mobile-safety-v552.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-mobile-refinement.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "profile-app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-session-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-session-refinement.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-mystery-pack-v1.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-persistent-navigation-ci.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-persistent-navigation.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "scripts/validate-persistent-navigation.mjs",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "scripts/validate-persistent-navigation.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "scripts/validate-phase6-1-tabs-case.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "scripts/validate-placement-sharing.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "placement-onboarding-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "placement-onboarding-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "exercise-fixes-v545.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-progression-scenarios-navigation.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "world-progress-status.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-progression-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-progression-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "fluid-desktop-app.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "adaptive-scenarios.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "adaptive-scenarios.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-social-posting-audio-resume.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "badge-layout-v3.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "social-connections-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "social-connections-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-social-share-deployment-verifier.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "services/social-share/verify-deployment.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "scripts/validate-stage1-popup-governance-v553.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "popup-governor-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-avatar-rewards-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-unlock-celebration-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-targeted-hotfix.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "start.html",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-ui-quality.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "ui-quality-fixes.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "incorrect-order-feedback.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mastery-feedback.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "lesson-side-launcher.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-session-refinement.js",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "scripts/validate-weekly-avatar-shards.mjs": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "server.py": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "service-worker.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "profile-shell.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "profile-install-prompt-v1.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "profile-install-prompt-v1.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "index.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "app.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-refresh.html",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "style.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "manifest.webmanifest",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "icons/icon-192.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "icons/icon-512.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-shell.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-app.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-emblem-control.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-emblem-control.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-install-prompt-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "profile-install-prompt-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "audio/audio_manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya-app-loader.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya-review-regions.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "bisaya-review-regions.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "ui-quality-fixes.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "ui-quality-fixes.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "ui-answer-breakdown.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "incorrect-order-feedback.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "incorrect-order-feedback.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "compact-desktop-layout.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "compact-desktop-layout.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "compact-home-dashboard.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-chest.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-polish.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-chest.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "daily-goal-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "key-run-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "even-progress-rail.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "world-progress-status.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "clean-topbar.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "clean-topbar.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "topbar-world-progress-hotfix.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mastery-feedback.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mastery-feedback.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mastery-console-overrides.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "lesson-side-launcher.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "lesson-side-launcher.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-session-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "mobile-session-refinement.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "popup-governor-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-progression-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-progression-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-up-mobile-safety-v552.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "fluid-desktop-app.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "adaptive-scenarios.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "adaptive-scenarios.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "desktop-navigation-refinement.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "pronunciation-release-control.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "home-reward-coordinator.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-catalogue-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-catalogue-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-layout-v3.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "badge-chest-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "placement-onboarding-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "placement-onboarding-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "social-connections-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "social-connections-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-v4.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-router-v2.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-router-v2.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "progression-v54.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "exercise-fixes-v545.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-catalogue-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-artwork-registry-v554.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-progression-hotfix-v551.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-progression-hotfix-v551.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-progression-migration-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-collection-screen-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-collection-screen-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-case-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-shard-rewards-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "weekly-avatar-shard-rewards-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "level-avatar-rewards-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-unlock-celebration-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatar-unlock-celebration-v1.css",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "achievement-sharing-avatar-bridge-v1.js",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/course.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/manifest.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/introductions.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/origin.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/wellbeing.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/questions.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/food.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/grammar.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/verbs.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/spanish.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "languages/cebuano/modules/code-switching.json",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/eagle.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/tamaraw.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/anahaw.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/peacock.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/orchid.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/jade.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/rafflesia.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/tarsier.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/narra.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/nipa_palm.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/buri_palm.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/almaciga.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/pandan.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/bakawan_mangrove.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/kawayang_tinik.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/pili.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/katmon.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/medinilla.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_teak.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/banaba.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/mangkono.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/attenborough_pitcher.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/slipper_orchid.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_hoya.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/parol.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/vinta.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/kulintang.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/bangka.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/jeepney.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/bahay_kubo.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/sarimanok.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/golden_salita_crest.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_pangolin.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/visayan_spotted_deer.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/visayan_warty_pig.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_crocodile.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_forest_turtle.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_sailfin_lizard.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/golden_crowned_flying_fox.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_colugo.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_cockatoo.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/rufous_hornbill.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/luzon_bleeding_heart_dove.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/cebu_flowerpecker.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/philippine_eagle_owl.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/whale_shark_butanding.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/dugong.png",
+          "kind": "worker-cache"
+        },
+        {
+          "target": "avatars/canonical/hawksbill_sea_turtle.png",
+          "kind": "worker-cache"
+        }
+      ]
+    },
+    "services/social-share/README.md": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "services/social-share/deploy-cloud-shell.sh",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "services/social-share/deploy-cloud-shell.sh": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "README.md",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "services/social-share/README.md",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "services/social-share/verify-deployment.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "services/social-share/index.js": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "services/social-share/package.json",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": []
+    },
+    "services/social-share/package.json": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "services/social-share/index.js",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "services/social-share/verify-deployment.mjs": {
+      "reachable": false,
+      "incoming": [
+        {
+          "source": "scripts/validate-social-share-deployment-verifier.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "scripts/validate-social-share-deployment-verifier.mjs",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "services/social-share/deploy-cloud-shell.sh",
+          "kind": "workflow-command"
+        },
+        {
+          "source": "services/social-share/verify-deployment.mjs",
+          "kind": "workflow-command"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "services/social-share/verify-deployment.mjs",
+          "kind": "workflow-command"
+        }
+      ]
+    },
+    "social-connections-v2.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "social-connections-v2.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-hosted-achievement-sharing.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-social-posting-audio-resume.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "start.html": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "manifest.webmanifest",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "scripts/validate-targeted-hotfix.mjs",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "manifest.webmanifest",
+          "kind": "html-asset"
+        },
+        {
+          "target": "icons/icon-192.png",
+          "kind": "html-asset"
+        },
+        {
+          "target": "index.html",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "style.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "test-environment-badge.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "clean-topbar.css",
+          "kind": "css-url"
+        },
+        {
+          "source": "profile-shell.css",
+          "kind": "css-url"
+        }
+      ],
+      "outgoing": []
+    },
+    "topbar-world-progress-hotfix.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "translation-gloss-completion-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "ui-answer-breakdown.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "ui-quality-fixes.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "ui-quality-fixes.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-ui-quality.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "weekly-avatar-chest.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "weekly-avatar-chest.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "weekly-avatar-polish.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-home-dashboard.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    },
+    "weekly-avatar-shard-rewards-v1.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "weekly-avatar-shard-rewards-v1.js",
+          "kind": "html-asset"
+        }
+      ],
+      "outgoing": []
+    },
+    "weekly-avatar-shard-rewards-v1.js": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": [
+        {
+          "target": "weekly-avatar-shard-rewards-v1.css",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "word-breakdown-cleanup-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
+    },
+    "world-progress-status.css": {
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "bisaya.html",
+          "kind": "html-asset"
+        },
+        {
+          "source": "scripts/validate-progression-scenarios-navigation.mjs",
+          "kind": "worker-cache"
+        },
+        {
+          "source": "service-worker.js",
+          "kind": "worker-cache"
+        }
+      ],
+      "outgoing": []
+    }
+  },
+  "events": {
+    "salita:achievement-image-transport-ready": {
+      "dispatchers": [
+        "achievement-sharing-image-transport-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:achievement-share-closed": {
+      "dispatchers": [],
+      "listeners": [
+        "achievement-sharing-router-v3.js"
+      ]
+    },
+    "salita:achievement-share-prepared": {
+      "dispatchers": [
+        "achievement-sharing-v4.js"
+      ],
+      "listeners": [
+        "achievement-sharing-image-transport-v1.js",
+        "achievement-sharing-router-v3.js",
+        "scripts/validate-achievement-image-transport.mjs"
+      ]
+    },
+    "salita:answer-rendered": {
+      "dispatchers": [],
+      "listeners": [
+        "translation-gloss-completion-v1.js",
+        "word-breakdown-cleanup-v1.js"
+      ]
+    },
+    "salita:avatar-case-changed": {
+      "dispatchers": [
+        "avatar-case-v1.js"
+      ],
+      "listeners": [
+        "avatar-case-page-tab-v1.js"
+      ]
+    },
+    "salita:avatar-case-ready": {
+      "dispatchers": [
+        "avatar-case-v1.js"
+      ],
+      "listeners": [
+        "avatar-case-page-tab-v1.js"
+      ]
+    },
+    "salita:avatar-collection-changed": {
+      "dispatchers": [
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "coin-avatar-shard-shop-v1.js",
+        "coin-avatar-shop-reveal-v1.js",
+        "level-avatar-rewards-v1.js",
+        "weekly-avatar-shard-rewards-v1.js"
+      ],
+      "listeners": [
+        "achievement-sharing-avatar-bridge-v1.js",
+        "achievement-sharing-v4.js",
+        "avatar-artwork-registry-v554.js",
+        "avatar-case-v1.js",
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "avatar-collection-summary-v1.js",
+        "avatar-unlock-celebration-v1.js",
+        "weekly-avatar-shard-rewards-v1.js"
+      ]
+    },
+    "salita:avatar-collection-tabs-ready": {
+      "dispatchers": [
+        "avatar-collection-tabs-phase6-1-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-equipped": {
+      "dispatchers": [
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "profile-app.js"
+      ],
+      "listeners": [
+        "avatar-artwork-registry-v554.js",
+        "avatar-collection-page-v2.js",
+        "desktop-navigation-refinement.js",
+        "profile-emblem-control.js",
+        "weekly-avatar-shard-rewards-v1.js"
+      ]
+    },
+    "salita:avatar-milestones-awarded": {
+      "dispatchers": [
+        "level-avatar-rewards-v1.js"
+      ],
+      "listeners": [
+        "avatar-unlock-celebration-v1.js"
+      ]
+    },
+    "salita:avatar-milestones-repaired": {
+      "dispatchers": [
+        "level-avatar-rewards-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-model-hotfixed": {
+      "dispatchers": [
+        "avatar-progression-hotfix-v551.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-progression-migrated": {
+      "dispatchers": [
+        "avatar-progression-migration-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-progression-ready": {
+      "dispatchers": [
+        "profile-emblem-control.js"
+      ],
+      "listeners": [
+        "avatar-case-v1.js",
+        "avatar-collection-summary-v1.js",
+        "desktop-navigation-refinement.js"
+      ]
+    },
+    "salita:avatar-random-pools-ready": {
+      "dispatchers": [
+        "coin-avatar-shop-reveal-v1.js"
+      ],
+      "listeners": [
+        "avatar-collection-summary-v1.js"
+      ]
+    },
+    "salita:avatar-sharing-bridge-ready": {
+      "dispatchers": [
+        "achievement-sharing-avatar-bridge-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-unlock-acknowledged": {
+      "dispatchers": [
+        "avatar-unlock-celebration-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-unlock-animation-finished": {
+      "dispatchers": [
+        "avatar-unlock-celebration-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:avatar-unlock-animation-started": {
+      "dispatchers": [
+        "avatar-unlock-celebration-v1.js"
+      ],
+      "listeners": [
+        "achievement-sharing-v4.js"
+      ]
+    },
+    "salita:badges-rendered": {
+      "dispatchers": [
+        "badge-catalogue-v2.js"
+      ],
+      "listeners": []
+    },
+    "salita:coin-avatar-shop-ready": {
+      "dispatchers": [
+        "coin-avatar-shard-shop-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:coin-balance-changed": {
+      "dispatchers": [
+        "coin-avatar-shard-shop-v1.js",
+        "coin-avatar-shop-reveal-v1.js",
+        "coin-testing-grant-100k-v1.js",
+        "coin-testing-grant-50k-phase5-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:coin-shard-pack-purchased": {
+      "dispatchers": [
+        "coin-avatar-shard-shop-v1.js",
+        "coin-avatar-shop-reveal-v1.js"
+      ],
+      "listeners": [
+        "coin-avatar-shop-reveal-v1.js",
+        "coin-avatar-shop-topbar-v1.js",
+        "mystery-rarity-roll-v1.js"
+      ]
+    },
+    "salita:coin-shop-badges-ready": {
+      "dispatchers": [
+        "coin-avatar-shop-badges-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:course-progress-restored": {
+      "dispatchers": [],
+      "listeners": [
+        "level-avatar-rewards-v1.js"
+      ]
+    },
+    "salita:daily-quests-rendered": {
+      "dispatchers": [],
+      "listeners": [
+        "collection-key-translation-hotfix.js",
+        "pronoun-clarity-daily-quest-collapse-v1.js"
+      ]
+    },
+    "salita:economy-tracking-ready": {
+      "dispatchers": [
+        "economy-tracking-phase6-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:economy-v2-phase1-ready": {
+      "dispatchers": [
+        "daily-goal-refinement.js"
+      ],
+      "listeners": []
+    },
+    "salita:exercise-rendered": {
+      "dispatchers": [],
+      "listeners": [
+        "prompt-distinction-clarity-v1.js",
+        "pronoun-clarity-daily-quest-collapse-v1.js",
+        "translation-gloss-completion-v1.js",
+        "word-breakdown-cleanup-v1.js"
+      ]
+    },
+    "salita:level-progression-saved": {
+      "dispatchers": [
+        "level-progression-v2.js"
+      ],
+      "listeners": []
+    },
+    "salita:level-updated": {
+      "dispatchers": [
+        "level-progression-v2.js"
+      ],
+      "listeners": [
+        "achievement-sharing-v4.js",
+        "level-avatar-rewards-v1.js"
+      ]
+    },
+    "salita:long-term-badges-ready": {
+      "dispatchers": [
+        "long-term-badges-v1.js"
+      ],
+      "listeners": []
+    },
+    "salita:open-avatar-collection": {
+      "dispatchers": [
+        "avatar-progression-hotfix-v551.js",
+        "avatar-unlock-celebration-v1.js",
+        "desktop-navigation-refinement.js",
+        "weekly-avatar-shard-rewards-v1.js"
+      ],
+      "listeners": [
+        "avatar-case-v1.js",
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "avatar-collection-summary-v1.js"
+      ]
+    },
+    "salita:placement-complete": {
+      "dispatchers": [],
+      "listeners": [
+        "scripts/validate-stage1-popup-governance-v553.mjs"
+      ]
+    },
+    "salita:placement-finished": {
+      "dispatchers": [],
+      "listeners": [
+        "level-avatar-rewards-v1.js"
+      ]
+    },
+    "salita:popup-finished": {
+      "dispatchers": [],
+      "listeners": [
+        "achievement-sharing-v4.js",
+        "avatar-unlock-celebration-v1.js"
+      ]
+    },
+    "salita:shop-opened": {
+      "dispatchers": [
+        "desktop-navigation-refinement.js"
+      ],
+      "listeners": []
+    },
+    "salita:state-changed": {
+      "dispatchers": [],
+      "listeners": [
+        "collection-key-translation-hotfix.js"
+      ]
+    },
+    "salita:view-changed": {
+      "dispatchers": [
+        "desktop-navigation-refinement.js",
+        "level-progression-v2.js"
+      ],
+      "listeners": [
+        "achievement-sharing-v4.js",
+        "avatar-case-page-tab-v1.js"
+      ]
+    },
+    "salita:weekly-key-earned": {
+      "dispatchers": [
+        "weekly-avatar-shard-rewards-v1.js"
+      ],
+      "listeners": []
+    }
+  },
+  "globals": {
+    "AudioContext": {
+      "writers": [],
+      "readers": [
+        "app.js",
+        "key-run-refinement.js",
+        "pronunciation-release-control.js",
+        "weekly-avatar-polish.js"
+      ]
+    },
+    "BADGES": {
+      "writers": [],
+      "readers": [
+        "coin-avatar-shop-badges-v1.js",
+        "long-term-badges-v1.js"
+      ]
+    },
+    "SALITA_SOCIAL_API_BASE": {
+      "writers": [],
+      "readers": [
+        "social-connections-v2.js"
+      ]
+    },
+    "SalitaAchievementAvatarBridge": {
+      "writers": [
+        "achievement-sharing-avatar-bridge-v1.js"
+      ],
+      "readers": [
+        "achievement-sharing-avatar-bridge-v1.js"
+      ]
+    },
+    "SalitaAvatarArtwork": {
+      "writers": [
+        "avatar-artwork-registry-v554.js"
+      ],
+      "readers": [
+        "achievement-sharing-avatar-bridge-v1.js",
+        "achievement-sharing-v4.js",
+        "avatar-artwork-registry-v554.js",
+        "avatar-case-page-tab-v1.js",
+        "avatar-case-v1.js",
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "avatar-unlock-celebration-v1.js",
+        "coin-avatar-shop-reveal-v1.js",
+        "desktop-navigation-refinement.js",
+        "mystery-rarity-roll-v1.js",
+        "profile-app.js",
+        "profile-emblem-control.js"
+      ]
+    },
+    "SalitaAvatarArtworkReady": {
+      "writers": [
+        "avatar-artwork-registry-v554.js"
+      ],
+      "readers": [
+        "avatar-artwork-registry-v554.js",
+        "profile-app.js",
+        "profile-emblem-control.js",
+        "scripts/validate-avatar-progression-v550.mjs"
+      ]
+    },
+    "SalitaAvatarAssets": {
+      "writers": [
+        "popup-governor-v1.js"
+      ],
+      "readers": [
+        "achievement-sharing-v4.js",
+        "avatar-unlock-celebration-v1.js",
+        "popup-governor-v1.js"
+      ]
+    },
+    "SalitaAvatarCatalogue": {
+      "writers": [
+        "avatar-progression-hotfix-v551.js",
+        "coin-avatar-shop-reveal-v1.js"
+      ],
+      "readers": [
+        "avatar-progression-hotfix-v551.js",
+        "coin-avatar-shop-reveal-v1.js"
+      ]
+    },
+    "SalitaAvatarCollectionPage": {
+      "writers": [
+        "avatar-collection-page-v2.js"
+      ],
+      "readers": [
+        "avatar-collection-page-v2.js"
+      ]
+    },
+    "SalitaAvatarCollectionScreen": {
+      "writers": [
+        "avatar-collection-screen-v1.js"
+      ],
+      "readers": [
+        "avatar-collection-screen-v1.js",
+        "avatar-unlock-celebration-v1.js",
+        "scripts/validate-avatar-unlock-sharing.mjs"
+      ]
+    },
+    "SalitaAvatarCollectionSummary": {
+      "writers": [
+        "avatar-collection-summary-v1.js"
+      ],
+      "readers": [
+        "avatar-collection-summary-v1.js"
+      ]
+    },
+    "SalitaAvatarCollectionTabsPhase61": {
+      "writers": [
+        "avatar-collection-tabs-phase6-1-v1.js"
+      ],
+      "readers": [
+        "avatar-collection-tabs-phase6-1-v1.js"
+      ]
+    },
+    "SalitaAvatarHotfixReady": {
+      "writers": [
+        "avatar-progression-hotfix-v551.js"
+      ],
+      "readers": [
+        "avatar-progression-hotfix-v551.js",
+        "profile-app.js",
+        "profile-emblem-control.js",
+        "scripts/validate-avatar-collection-screen.mjs",
+        "scripts/validate-avatar-progression-v550.mjs",
+        "scripts/validate-level-avatar-rewards.mjs",
+        "scripts/validate-weekly-avatar-shards.mjs"
+      ]
+    },
+    "SalitaAvatarModel": {
+      "writers": [
+        "avatar-progression-hotfix-v551.js",
+        "coin-avatar-shop-reveal-v1.js"
+      ],
+      "readers": [
+        "achievement-sharing-avatar-bridge-v1.js",
+        "achievement-sharing-v4.js",
+        "avatar-artwork-registry-v554.js",
+        "avatar-case-v1.js",
+        "avatar-collection-page-v2.js",
+        "avatar-collection-screen-v1.js",
+        "avatar-collection-summary-v1.js",
+        "avatar-progression-hotfix-v551.js",
+        "avatar-progression-migration-v1.js",
+        "avatar-unlock-celebration-v1.js",
+        "coin-avatar-shard-shop-v1.js",
+        "coin-avatar-shop-badges-v1.js",
+        "coin-avatar-shop-reveal-v1.js",
+        "desktop-navigation-refinement.js",
+        "index.html",
+        "level-avatar-rewards-v1.js",
+        "long-term-badges-v1.js",
+        "mystery-rarity-roll-v1.js",
+        "popup-governor-v1.js",
+        "profile-app.js",
+        "profile-emblem-control.js",
+        "scripts/validate-avatar-unlock-sharing.mjs",
+        "weekly-avatar-shard-rewards-v1.js"
+      ]
+    },
+    "SalitaAvatarUnlockCelebration": {
+      "writers": [
+        "avatar-unlock-celebration-v1.js"
+      ],
+      "readers": [
+        "avatar-unlock-celebration-v1.js"
+      ]
+    },
+    "SalitaCoinAvatarShop": {
+      "writers": [
+        "coin-avatar-shard-shop-v1.js"
+      ],
+      "readers": [
+        "coin-avatar-shard-shop-v1.js",
+        "desktop-navigation-refinement.js",
+        "scripts/validate-economy-v2-phase4.mjs"
+      ]
+    },
+    "SalitaEconomyTrackingPhase6": {
+      "writers": [
+        "economy-tracking-phase6-v1.js"
+      ],
+      "readers": [
+        "avatar-collection-tabs-phase6-1-v1.js",
+        "economy-tracking-phase6-v1.js",
+        "scripts/validate-phase6-1-tabs-case.mjs"
+      ]
+    },
+    "SalitaFacebookShareLink": {
+      "writers": [
+        "facebook-share-link-v1.js"
+      ],
+      "readers": [
+        "facebook-share-link-v1.js"
+      ]
+    },
+    "SalitaLevelAvatarRewards": {
+      "writers": [
+        "level-avatar-rewards-v1.js"
+      ],
+      "readers": [
+        "avatar-unlock-celebration-v1.js",
+        "level-avatar-rewards-v1.js"
+      ]
+    },
+    "SalitaLevelProgression": {
+      "writers": [
+        "level-progression-v2.js"
+      ],
+      "readers": [
+        "achievement-sharing-v4.js",
+        "level-progression-v2.js",
+        "level-up-mobile-safety-v552.js"
+      ]
+    },
+    "SalitaLevelUpMobileSafety": {
+      "writers": [
+        "level-up-mobile-safety-v552.js"
+      ],
+      "readers": [
+        "level-up-mobile-safety-v552.js"
+      ]
+    },
+    "SalitaPopupGovernor": {
+      "writers": [
+        "popup-governor-v1.js"
+      ],
+      "readers": [
+        "avatar-unlock-celebration-v1.js",
+        "level-progression-v2.js",
+        "level-up-mobile-safety-v552.js",
+        "popup-governor-v1.js",
+        "scripts/validate-progression-scenarios-navigation.mjs",
+        "scripts/validate-stage1-popup-governance-v553.mjs"
+      ]
+    },
+    "SalitaQuestAchievementSharing": {
+      "writers": [
+        "achievement-sharing-v4.js",
+        "scripts/validate-avatar-progression-v550.mjs",
+        "scripts/validate-avatar-runtime-v556.mjs"
+      ],
+      "readers": [
+        "achievement-sharing-avatar-bridge-v1.js",
+        "achievement-sharing-v4.js",
+        "scripts/validate-avatar-progression-v550.mjs",
+        "scripts/validate-avatar-runtime-v556.mjs"
+      ]
+    },
+    "SalitaQuestAvatarCase": {
+      "writers": [
+        "avatar-case-v1.js"
+      ],
+      "readers": [
+        "achievement-sharing-v4.js",
+        "avatar-case-page-tab-v1.js",
+        "avatar-case-v1.js"
+      ]
+    },
+    "SalitaQuestBadgeChest": {
+      "writers": [
+        "badge-chest-v2.js"
+      ],
+      "readers": [
+        "achievement-sharing-v4.js",
+        "badge-chest-v2.js",
+        "scripts/validate-badge-stability.mjs"
+      ]
+    },
+    "SalitaQuestGlossAudit": {
+      "writers": [
+        "translation-gloss-completion-v1.js"
+      ],
+      "readers": [
+        "translation-gloss-completion-v1.js"
+      ]
+    },
+    "SalitaQuestPersistentNavigation": {
+      "writers": [
+        "desktop-navigation-refinement.js"
+      ],
+      "readers": [
+        "desktop-navigation-refinement.js",
+        "scripts/validate-progression-scenarios-navigation.mjs"
+      ]
+    },
+    "SalitaQuestPromptDistinctionAudit": {
+      "writers": [
+        "prompt-distinction-clarity-v1.js"
+      ],
+      "readers": [
+        "prompt-distinction-clarity-v1.js"
+      ]
+    },
+    "SalitaQuestSharingRouter": {
+      "writers": [
+        "achievement-sharing-router-v3.js"
+      ],
+      "readers": [
+        "achievement-sharing-router-v3.js"
+      ]
+    },
+    "SalitaQuestSocialConnections": {
+      "writers": [
+        "social-connections-v2.js"
+      ],
+      "readers": [
+        "achievement-sharing-v4.js",
+        "social-connections-v2.js"
+      ]
+    },
+    "SalitaWeeklyAvatarRewards": {
+      "writers": [
+        "weekly-avatar-shard-rewards-v1.js"
+      ],
+      "readers": [
+        "weekly-avatar-shard-rewards-v1.js"
+      ]
+    }
+  }
+}
