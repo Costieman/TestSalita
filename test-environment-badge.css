@@ -1,0 +1,27 @@
+/* TestSalita-only environment marker. This file is not present in SalitaQuest. */
+body::after {
+  content: "TESTSALITA · TEST BUILD";
+  position: fixed;
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, env(safe-area-inset-bottom));
+  z-index: 2147483647;
+  padding: 7px 10px;
+  border: 2px solid rgba(255,255,255,.9);
+  border-radius: 999px;
+  background: #9b1c31;
+  color: #fff;
+  font: 900 11px/1.1 Inter, "Segoe UI", system-ui, sans-serif;
+  letter-spacing: .08em;
+  box-shadow: 0 4px 16px rgba(0,0,0,.28);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 520px) {
+  body::after {
+    right: 8px;
+    bottom: max(76px, calc(env(safe-area-inset-bottom) + 76px));
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+}
