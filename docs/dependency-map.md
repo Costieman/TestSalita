@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-06T09:00:08.616Z
+Generated: 2026-08-06T09:34:39.579Z
 
-- Text/code files scanned: **209**
+- Text/code files scanned: **206**
 - Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **46**
+- Not statically reachable: **43**
 - Custom events mapped: **40**
 - Shared globals mapped: **31**
 
@@ -55,7 +55,6 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `scripts/validate-avatar-case.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-catalogue.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-collection-pane-flow.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-collection-rarity-fill.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-collection-screen.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-hotfix-v551.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-onboarding.mjs` — reachable: **false**; incoming: none found statically
@@ -63,10 +62,8 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `scripts/validate-avatar-progression-v550.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-release-v550.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-runtime-v556.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-avatar-three-tabs.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-unlock-sharing.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-canonical-avatar-mapping.mjs` — reachable: **false**; incoming: none found statically
-- `scripts/validate-coin-avatar-shop.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-level-avatar-rewards.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-weekly-avatar-shards.mjs` — reachable: **false**; incoming: none found statically
 - `weekly-avatar-chest.css` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-home-dashboard.mjs (worker-cache), service-worker.js (worker-cache)
