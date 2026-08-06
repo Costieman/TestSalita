@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>TestSalita Runtime Dependency Audit</title>
+  <style>
+    :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#173a37;background:#edf7f3}
+    *{box-sizing:border-box}body{margin:0;padding:16px}.shell{max-width:1180px;margin:auto;display:grid;gap:14px}
+    header,.panel{background:#fff;border:1px solid #d8e8e3;border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(18,72,66,.08)}
+    h1,h2,p{margin-top:0}.controls{display:flex;gap:10px;flex-wrap:wrap}.controls button{border:0;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer;background:#0b6f67;color:#fff}.controls button.secondary{background:#e8f3ef;color:#173a37}
+    iframe{width:100%;height:68vh;border:1px solid #bdd7d0;border-radius:16px;background:#fff}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.count{font-size:1.6rem;font-weight:900}.list{max-height:360px;overflow:auto;margin:0;padding-left:20px;word-break:break-all}.muted{color:#607773}.warning{color:#8c4a00;font-weight:800}
+    @media(max-width:760px){body{padding:8px}.grid{grid-template-columns:1fr}iframe{height:60vh}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <h1>TestSalita runtime dependency audit</h1>
+    <p class="muted">This page does not remove or alter application files. Use the embedded app normally; the inventory updates as scripts, stylesheets, images, audio and data are requested.</p>
+    <p class="warning">A file is not eligible for removal merely because it is absent here. It may belong to a route or interaction not exercised during this session.</p>
+    <div class="controls">
+      <button id="refresh">Refresh inventory</button>
+      <button id="copy" class="secondary">Copy JSON report</button>
+      <button id="reload" class="secondary">Reload embedded app</button>
+    </div>
+  </header>
+  <iframe id="app" src="./app.html?dependencyAudit=1" title="TestSalita application"></iframe>
+  <section class="grid">
+    <article class="panel"><h2>Scripts <span class="count" id="scriptCount">0</span></h2><ol class="list" id="scripts"></ol></article>
+    <article class="panel"><h2>Stylesheets <span class="count" id="styleCount">0</span></h2><ol class="list" id="styles"></ol></article>
+    <article class="panel"><h2>Other resources <span class="count" id="otherCount">0</span></h2><ol class="list" id="others"></ol></article>
+    <article class="panel"><h2>Observed globals and APIs</h2><ol class="list" id="globals"></ol></article>
+  </section>
+</main>
+<script>
+(() => {
+  "use strict";
+  const frame=document.getElementById("app");
+  let latest={generatedAt:null,scripts:[],styles:[],others:[],globals:[]};
+  const knownGlobals=[
+    "SalitaAvatarModel","SalitaAvatarCatalogue","SalitaAvatarArtwork","SalitaAvatarArtworkReady",
+    "SalitaAvatarHotfixReady","SalitaAvatarCollectionScreen","SalitaAvatarCollectionPage",
+    "SalitaQuestAvatarCase","SalitaWeeklyAvatarRewards","SalitaLevelAvatarRewards",
+    "SalitaAvatarUnlockCelebration","SalitaAchievementSharing","SalitaCoinAvatarShop"
+  ];
+  const clean=url=>{try{const value=new URL(url,location.href);return value.origin===location.origin?value.pathname.replace(location.pathname.replace(/[^/]+$/,""),"")+value.search:value.href;}catch{return String(url||"");}};
+  const unique=values=>[...new Set(values.filter(Boolean))].sort();
+  function renderList(id,values){document.getElementById(id).innerHTML=values.map(value=>`<li>${String(value).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}</li>`).join("");}
+  function collect(){
+    try{
+      const win=frame.contentWindow,doc=frame.contentDocument;
+      if(!win||!doc)return;
+      const entries=win.performance.getEntriesByType("resource");
+      const scriptTags=[...doc.scripts].map(node=>clean(node.src));
+      const styleTags=[...doc.querySelectorAll('link[rel~="stylesheet"]')].map(node=>clean(node.href));
+      const scripts=unique([...scriptTags,...entries.filter(entry=>entry.initiatorType==="script").map(entry=>clean(entry.name))]);
+      const styles=unique([...styleTags,...entries.filter(entry=>entry.initiatorType==="link"&&/\.css(?:$|\?)/i.test(entry.name)).map(entry=>clean(entry.name))]);
+      const claimed=new Set([...scripts,...styles]);
+      const others=unique(entries.map(entry=>clean(entry.name)).filter(value=>!claimed.has(value)));
+      const globals=knownGlobals.filter(name=>name in win).map(name=>`${name}: ${typeof win[name]}`);
+      latest={generatedAt:new Date().toISOString(),page:clean(win.location.href),scripts,styles,others,globals};
+      document.getElementById("scriptCount").textContent=scripts.length;
+      document.getElementById("styleCount").textContent=styles.length;
+      document.getElementById("otherCount").textContent=others.length;
+      renderList("scripts",scripts);renderList("styles",styles);renderList("others",others);renderList("globals",globals);
+      localStorage.setItem("testSalitaRuntimeDependencyAuditV1",JSON.stringify(latest));
+    }catch(error){console.warn("Dependency audit could not inspect the embedded app",error);}
+  }
+  document.getElementById("refresh").addEventListener("click",collect);
+  document.getElementById("reload").addEventListener("click",()=>{frame.src=`./app.html?dependencyAudit=1&t=${Date.now()}`;});
+  document.getElementById("copy").addEventListener("click",async()=>{collect();try{await navigator.clipboard.writeText(JSON.stringify(latest,null,2));}catch{prompt("Copy the runtime report",JSON.stringify(latest,null,2));}});
+  frame.addEventListener("load",()=>{setTimeout(collect,800);setTimeout(collect,2500);});
+  setInterval(collect,3000);
+})();
+</script>
+</body>
+</html>
