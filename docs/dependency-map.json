@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T05:24:54.905Z",
+  "generatedAt": "2026-08-07T05:40:03.636Z",
   "roots": [
     "index.html",
     "app.html",
@@ -15,9 +15,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 206,
+    "files": 207,
     "reachable": 168,
-    "notStaticallyReachable": 38,
+    "notStaticallyReachable": 39,
     "events": 43,
     "globals": 31
   },
@@ -1678,6 +1678,11 @@
           "kind": "html-asset"
         }
       ],
+      "outgoing": []
+    },
+    "daily-quest-navigation-v1.js": {
+      "reachable": false,
+      "incoming": [],
       "outgoing": []
     },
     "dependency-audit.html": {
@@ -4648,6 +4653,7 @@
       "listeners": [
         "calendar-key-reward-copy-v1.js",
         "collection-key-translation-hotfix.js",
+        "daily-quest-navigation-v1.js",
         "pronoun-clarity-daily-quest-collapse-v1.js"
       ]
     },
