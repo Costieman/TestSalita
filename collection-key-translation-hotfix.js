@@ -82,9 +82,54 @@
     return Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
   }
 
+  function localCalendarKey(date = new Date()) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  }
+
   function todayKey() {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    return localCalendarKey(new Date());
+  }
+
+  function installLocalCalendarFix() {
+    try {
+      window.todayKey = () => localCalendarKey(new Date());
+      window.studyWeekDays = function studyWeekDaysLocalCalendar() {
+        const today = new Date();
+        const day = (today.getDay() + 6) % 7;
+        const monday = new Date(today);
+        monday.setHours(12, 0, 0, 0);
+        monday.setDate(today.getDate() - day);
+        const todayLocal = localCalendarKey(today);
+        return Array.from({length:7}, (_, index) => {
+          const date = new Date(monday);
+          date.setDate(monday.getDate() + index);
+          const key = localCalendarKey(date);
+          return {
+            key,
+            label:["M","T","W","T","F","S","S"][index],
+            studied:(state.studyDates || []).includes(key),
+            today:key === todayLocal
+          };
+        });
+      };
+      window.updateStudyStreak = function updateStudyStreakLocalCalendar() {
+        const today = localCalendarKey(new Date());
+        if (state.lastStudyDate === today) return;
+        const yesterday = new Date();
+        yesterday.setHours(12, 0, 0, 0);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayKey = localCalendarKey(yesterday);
+        state.streak = state.lastStudyDate === yesterdayKey ? state.streak + 1 : 1;
+        state.bestStreak = Math.max(state.bestStreak, state.streak);
+        state.lastStudyDate = today;
+      };
+      document.documentElement.dataset.localCalendarFix = "v1";
+      if (typeof ensureDailyActivity === "function") ensureDailyActivity();
+      if (typeof updateHome === "function") updateHome();
+      if (typeof renderProgress === "function") renderProgress();
+    } catch (error) {
+      console.warn("Could not install local calendar timing fix", error);
+    }
   }
 
   function isPlaceholder(value) {
@@ -204,6 +249,7 @@
   ensureMysteryRarityRoll();
   ensureAvatarCollectionPage();
   ensureAvatarCollectionExtras();
+  installLocalCalendarFix();
   cleanTokenTranslations();
   const observer = new MutationObserver(records => {
     const relevant = records.some(record => [...record.addedNodes].some(node => node.nodeType === Node.ELEMENT_NODE));
