@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T04:34:32.506Z",
+  "generatedAt": "2026-08-07T04:52:07.232Z",
   "roots": [
     "index.html",
     "app.html",
@@ -598,6 +598,10 @@
         },
         {
           "target": "home-reward-coordinator.js",
+          "kind": "html-asset"
+        },
+        {
+          "target": "daily-key-reward-priority-v1.js",
           "kind": "html-asset"
         },
         {
@@ -1623,6 +1627,10 @@
     "daily-key-reward-priority-v1.js": {
       "reachable": true,
       "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        },
         {
           "source": "scripts/install-daily-key-priority.mjs",
           "kind": "html-asset"
