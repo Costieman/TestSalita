@@ -1,0 +1,34 @@
+name: Install Daily Key priority guard
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'daily-key-reward-priority-v1.js'
+      - 'scripts/install-daily-key-priority.mjs'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Patch app loader
+        run: node scripts/install-daily-key-priority.mjs
+      - name: Commit loader update
+        run: |
+          if git diff --quiet -- app.html; then
+            echo "Loader already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.html
+          git commit -m "Load Daily Key priority guard"
+          git push
