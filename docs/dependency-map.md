@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T05:00:35.451Z
+Generated: 2026-08-07T05:00:55.221Z
 
-- Text/code files scanned: **205**
+- Text/code files scanned: **206**
 - Statically reachable from app/workflow roots: **166**
-- Not statically reachable: **39**
+- Not statically reachable: **40**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 
@@ -39,6 +39,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `avatar-unlock-celebration-v1.css` — reachable: **true**; incoming: service-worker.js (worker-cache)
 - `avatar-unlock-celebration-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `avatars/canonical/manifest.json` — reachable: **true**; incoming: service-worker.js (worker-cache)
+- `calendar-key-reward-copy-v1.js` — reachable: **false**; incoming: none found statically
 - `coin-avatar-reveal-rarity-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shard-shop-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shard-shop-v1.js` — reachable: **false**; incoming: none found statically

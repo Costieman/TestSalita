@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T05:00:35.451Z",
+  "generatedAt": "2026-08-07T05:00:55.221Z",
   "roots": [
     "index.html",
     "app.html",
@@ -15,9 +15,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 205,
+    "files": 206,
     "reachable": 166,
-    "notStaticallyReachable": 39,
+    "notStaticallyReachable": 40,
     "events": 43,
     "globals": 31
   },
@@ -1418,6 +1418,11 @@
           "kind": "dynamic-script"
         }
       ]
+    },
+    "calendar-key-reward-copy-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
     },
     "calendar-weekly-keys-v1.js": {
       "reachable": false,
