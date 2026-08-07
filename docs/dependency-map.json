@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T04:34:12.710Z",
+  "generatedAt": "2026-08-07T04:34:32.506Z",
   "roots": [
     "index.html",
     "app.html",
@@ -10,13 +10,14 @@
     ".github/workflows/bootstrap-sandbox.yml",
     ".github/workflows/build-dependency-map.yml",
     ".github/workflows/deploy-pages.yml",
+    ".github/workflows/install-daily-key-priority.yml",
     ".github/workflows/sandbox-smoke-test.yml",
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 202,
-    "reachable": 163,
-    "notStaticallyReachable": 39,
+    "files": 203,
+    "reachable": 166,
+    "notStaticallyReachable": 37,
     "events": 43,
     "globals": 31
   },
@@ -62,6 +63,16 @@
       "reachable": true,
       "incoming": [],
       "outgoing": []
+    },
+    ".github/workflows/install-daily-key-priority.yml": {
+      "reachable": true,
+      "incoming": [],
+      "outgoing": [
+        {
+          "target": "scripts/install-daily-key-priority.mjs",
+          "kind": "workflow-command"
+        }
+      ]
     },
     ".github/workflows/sandbox-smoke-test.yml": {
       "reachable": true,
@@ -1610,7 +1621,7 @@
       "outgoing": []
     },
     "daily-key-reward-priority-v1.js": {
-      "reachable": false,
+      "reachable": true,
       "incoming": [
         {
           "source": "scripts/install-daily-key-priority.mjs",
@@ -2702,8 +2713,13 @@
       "outgoing": []
     },
     "scripts/install-daily-key-priority.mjs": {
-      "reachable": false,
-      "incoming": [],
+      "reachable": true,
+      "incoming": [
+        {
+          "source": ".github/workflows/install-daily-key-priority.yml",
+          "kind": "workflow-command"
+        }
+      ],
       "outgoing": [
         {
           "target": "home-reward-coordinator.js",

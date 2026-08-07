@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T04:34:12.710Z
+Generated: 2026-08-07T04:34:32.506Z
 
-- Text/code files scanned: **202**
-- Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **39**
+- Text/code files scanned: **203**
+- Statically reachable from app/workflow roots: **166**
+- Not statically reachable: **37**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 
@@ -48,7 +48,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `coin-avatar-shop-topbar-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shop-topbar-v1.js` — reachable: **false**; incoming: none found statically
 - `collection-key-translation-hotfix.js` — reachable: **true**; incoming: app.html (html-asset)
-- `daily-key-reward-priority-v1.js` — reachable: **false**; incoming: scripts/install-daily-key-priority.mjs (html-asset)
+- `daily-key-reward-priority-v1.js` — reachable: **true**; incoming: scripts/install-daily-key-priority.mjs (html-asset)
 - `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
 - `level-avatar-rewards-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `scripts/validate-avatar-case.mjs` — reachable: **false**; incoming: none found statically
