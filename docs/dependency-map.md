@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T05:00:55.221Z
+Generated: 2026-08-07T05:01:39.213Z
 
 - Text/code files scanned: **206**
-- Statically reachable from app/workflow roots: **166**
-- Not statically reachable: **40**
+- Statically reachable from app/workflow roots: **168**
+- Not statically reachable: **38**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 
@@ -39,7 +39,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `avatar-unlock-celebration-v1.css` — reachable: **true**; incoming: service-worker.js (worker-cache)
 - `avatar-unlock-celebration-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `avatars/canonical/manifest.json` — reachable: **true**; incoming: service-worker.js (worker-cache)
-- `calendar-key-reward-copy-v1.js` — reachable: **false**; incoming: none found statically
+- `calendar-key-reward-copy-v1.js` — reachable: **true**; incoming: app.html (html-asset)
 - `coin-avatar-reveal-rarity-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shard-shop-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shard-shop-v1.js` — reachable: **false**; incoming: none found statically
@@ -48,8 +48,8 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `coin-avatar-shop-reveal-v1.js` — reachable: **false**; incoming: coin-avatar-shard-shop-v1.js (html-asset)
 - `coin-avatar-shop-topbar-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shop-topbar-v1.js` — reachable: **false**; incoming: none found statically
-- `collection-key-translation-hotfix.js` — reachable: **true**; incoming: app.html (html-asset)
-- `collection-translation-avatar-hotfix-v3.js` — reachable: **false**; incoming: none found statically
+- `collection-key-translation-hotfix.js` — reachable: **false**; incoming: none found statically
+- `collection-translation-avatar-hotfix-v3.js` — reachable: **true**; incoming: app.html (html-asset)
 - `daily-key-reward-priority-v1.js` — reachable: **true**; incoming: app.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset)
 - `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
 - `level-avatar-rewards-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
@@ -65,7 +65,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `scripts/validate-weekly-avatar-shards.mjs` — reachable: **false**; incoming: none found statically
 - `weekly-avatar-chest.css` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-home-dashboard.mjs (worker-cache), service-worker.js (worker-cache)
 - `weekly-avatar-chest.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), service-worker.js (worker-cache)
-- `weekly-avatar-polish.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-home-dashboard.mjs (worker-cache), service-worker.js (worker-cache)
+- `weekly-avatar-polish.js` — reachable: **true**; incoming: bisaya.html (html-asset), scripts/validate-home-dashboard.mjs (worker-cache), service-worker.js (worker-cache)
 - `weekly-avatar-shard-rewards-v1.css` — reachable: **true**; incoming: service-worker.js (worker-cache), weekly-avatar-shard-rewards-v1.js (html-asset)
 - `weekly-avatar-shard-rewards-v1.js` — reachable: **true**; incoming: service-worker.js (worker-cache)
 

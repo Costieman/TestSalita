@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T05:00:55.221Z",
+  "generatedAt": "2026-08-07T05:01:39.213Z",
   "roots": [
     "index.html",
     "app.html",
@@ -16,8 +16,8 @@
   ],
   "counts": {
     "files": 206,
-    "reachable": 166,
-    "notStaticallyReachable": 40,
+    "reachable": 168,
+    "notStaticallyReachable": 38,
     "events": 43,
     "globals": 31
   },
@@ -525,11 +525,7 @@
           "kind": "html-asset"
         },
         {
-          "target": "key-run-refinement.js",
-          "kind": "html-asset"
-        },
-        {
-          "target": "weekly-avatar-polish.js",
+          "target": "calendar-weekly-keys-v1.js",
           "kind": "html-asset"
         },
         {
@@ -601,6 +597,10 @@
           "kind": "html-asset"
         },
         {
+          "target": "calendar-key-reward-copy-v1.js",
+          "kind": "html-asset"
+        },
+        {
           "target": "daily-key-reward-priority-v1.js",
           "kind": "html-asset"
         },
@@ -625,7 +625,7 @@
           "kind": "html-asset"
         },
         {
-          "target": "collection-key-translation-hotfix.js",
+          "target": "collection-translation-avatar-hotfix-v3.js",
           "kind": "html-asset"
         },
         {
@@ -1420,13 +1420,23 @@
       ]
     },
     "calendar-key-reward-copy-v1.js": {
-      "reachable": false,
-      "incoming": [],
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        }
+      ],
       "outgoing": []
     },
     "calendar-weekly-keys-v1.js": {
-      "reachable": false,
-      "incoming": [],
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        }
+      ],
       "outgoing": []
     },
     "clean-topbar.css": {
@@ -1534,13 +1544,8 @@
       "outgoing": []
     },
     "collection-key-translation-hotfix.js": {
-      "reachable": true,
-      "incoming": [
-        {
-          "source": "app.html",
-          "kind": "html-asset"
-        }
-      ],
+      "reachable": false,
+      "incoming": [],
       "outgoing": [
         {
           "target": "avatar-case-desktop-safety.css",
@@ -1553,8 +1558,13 @@
       ]
     },
     "collection-translation-avatar-hotfix-v3.js": {
-      "reachable": false,
-      "incoming": [],
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "app.html",
+          "kind": "html-asset"
+        }
+      ],
       "outgoing": [
         {
           "target": "avatar-case-desktop-safety.css",
@@ -2017,10 +2027,6 @@
     "key-run-refinement.js": {
       "reachable": true,
       "incoming": [
-        {
-          "source": "app.html",
-          "kind": "html-asset"
-        },
         {
           "source": "bisaya.html",
           "kind": "html-asset"
@@ -4354,10 +4360,6 @@
     "weekly-avatar-polish.js": {
       "reachable": true,
       "incoming": [
-        {
-          "source": "app.html",
-          "kind": "html-asset"
-        },
         {
           "source": "bisaya.html",
           "kind": "html-asset"
