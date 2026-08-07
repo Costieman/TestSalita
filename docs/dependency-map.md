@@ -1,11 +1,11 @@
 # TestSalita dependency map
 
-Generated: 2026-08-06T13:07:24.704Z
+Generated: 2026-08-07T04:34:12.710Z
 
-- Text/code files scanned: **200**
+- Text/code files scanned: **202**
 - Statically reachable from app/workflow roots: **163**
-- Not statically reachable: **37**
-- Custom events mapped: **40**
+- Not statically reachable: **39**
+- Custom events mapped: **43**
 - Shared globals mapped: **31**
 
 ## Important limitation
@@ -48,7 +48,8 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `coin-avatar-shop-topbar-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shop-topbar-v1.js` — reachable: **false**; incoming: none found statically
 - `collection-key-translation-hotfix.js` — reachable: **true**; incoming: app.html (html-asset)
-- `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
+- `daily-key-reward-priority-v1.js` — reachable: **false**; incoming: scripts/install-daily-key-priority.mjs (html-asset)
+- `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
 - `level-avatar-rewards-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `scripts/validate-avatar-case.mjs` — reachable: **false**; incoming: none found statically
 - `scripts/validate-avatar-catalogue.mjs` — reachable: **false**; incoming: none found statically
@@ -87,4 +88,5 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `salita:coin-balance-changed` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js; listen: none
 - `salita:coin-shard-pack-purchased` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js; listen: coin-avatar-shop-reveal-v1.js, coin-avatar-shop-topbar-v1.js, mystery-rarity-roll-v1.js
 - `salita:coin-shop-badges-ready` — dispatch: coin-avatar-shop-badges-v1.js; listen: none
+- `salita:daily-key-reward-finished` — dispatch: daily-key-reward-priority-v1.js; listen: none
 - `salita:open-avatar-collection` — dispatch: avatar-progression-hotfix-v551.js, avatar-unlock-celebration-v1.js, desktop-navigation-refinement.js, weekly-avatar-shard-rewards-v1.js; listen: avatar-case-v1.js, avatar-collection-page-v2.js, avatar-collection-screen-v1.js, avatar-collection-summary-v1.js
