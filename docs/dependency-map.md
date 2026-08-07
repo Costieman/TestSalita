@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T04:52:07.232Z
+Generated: 2026-08-07T04:59:59.729Z
 
-- Text/code files scanned: **203**
+- Text/code files scanned: **204**
 - Statically reachable from app/workflow roots: **166**
-- Not statically reachable: **37**
+- Not statically reachable: **38**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 

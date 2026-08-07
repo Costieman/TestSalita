@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T04:52:07.232Z",
+  "generatedAt": "2026-08-07T04:59:59.729Z",
   "roots": [
     "index.html",
     "app.html",
@@ -15,9 +15,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 203,
+    "files": 204,
     "reachable": 166,
-    "notStaticallyReachable": 37,
+    "notStaticallyReachable": 38,
     "events": 43,
     "globals": 31
   },
@@ -1410,6 +1410,11 @@
           "kind": "dynamic-script"
         }
       ]
+    },
+    "calendar-weekly-keys-v1.js": {
+      "reachable": false,
+      "incoming": [],
+      "outgoing": []
     },
     "clean-topbar.css": {
       "reachable": true,
