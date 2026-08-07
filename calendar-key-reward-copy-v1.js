@@ -7,6 +7,15 @@
   const WEEKLY_KEY_TARGET = 5;
   let queued = false;
 
+  function ensureDailyQuestNavigation() {
+    if (window.__salitaDailyQuestNavigationV1Installed || document.querySelector('script[data-sq-daily-quest-navigation]')) return;
+    const script = document.createElement("script");
+    script.src = "./daily-quest-navigation-v1.js?v=1.0.0";
+    script.dataset.sqDailyQuestNavigation = "true";
+    script.onerror = () => console.warn("Daily Quest navigation shortcuts could not be loaded.");
+    document.body.appendChild(script);
+  }
+
   function localDayKey() {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
@@ -129,6 +138,7 @@
 
   function patch() {
     ensureStyles();
+    ensureDailyQuestNavigation();
     patchRewardCopy();
     patchDailyQuests();
   }
