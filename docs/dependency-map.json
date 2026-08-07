@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T05:41:11.478Z",
+  "generatedAt": "2026-08-07T05:56:39.358Z",
   "roots": [
     "index.html",
     "app.html",
@@ -15,9 +15,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 207,
+    "files": 208,
     "reachable": 169,
-    "notStaticallyReachable": 38,
+    "notStaticallyReachable": 39,
     "events": 43,
     "globals": 31
   },
@@ -1683,6 +1683,11 @@
           "kind": "html-asset"
         }
       ],
+      "outgoing": []
+    },
+    "daily-quest-key-system-v1.js": {
+      "reachable": false,
+      "incoming": [],
       "outgoing": []
     },
     "daily-quest-navigation-v1.js": {
@@ -4654,12 +4659,15 @@
     },
     "salita:daily-key-reward-finished": {
       "dispatchers": [
-        "daily-key-reward-priority-v1.js"
+        "daily-key-reward-priority-v1.js",
+        "daily-quest-key-system-v1.js"
       ],
       "listeners": []
     },
     "salita:daily-quests-rendered": {
-      "dispatchers": [],
+      "dispatchers": [
+        "daily-quest-key-system-v1.js"
+      ],
       "listeners": [
         "calendar-key-reward-copy-v1.js",
         "collection-key-translation-hotfix.js",
@@ -5008,6 +5016,7 @@
       "readers": [
         "avatar-unlock-celebration-v1.js",
         "daily-key-reward-priority-v1.js",
+        "daily-quest-key-system-v1.js",
         "level-progression-v2.js",
         "level-up-mobile-safety-v552.js",
         "popup-governor-v1.js",

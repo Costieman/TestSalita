@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T05:41:11.478Z
+Generated: 2026-08-07T05:56:39.358Z
 
-- Text/code files scanned: **207**
+- Text/code files scanned: **208**
 - Statically reachable from app/workflow roots: **169**
-- Not statically reachable: **38**
+- Not statically reachable: **39**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 
@@ -90,5 +90,5 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `salita:coin-balance-changed` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js; listen: none
 - `salita:coin-shard-pack-purchased` — dispatch: coin-avatar-shard-shop-v1.js, coin-avatar-shop-reveal-v1.js; listen: coin-avatar-shop-reveal-v1.js, coin-avatar-shop-topbar-v1.js, mystery-rarity-roll-v1.js
 - `salita:coin-shop-badges-ready` — dispatch: coin-avatar-shop-badges-v1.js; listen: none
-- `salita:daily-key-reward-finished` — dispatch: daily-key-reward-priority-v1.js; listen: none
+- `salita:daily-key-reward-finished` — dispatch: daily-key-reward-priority-v1.js, daily-quest-key-system-v1.js; listen: none
 - `salita:open-avatar-collection` — dispatch: avatar-progression-hotfix-v551.js, avatar-unlock-celebration-v1.js, desktop-navigation-refinement.js, weekly-avatar-shard-rewards-v1.js; listen: avatar-case-v1.js, avatar-collection-page-v2.js, avatar-collection-screen-v1.js, avatar-collection-summary-v1.js
