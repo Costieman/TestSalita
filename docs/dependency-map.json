@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T05:40:03.636Z",
+  "generatedAt": "2026-08-07T05:41:11.478Z",
   "roots": [
     "index.html",
     "app.html",
@@ -16,8 +16,8 @@
   ],
   "counts": {
     "files": 207,
-    "reachable": 168,
-    "notStaticallyReachable": 39,
+    "reachable": 169,
+    "notStaticallyReachable": 38,
     "events": 43,
     "globals": 31
   },
@@ -1427,7 +1427,12 @@
           "kind": "html-asset"
         }
       ],
-      "outgoing": []
+      "outgoing": [
+        {
+          "target": "daily-quest-navigation-v1.js",
+          "kind": "html-asset"
+        }
+      ]
     },
     "calendar-weekly-keys-v1.js": {
       "reachable": true,
@@ -1681,8 +1686,13 @@
       "outgoing": []
     },
     "daily-quest-navigation-v1.js": {
-      "reachable": false,
-      "incoming": [],
+      "reachable": true,
+      "incoming": [
+        {
+          "source": "calendar-key-reward-copy-v1.js",
+          "kind": "html-asset"
+        }
+      ],
       "outgoing": []
     },
     "dependency-audit.html": {
