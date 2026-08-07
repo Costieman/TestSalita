@@ -1,10 +1,10 @@
 # TestSalita dependency map
 
-Generated: 2026-08-07T04:59:59.729Z
+Generated: 2026-08-07T05:00:35.451Z
 
-- Text/code files scanned: **204**
+- Text/code files scanned: **205**
 - Statically reachable from app/workflow roots: **166**
-- Not statically reachable: **38**
+- Not statically reachable: **39**
 - Custom events mapped: **43**
 - Shared globals mapped: **31**
 
@@ -17,14 +17,14 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `COLLECTION_FILL_CHANGELOG.md` — reachable: **false**; incoming: none found statically
 - `achievement-sharing-avatar-bridge-v1.js` — reachable: **true**; incoming: service-worker.js (worker-cache)
 - `avatar-artwork-registry-v554.js` — reachable: **true**; incoming: service-worker.js (worker-cache)
-- `avatar-case-desktop-safety.css` — reachable: **true**; incoming: collection-key-translation-hotfix.js (html-asset)
+- `avatar-case-desktop-safety.css` — reachable: **true**; incoming: collection-key-translation-hotfix.js (html-asset), collection-translation-avatar-hotfix-v3.js (html-asset)
 - `avatar-case-mobile-flow-hotfix-v1.css` — reachable: **false**; incoming: none found statically
 - `avatar-case-page-tab-v1.css` — reachable: **false**; incoming: avatar-case-page-tab-v1.js (html-asset)
 - `avatar-case-page-tab-v1.js` — reachable: **false**; incoming: none found statically
 - `avatar-case-v1.css` — reachable: **true**; incoming: scripts/validate-avatar-case.mjs (worker-cache), scripts/validate-avatar-progression-v550.mjs (worker-cache), scripts/validate-avatar-runtime-v556.mjs (worker-cache), scripts/validate-badge-stability.mjs (worker-cache), scripts/validate-hosted-achievement-sharing.mjs (worker-cache), scripts/validate-placement-sharing.mjs (worker-cache), scripts/validate-social-posting-audio-resume.mjs (worker-cache), service-worker.js (worker-cache)
 - `avatar-case-v1.js` — reachable: **true**; incoming: scripts/validate-avatar-case.mjs (worker-cache), scripts/validate-avatar-progression-v550.mjs (worker-cache), scripts/validate-avatar-runtime-v556.mjs (worker-cache), scripts/validate-badge-stability.mjs (worker-cache), scripts/validate-hosted-achievement-sharing.mjs (worker-cache), scripts/validate-placement-sharing.mjs (worker-cache), scripts/validate-social-posting-audio-resume.mjs (worker-cache), scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)
 - `avatar-catalogue-v1.js` — reachable: **true**; incoming: index.html (html-asset), profile-app.js (html-asset), scripts/validate-avatar-onboarding.mjs (html-asset), service-worker.js (worker-cache)
-- `avatar-collection-page-v2.css` — reachable: **true**; incoming: collection-key-translation-hotfix.js (html-asset)
+- `avatar-collection-page-v2.css` — reachable: **true**; incoming: collection-key-translation-hotfix.js (html-asset), collection-translation-avatar-hotfix-v3.js (html-asset)
 - `avatar-collection-page-v2.js` — reachable: **false**; incoming: none found statically
 - `avatar-collection-rarity-fill-v1.css` — reachable: **false**; incoming: none found statically
 - `avatar-collection-screen-v1.css` — reachable: **true**; incoming: scripts/validate-avatar-case.mjs (worker-cache), service-worker.js (worker-cache)
@@ -48,6 +48,7 @@ A file is not safe to remove solely because it is not statically reachable. Test
 - `coin-avatar-shop-topbar-v1.css` — reachable: **false**; incoming: none found statically
 - `coin-avatar-shop-topbar-v1.js` — reachable: **false**; incoming: none found statically
 - `collection-key-translation-hotfix.js` — reachable: **true**; incoming: app.html (html-asset)
+- `collection-translation-avatar-hotfix-v3.js` — reachable: **false**; incoming: none found statically
 - `daily-key-reward-priority-v1.js` — reachable: **true**; incoming: app.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset)
 - `home-reward-coordinator.js` — reachable: **true**; incoming: app.html (html-asset), bisaya.html (html-asset), scripts/install-daily-key-priority.mjs (html-asset), scripts/validate-audio-badge-release.mjs (worker-cache), service-worker.js (worker-cache)
 - `level-avatar-rewards-v1.js` — reachable: **true**; incoming: scripts/validate-stage1-popup-governance-v553.mjs (worker-cache), service-worker.js (worker-cache)

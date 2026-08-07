@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T04:59:59.729Z",
+  "generatedAt": "2026-08-07T05:00:35.451Z",
   "roots": [
     "index.html",
     "app.html",
@@ -15,9 +15,9 @@
     ".github/workflows/sync-from-salitaquest.yml"
   ],
   "counts": {
-    "files": 204,
+    "files": 205,
     "reachable": 166,
-    "notStaticallyReachable": 38,
+    "notStaticallyReachable": 39,
     "events": 43,
     "globals": 31
   },
@@ -728,6 +728,10 @@
         {
           "source": "collection-key-translation-hotfix.js",
           "kind": "html-asset"
+        },
+        {
+          "source": "collection-translation-avatar-hotfix-v3.js",
+          "kind": "html-asset"
         }
       ],
       "outgoing": []
@@ -864,6 +868,10 @@
       "incoming": [
         {
           "source": "collection-key-translation-hotfix.js",
+          "kind": "html-asset"
+        },
+        {
+          "source": "collection-translation-avatar-hotfix-v3.js",
           "kind": "html-asset"
         }
       ],
@@ -1528,6 +1536,20 @@
           "kind": "html-asset"
         }
       ],
+      "outgoing": [
+        {
+          "target": "avatar-case-desktop-safety.css",
+          "kind": "html-asset"
+        },
+        {
+          "target": "avatar-collection-page-v2.css",
+          "kind": "html-asset"
+        }
+      ]
+    },
+    "collection-translation-avatar-hotfix-v3.js": {
+      "reachable": false,
+      "incoming": [],
       "outgoing": [
         {
           "target": "avatar-case-desktop-safety.css",
