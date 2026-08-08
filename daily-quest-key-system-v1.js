@@ -3,15 +3,12 @@
 
   const INSTALL_FLAG = "__salitaDailyQuestKeySystemV1Installed";
   if (window[INSTALL_FLAG]) return;
-  window[INSTALL_FLAG] = true;
 
   const QUEST_TOTAL = 4;
   const KEY_TARGET = 5;
-  const DAILY_QUEST_REWARD = 100;
-  const DAILY_CHEST_COINS = 100;
-  const DAILY_CHEST_XP = 25;
+  const WEEK_DAYS = 7;
+  const DAY_LABELS = ["M", "T", "W", "T", "F", "S", "S"];
   const MAX_KEY_HISTORY = 240;
-  const DAY_LABELS = ["M","T","W","T","F","S","S"];
   const AVATARS = [
     {id:"tarsier",name:"Philippine Tarsier",src:"avatars/tarsier.png"},
     {id:"eagle",name:"Philippine Eagle",src:"avatars/eagle.png"},
@@ -28,194 +25,624 @@
     {id:"midnight",label:"Midnight",colors:["#22345f","#7d6bd6"]}
   ];
   const REWARDS = AVATARS.flatMap(avatar => VARIANTS.map(variant => ({
-    id:`${avatar.id}-${variant.id}`,avatarId:avatar.id,avatarName:avatar.name,src:avatar.src,
-    variantId:variant.id,variantLabel:variant.label,colors:variant.colors,title:`${variant.label} ${avatar.name}`
+    id:`${avatar.id}-${variant.id}`,
+    avatarId:avatar.id,
+    avatarName:avatar.name,
+    src:avatar.src,
+    variantId:variant.id,
+    variantLabel:variant.label,
+    colors:variant.colors,
+    title:`${variant.label} ${avatar.name}`
   })));
 
   let playingKey = false;
   let keyTimer = 0;
   let releaseTimer = 0;
   let reservation = null;
+  let rendering = false;
 
-  function retry(){ window.setTimeout(install,80); }
-  function esc(value){ return String(value??"").replace(/[&<>'"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
-  function localKey(date=new Date()){ return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`; }
-  function parseKey(value){ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value||"")); return m?new Date(Number(m[1]),Number(m[2])-1,Number(m[3]),12):new Date(); }
-  function mondayKey(value=localKey()){ const d=parseKey(value); d.setDate(d.getDate()-((d.getDay()+6)%7)); return localKey(d); }
-  function weekDates(value=localKey()){ const monday=parseKey(mondayKey(value)); return Array.from({length:7},(_,i)=>{ const d=new Date(monday); d.setDate(monday.getDate()+i); return localKey(d); }); }
-  function currentDate(){ try{return ensureDailyActivity().date||localKey();}catch{return localKey();} }
-  function currentWeek(){ return mondayKey(currentDate()); }
+  function retry() { window.setTimeout(install, 90); }
+  function esc(value) {
+    return String(value ?? "").replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch]));
+  }
+  function localKey(date = new Date()) {
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+  }
+  function parseKey(value) {
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ""));
+    return match ? new Date(Number(match[1]), Number(match[2])-1, Number(match[3]), 12) : new Date();
+  }
+  function mondayKey(value = localKey()) {
+    const date = parseKey(value);
+    date.setDate(date.getDate() - ((date.getDay()+6)%7));
+    return localKey(date);
+  }
+  function weekDates(value = localKey()) {
+    const monday = parseKey(mondayKey(value));
+    return Array.from({length:WEEK_DAYS}, (_, index) => {
+      const date = new Date(monday);
+      date.setDate(monday.getDate()+index);
+      return localKey(date);
+    });
+  }
+  function currentDate() {
+    try { return ensureDailyActivity().date || localKey(); }
+    catch { return localKey(); }
+  }
+  function currentWeek() { return mondayKey(currentDate()); }
 
-  function chestState(){
-    const chest=state.weeklyAvatarChest||(state.weeklyAvatarChest={});
-    chest.keyDates=Array.isArray(chest.keyDates)?[...new Set(chest.keyDates.filter(Boolean))].sort():[];
-    chest.pendingKeyAwards=Array.isArray(chest.pendingKeyAwards)?chest.pendingKeyAwards.filter(item=>item?.date):[];
-    chest.animatedKeyDates=Array.isArray(chest.animatedKeyDates)?[...new Set(chest.animatedKeyDates.filter(Boolean))]:[];
-    chest.unlockedRewards=Array.isArray(chest.unlockedRewards)?[...new Set(chest.unlockedRewards.filter(Boolean))]:[];
-    chest.calendarWeekClaims=chest.calendarWeekClaims&&typeof chest.calendarWeekClaims==="object"?chest.calendarWeekClaims:{};
-    if(chest.keyDates.length>MAX_KEY_HISTORY) chest.keyDates=chest.keyDates.slice(-MAX_KEY_HISTORY);
+  function keyState() {
+    const chest = state.weeklyAvatarChest || (state.weeklyAvatarChest = {});
+    chest.keyDates = Array.isArray(chest.keyDates) ? [...new Set(chest.keyDates.filter(Boolean))].sort() : [];
+    chest.pendingKeyAwards = Array.isArray(chest.pendingKeyAwards) ? chest.pendingKeyAwards.filter(item => item?.date) : [];
+    chest.animatedKeyDates = Array.isArray(chest.animatedKeyDates) ? [...new Set(chest.animatedKeyDates.filter(Boolean))] : [];
+    chest.unlockedRewards = Array.isArray(chest.unlockedRewards) ? [...new Set(chest.unlockedRewards.filter(Boolean))] : [];
+    chest.calendarWeekClaims = chest.calendarWeekClaims && typeof chest.calendarWeekClaims === "object" ? chest.calendarWeekClaims : {};
+    if (chest.keyDates.length > MAX_KEY_HISTORY) chest.keyDates = chest.keyDates.slice(-MAX_KEY_HISTORY);
     return chest;
   }
-  function earnedDates(){ const allowed=new Set(weekDates(currentDate())); return chestState().keyDates.filter(date=>allowed.has(date)); }
-  function earnedCount(){ return earnedDates().length; }
-  function currentClaim(){ return chestState().calendarWeekClaims[currentWeek()]||null; }
-  function latestClaim(){ return Object.values(chestState().calendarWeekClaims).sort((a,b)=>String(b?.claimedAt||"").localeCompare(String(a?.claimedAt||"")))[0]||null; }
-  function rewardById(id){ return REWARDS.find(r=>r.id===id)||null; }
-  function randomIndex(length){ if(length<=1)return 0;if(window.crypto?.getRandomValues){const v=new Uint32Array(1);crypto.getRandomValues(v);return v[0]%length;}return Math.floor(Math.random()*length); }
-  function chooseReward(){ const chest=chestState(); const unopened=REWARDS.filter(r=>!chest.unlockedRewards.includes(r.id)); const pool=unopened.length?unopened:REWARDS; return pool[randomIndex(pool.length)]; }
-
-  function configureQuests(){
-    const activity=ensureDailyActivity();
-    activity.dailySessions=Number(activity.dailySessions||0);
-    activity.quickReviewItems=Number(activity.quickReviewItems||0);
-    activity.quickReviews=Number(activity.quickReviews||0);
-    activity.questsClaimed=Array.isArray(activity.questsClaimed)?activity.questsClaimed:[];
-    const sessionQuest=DAILY_QUESTS.find(q=>q.id==="session");
-    if(sessionQuest){Object.assign(sessionQuest,{title:"Finish one Daily Session",detail:"Complete the full recommended Daily Session.",target:1,reward:DAILY_QUEST_REWARD,metric:a=>Number(a.dailySessions||0)});}
-    const correctQuest=DAILY_QUESTS.find(q=>q.id==="correct");
-    if(correctQuest){Object.assign(correctQuest,{title:"Get 15 answers right",detail:"Build 15 correct answers across today’s practice.",target:15,reward:DAILY_QUEST_REWARD,metric:a=>Number(a.correct||0)});}
-    const reviewQuest=DAILY_QUESTS.find(q=>q.id==="review");
-    if(reviewQuest){Object.assign(reviewQuest,{title:"Strengthen 3 learned items",detail:"Answer three review questions from language you have already learned.",target:3,reward:DAILY_QUEST_REWARD,metric:a=>Number(a.reviews||0)});}
-    let quick=DAILY_QUESTS.find(q=>q.id==="quick_twice");
-    if(!quick){quick={id:"quick_twice",icon:"⚡"};DAILY_QUESTS.push(quick);}
-    Object.assign(quick,{title:"Complete 15 Quick Review items",detail:"Answer 15 Quick Review questions in one long review or several shorter reviews.",target:15,reward:DAILY_QUEST_REWARD,metric:a=>Number(a.quickReviewItems||0)});
-    DAILY_QUESTS.splice(QUEST_TOTAL);
+  function earnedDatesThisWeek() {
+    const allowed = new Set(weekDates(currentDate()));
+    return keyState().keyDates.filter(date => allowed.has(date));
   }
-  function progress(quest){ try{return Math.max(0,Number(questProgress(quest)||0));}catch{return Math.max(0,Number(quest.metric?.(ensureDailyActivity())||0));} }
-  function allComplete(){ const a=ensureDailyActivity();return DAILY_QUESTS.length===QUEST_TOTAL&&DAILY_QUESTS.every(q=>a.questsClaimed.includes(q.id)); }
-
-  function reserveRewardLayer(){
-    clearTimeout(releaseTimer);
-    if(!reservation?.isConnected){ reservation=document.createElement("div");reservation.className="daily-key-celebration daily-key-reward-reservation";reservation.hidden=true;reservation.setAttribute("aria-hidden","true");document.body.appendChild(reservation); }
-    document.documentElement.dataset.dailyKeyRewardPriority="reserved";
-    try{window.SalitaPopupGovernor?.suspend?.(6500,"daily_key_priority");}catch{}
+  function earnedCount() { return earnedDatesThisWeek().length; }
+  function currentClaim() { return keyState().calendarWeekClaims[currentWeek()] || null; }
+  function latestClaim() {
+    return Object.values(keyState().calendarWeekClaims)
+      .sort((a,b) => String(b?.claimedAt || "").localeCompare(String(a?.claimedAt || "")))[0] || null;
   }
-  function releaseRewardLayerSoon(){
-    clearTimeout(releaseTimer);
-    releaseTimer=setTimeout(()=>{
-      if(playingKey||chestState().pendingKeyAwards.length){reserveRewardLayer();return;}
-      reservation?.remove();reservation=null;delete document.documentElement.dataset.dailyKeyRewardPriority;
-      try{window.SalitaPopupGovernor?.resume?.("daily_key_finished");window.SalitaPopupGovernor?.notify?.();}catch{}
+  function rewardById(id) { return REWARDS.find(reward => reward.id === id) || null; }
+  function randomIndex(length) {
+    if (length <= 1) return 0;
+    if (window.crypto?.getRandomValues) {
+      const values = new Uint32Array(1);
+      window.crypto.getRandomValues(values);
+      return values[0] % length;
+    }
+    return Math.floor(Math.random() * length);
+  }
+  function chooseReward() {
+    const chest = keyState();
+    const unopened = REWARDS.filter(reward => !chest.unlockedRewards.includes(reward.id));
+    const pool = unopened.length ? unopened : REWARDS;
+    return pool[randomIndex(pool.length)];
+  }
+
+  function configureQuests() {
+    const activity = ensureDailyActivity();
+    activity.dailySessions = Number(activity.dailySessions || 0);
+    activity.quickReviewItems = Number(activity.quickReviewItems || 0);
+    activity.quickReviews = Number(activity.quickReviews || 0);
+    activity.questsClaimed = Array.isArray(activity.questsClaimed) ? activity.questsClaimed : [];
+
+    const sessionQuest = DAILY_QUESTS.find(quest => quest.id === "session");
+    if (sessionQuest) Object.assign(sessionQuest, {
+      title:"Finish one Daily Session",
+      detail:"Complete the full recommended Daily Session.",
+      target:1,
+      metric:value => Number(value.dailySessions || 0)
+    });
+    const correctQuest = DAILY_QUESTS.find(quest => quest.id === "correct");
+    if (correctQuest) Object.assign(correctQuest, {
+      title:"Get 15 answers right",
+      detail:"Build 15 correct answers across today’s practice.",
+      target:15,
+      metric:value => Number(value.correct || 0)
+    });
+    const reviewQuest = DAILY_QUESTS.find(quest => quest.id === "review");
+    if (reviewQuest) Object.assign(reviewQuest, {
+      title:"Strengthen 3 learned items",
+      detail:"Answer three review questions from language you have already learned.",
+      target:3,
+      metric:value => Number(value.reviews || 0)
+    });
+    let quickQuest = DAILY_QUESTS.find(quest => quest.id === "quick_twice");
+    if (!quickQuest) {
+      quickQuest = {id:"quick_twice",icon:"⚡",reward:100};
+      DAILY_QUESTS.push(quickQuest);
+    }
+    Object.assign(quickQuest, {
+      icon:"⚡",
+      title:"Complete 15 Quick Review items",
+      detail:"Answer 15 Quick Review questions in one long review or several shorter reviews.",
+      target:15,
+      metric:value => Number(value.quickReviewItems || 0)
+    });
+    if (DAILY_QUESTS.length > QUEST_TOTAL) DAILY_QUESTS.splice(QUEST_TOTAL);
+  }
+
+  function questValue(quest) {
+    try { return Math.max(0, Number(questProgress(quest) || 0)); }
+    catch { return Math.max(0, Number(quest.metric?.(ensureDailyActivity()) || 0)); }
+  }
+  function allComplete() {
+    const activity = ensureDailyActivity();
+    return DAILY_QUESTS.length === QUEST_TOTAL && DAILY_QUESTS.every(quest =>
+      activity.questsClaimed.includes(quest.id) || questValue(quest) >= quest.target
+    );
+  }
+  function projectedCompleteAfterClaim() {
+    return DAILY_QUESTS.length === QUEST_TOTAL && DAILY_QUESTS.every(quest => {
+      const activity = ensureDailyActivity();
+      return activity.questsClaimed.includes(quest.id) || questValue(quest) >= quest.target;
+    });
+  }
+
+  function reserveRewardLayer() {
+    window.clearTimeout(releaseTimer);
+    if (!reservation?.isConnected) {
+      reservation = document.createElement("div");
+      reservation.className = "daily-key-celebration daily-key-reward-reservation";
+      reservation.hidden = true;
+      reservation.setAttribute("aria-hidden", "true");
+      document.body.appendChild(reservation);
+    }
+    document.documentElement.dataset.dailyKeyRewardPriority = "reserved";
+    try { window.SalitaPopupGovernor?.suspend?.(7000, "daily_key_priority"); } catch {}
+  }
+  function releaseRewardLayerSoon() {
+    window.clearTimeout(releaseTimer);
+    releaseTimer = window.setTimeout(() => {
+      if (playingKey || keyState().pendingKeyAwards.length) {
+        reserveRewardLayer();
+        return;
+      }
+      reservation?.remove();
+      reservation = null;
+      delete document.documentElement.dataset.dailyKeyRewardPriority;
+      try {
+        window.SalitaPopupGovernor?.resume?.("daily_key_finished");
+        window.SalitaPopupGovernor?.notify?.();
+      } catch {}
       document.dispatchEvent(new CustomEvent("salita:daily-key-reward-finished"));
-    },650);
+    }, 650);
   }
 
-  function queueKey(date=currentDate()){
-    const chest=chestState();
-    if(chest.animatedKeyDates.includes(date)||chest.pendingKeyAwards.some(a=>a.date===date)) return false;
-    chest.pendingKeyAwards.push({date,count:Math.min(KEY_TARGET,earnedCount()),queuedAt:new Date().toISOString(),source:"daily-quest-key-system"});
+  function queueKey(date = currentDate()) {
+    const chest = keyState();
+    if (chest.animatedKeyDates.includes(date) || chest.pendingKeyAwards.some(item => item.date === date)) return false;
+    chest.pendingKeyAwards.push({date,count:earnedCount(),queuedAt:new Date().toISOString(),source:"daily-quest-key-system"});
     reserveRewardLayer();
     return true;
   }
-  function grantTodayKey(){
-    if(!allComplete()) return false;
-    const chest=chestState(); const date=currentDate();
-    if(chest.keyDates.includes(date)) return false;
-    chest.keyDates.push(date);chest.keyDates.sort();queueKey(date);return true;
+  function grantTodayKey() {
+    if (!allComplete()) return false;
+    const chest = keyState();
+    const date = currentDate();
+    if (chest.keyDates.includes(date)) return false;
+    chest.keyDates.push(date);
+    chest.keyDates.sort();
+    queueKey(date);
+    return true;
   }
 
-  function claimRewards(celebrate=false){
-    const activity=ensureDailyActivity(); let changed=false;
-    DAILY_QUESTS.forEach(quest=>{
-      if(progress(quest)>=quest.target&&!activity.questsClaimed.includes(quest.id)){
-        activity.questsClaimed.push(quest.id);state.coins=Number(state.coins||0)+DAILY_QUEST_REWARD;changed=true;
-        if(celebrate){try{showRewardBurst(quest.icon,`${quest.title} · +${DAILY_QUEST_REWARD} coins`);}catch{}}
+  function quickReviewLength() {
+    const activity = document.getElementById("activityQuickLength");
+    const home = document.getElementById("homeQuickReviewLength");
+    const value = Number(activity?.value || home?.value || state?.settings?.quickReviewLength || 4);
+    return Number.isFinite(value) && value > 0 ? value : 4;
+  }
+  function launchQuest(questId) {
+    if (questId === "session") {
+      startSession("daily");
+      return;
+    }
+    if (["correct","review","quick_twice"].includes(questId)) startSession("quick", false, {length:quickReviewLength()});
+  }
+
+  function ensureSummaryRow(card) {
+    let summary = card.querySelector(".sq-quest-summary-row");
+    if (summary) return summary;
+    summary = document.createElement("div");
+    summary.className = "sq-quest-summary-row";
+    summary.innerHTML = '<strong>Daily Quests</strong><span>Completed</span><button type="button" aria-label="Open Daily Quests" aria-expanded="false">⌄</button>';
+    summary.querySelector("button").addEventListener("click", () => {
+      card.classList.remove("sq-quests-collapsed");
+      card.dataset.questManualState = "expanded";
+      card.dataset.questManualDay = currentDate();
+      syncCollapse(card);
+    });
+    card.prepend(summary);
+    return summary;
+  }
+  function ensureHeaderToggle(card) {
+    const header = card.querySelector(".quest-card-header");
+    if (!header) return null;
+    let button = header.querySelector(".daily-quest-collapse-toggle");
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "daily-quest-collapse-toggle";
+      button.addEventListener("click", () => {
+        const collapse = !card.classList.contains("sq-quests-collapsed");
+        card.dataset.questManualState = collapse ? "collapsed" : "expanded";
+        card.dataset.questManualDay = currentDate();
+        card.classList.toggle("sq-quests-collapsed", collapse);
+        syncCollapse(card);
+      });
+      header.appendChild(button);
+    }
+    return button;
+  }
+  function syncCollapse(card) {
+    const collapsed = card.classList.contains("sq-quests-collapsed");
+    const button = card.querySelector(".daily-quest-collapse-toggle");
+    if (button) {
+      button.textContent = collapsed ? "⌄" : "⌃";
+      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      button.setAttribute("aria-label", collapsed ? "Open Daily Quests" : "Collapse Daily Quests");
+    }
+  }
+  function applyCollapseState(card) {
+    ensureSummaryRow(card);
+    ensureHeaderToggle(card);
+    const today = currentDate();
+    const complete = allComplete();
+
+    if (card.dataset.questManualDay !== today) {
+      delete card.dataset.questManualState;
+      delete card.dataset.questCompletionCollapsedDay;
+      card.dataset.questManualDay = today;
+    }
+
+    if (complete && card.dataset.questCompletionCollapsedDay !== today) {
+      card.classList.add("sq-quests-collapsed");
+      card.dataset.questCompletionCollapsedDay = today;
+      card.dataset.questManualState = "collapsed";
+    } else if (!complete) {
+      delete card.dataset.questCompletionCollapsedDay;
+      if (card.dataset.questManualState !== "collapsed") card.classList.remove("sq-quests-collapsed");
+    } else if (card.dataset.questManualState === "expanded") {
+      card.classList.remove("sq-quests-collapsed");
+    } else {
+      card.classList.add("sq-quests-collapsed");
+    }
+    syncCollapse(card);
+  }
+
+  function patchQuestCard() {
+    const card = document.querySelector(".daily-quests-card");
+    const list = document.getElementById("dailyQuestList");
+    if (!card || !list) return;
+    const activity = ensureDailyActivity();
+    const claimed = DAILY_QUESTS.filter(quest => activity.questsClaimed.includes(quest.id) || questValue(quest) >= quest.target).length;
+    const score = document.getElementById("dailyQuestScore");
+    if (score) score.textContent = `${Math.min(QUEST_TOTAL, claimed)}/${QUEST_TOTAL}`;
+    const heading = card.querySelector(".quest-card-header h3");
+    if (heading) heading.textContent = allComplete() ? "Daily quests completed" : "4 small wins";
+    const description = card.querySelector(".quest-card-header p:not(.eyebrow)");
+    if (description) description.textContent = "Short, meaningful goals keep practice focused without turning XP into the objective.";
+
+    [...list.querySelectorAll(".daily-quest")].forEach((row, index) => {
+      const quest = DAILY_QUESTS[index];
+      if (!quest) return;
+      row.dataset.questNavigationId = quest.id;
+      row.setAttribute("role", "button");
+      row.setAttribute("tabindex", "0");
+      row.classList.add("daily-quest-navigable");
+      const destination = quest.id === "session" ? "Daily Session" : "Quick Review";
+      row.setAttribute("aria-label", `${quest.title}. Open ${destination}.`);
+      if (!row.querySelector(".daily-quest-arrow")) {
+        const arrow = document.createElement("span");
+        arrow.className = "daily-quest-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "›";
+        row.appendChild(arrow);
       }
     });
-    if(allComplete()&&!activity.chestClaimed){ activity.chestClaimed=true;state.coins=Number(state.coins||0)+DAILY_CHEST_COINS;state.xp=Number(state.xp||0)+DAILY_CHEST_XP;changed=true; }
-    if(activity.chestClaimed&&grantTodayKey()) changed=true;
-    if(changed) saveState();
+    applyCollapseState(card);
+  }
+
+  function detailedWeekMeter() {
+    const earned = new Set(earnedDatesThisWeek());
+    return `<div class="weekly-key-meter calendar-detail-meter" aria-label="${earned.size} of 7 calendar days have Daily Keys; weekly goal is ${KEY_TARGET}">${weekDates(currentDate()).map((date,index) => `<span class="weekly-key-slot ${earned.has(date)?"collected":""}" title="${date}"><b>${earned.has(date)?"🔑":""}</b><small>${DAY_LABELS[index]}</small></span>`).join("")}</div>`;
+  }
+  function renderChest() {
+    const host = document.getElementById("questChest");
+    if (!host) return;
+    const count = earnedCount();
+    const ready = count >= KEY_TARGET;
+    const claim = currentClaim();
+    const latest = latestClaim();
+    const latestReward = latest ? rewardById(latest.rewardId) : null;
+    const earnedToday = keyState().keyDates.includes(currentDate());
+
+    host.classList.toggle("locked", !earnedToday && !ready && !claim);
+    host.classList.toggle("unlocked", earnedToday || ready || Boolean(claim));
+    host.classList.toggle("weekly-ready", ready && !claim);
+    host.classList.toggle("weekly-claimed", Boolean(claim));
+
+    let title = `Weekly Daily Keys · ${count}/7 days`;
+    let text = `Weekly goal: earn a Daily Key on any ${KEY_TARGET} of the 7 days from Monday to Sunday.`;
+    let action = `<span class="weekly-key-status">${earnedToday ? "✓" : "🔒"}</span>`;
+    if (ready && !claim) {
+      title = `Weekly reward ready · ${count}/7 days`;
+      text = `${KEY_TARGET}-day goal reached. Open your weekly reward.`;
+      action = '<button class="weekly-chest-button" type="button" data-calendar-week-action="open">Open reward</button>';
+    } else if (claim) {
+      const reward = rewardById(claim.rewardId);
+      title = `Weekly goal complete · ${count}/7 days`;
+      text = `This week’s reward: ${reward?.title || "collected"}.`;
+      action = '<button class="weekly-chest-button secondary" type="button" data-calendar-week-action="view">View reward</button>';
+    } else if (latestReward) {
+      text += ` Previous reward: ${latestReward.title}.`;
+      action = '<button class="weekly-chest-button secondary" type="button" data-calendar-week-action="latest">View previous</button>';
+    }
+    host.innerHTML = `<div class="weekly-key-icon" aria-hidden="true">${ready&&!claim ? "🎁" : "🔑"}</div><div class="weekly-key-copy"><strong>${esc(title)}</strong><small>${esc(text)}</small>${detailedWeekMeter()}</div><div class="weekly-key-action">${action}</div>`;
+  }
+
+  function compactHome() {
+    const home = document.getElementById("homeView");
+    if (!home) return;
+    const dashboard = home.querySelector(".game-dashboard");
+    const weekCard = dashboard?.querySelector(".week-card") || document.querySelector("#homeProgressStack .week-card");
+    const playerCard = dashboard?.querySelector(".player-card") || document.querySelector("#homeProgressStack .player-card");
+    if (!weekCard || !playerCard) return;
+    let stack = document.getElementById("homeProgressStack");
+    if (!stack) {
+      stack = document.createElement("section");
+      stack.id = "homeProgressStack";
+      stack.className = "home-progress-stack";
+      stack.setAttribute("aria-label", "Weekly Daily Keys and learning level");
+      home.prepend(stack);
+    }
+    if (weekCard.parentElement !== stack) stack.appendChild(weekCard);
+    if (playerCard.parentElement !== stack) stack.appendChild(playerCard);
+    if (dashboard && !dashboard.children.length) dashboard.remove();
+  }
+  function renderTopWeek() {
+    const host = document.getElementById("weekMomentum");
+    if (!host) return;
+    const earned = new Set(earnedDatesThisWeek());
+    const today = currentDate();
+    host.setAttribute("aria-label", `${earned.size} of 7 Daily Keys this week; goal ${KEY_TARGET}`);
+    host.innerHTML = weekDates(today).map((date,index) => `<div class="week-day calendar-key-day ${earned.has(date)?"studied":""} ${date===today?"today":""}" title="${date}"><span>${earned.has(date)?"🔑":DAY_LABELS[index]}</span><small>${DAY_LABELS[index]}</small></div>`).join("");
+  }
+
+  function ensureStyles() {
+    if (document.getElementById("dailyQuestKeySystemStyles")) return;
+    const style = document.createElement("style");
+    style.id = "dailyQuestKeySystemStyles";
+    style.textContent = `
+      .home-progress-stack{display:grid;gap:10px;margin:0 0 14px}.home-progress-stack .week-card,.home-progress-stack .player-card{margin:0!important}
+      .home-progress-stack .week-card{padding:10px 12px!important;min-height:0!important}.home-progress-stack .week-card-head{display:none!important}
+      .home-progress-stack .week-momentum{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:8px!important;margin:0!important}
+      .home-progress-stack .week-day{min-width:0!important;min-height:46px!important;padding:5px 2px!important;border-radius:12px!important;display:grid!important;place-items:center!important;gap:1px!important}
+      .home-progress-stack .week-day span{font-size:1rem!important;line-height:1!important}.home-progress-stack .week-day small{font-size:.62rem!important;line-height:1!important}
+      .home-progress-stack .player-card{padding:10px 14px!important;min-height:0!important;align-items:center!important}.home-progress-stack .player-copy>.eyebrow,.home-progress-stack #playerLevelSubtitle{display:none!important}
+      .home-progress-stack .player-copy{gap:4px!important}.home-progress-stack .player-copy h3{margin:0!important}.home-progress-stack .player-avatar-wrap{transform:scale(.88);transform-origin:center}
+      .home-progress-stack .player-xp-row,.home-progress-stack .player-xp-track{margin-top:2px!important}
+      .daily-quest-navigable{position:relative;cursor:pointer}.daily-quest-navigable:focus-visible{outline:3px solid rgba(18,173,151,.28);outline-offset:2px}
+      .daily-quest-arrow{margin-left:auto;padding-left:10px;color:#0b8f83;font-size:1.8rem;font-weight:900;align-self:center}
+      .daily-quest-collapse-toggle,.sq-quest-summary-row button{appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:inherit;border-radius:999px;min-width:36px;height:36px;padding:0 10px;font:inherit;font-weight:900;cursor:pointer;display:grid;place-items:center}
+      .sq-quest-summary-row{display:none;align-items:center;gap:14px;min-height:42px}.sq-quest-summary-row strong{font-size:1.05rem}.sq-quest-summary-row span{opacity:.72}.sq-quest-summary-row button{margin-left:auto}
+      .daily-quests-card.sq-quests-collapsed{padding:12px 18px!important}
+      .daily-quests-card.sq-quests-collapsed>.sq-quest-summary-row{display:flex!important}
+      .daily-quests-card.sq-quests-collapsed>.quest-card-header,.daily-quests-card.sq-quests-collapsed>#dailyQuestList,.daily-quests-card.sq-quests-collapsed>#questChest{display:none!important}
+      .daily-quests-card .calendar-detail-meter{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:10px!important;width:100%!important;margin-top:12px!important}
+      .daily-quests-card .calendar-detail-meter .weekly-key-slot{min-width:0!important;min-height:44px!important;margin:0!important;padding:5px 2px!important;display:grid!important;place-items:center!important;gap:2px!important}
+      .daily-quests-card .calendar-detail-meter .weekly-key-slot b{font-size:1rem;line-height:1}.daily-quests-card .calendar-detail-meter .weekly-key-slot small{font-size:.62rem;line-height:1;opacity:.8}
+      .daily-key-celebration.reward-coordinator{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle at center,rgba(250,201,65,.20),transparent 48%)}
+      .daily-key-celebration.reward-coordinator .daily-key-celebration-banner{padding:18px 22px;border-radius:22px;background:#173f39;color:white;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.28);display:grid;gap:4px}
+      .daily-key-celebration.reward-coordinator .daily-key-celebration-banner span{font-size:1.15rem;font-weight:900}.daily-key-celebration.reward-coordinator .daily-key-celebration-banner strong{font-size:.9rem;opacity:.88}
+      .daily-key-award-grand{position:fixed;z-index:10000;font-size:3rem;pointer-events:none}
+      @media(max-width:620px){
+        .home-progress-stack{gap:8px;margin-bottom:10px}.home-progress-stack .week-card{padding:8px!important}.home-progress-stack .week-momentum{gap:5px!important}.home-progress-stack .week-day{min-height:42px!important;border-radius:10px!important}
+        .home-progress-stack .player-card{padding:8px 10px!important}.home-progress-stack .player-xp-row{font-size:.72rem!important}
+        .daily-quests-card .calendar-detail-meter{gap:6px!important}.daily-quests-card .calendar-detail-meter .weekly-key-slot{min-height:40px!important}
+        .sq-quest-summary-row{gap:10px}.daily-quests-card.sq-quests-collapsed{padding:10px 14px!important}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function rewardLayer(count) {
+    document.querySelector(".daily-key-celebration.reward-coordinator")?.remove();
+    const layer = document.createElement("div");
+    layer.className = "daily-key-celebration reward-coordinator";
+    layer.setAttribute("aria-live", "polite");
+    layer.innerHTML = `<div class="daily-key-celebration-banner"><span>🔑 Daily Key earned!</span><strong>${count}/7 days this week · goal ${KEY_TARGET}</strong></div>`;
+    document.body.appendChild(layer);
+    return layer;
+  }
+  function keyTargetForDate(date) {
+    const dates = weekDates(currentDate());
+    const index = dates.indexOf(date);
+    if (index < 0) return null;
+    const cells = document.querySelectorAll("#weekMomentum .calendar-key-day");
+    return cells[index] || null;
+  }
+  async function animateKey(award) {
+    compactHome();
+    renderTopWeek();
+    const target = keyTargetForDate(award.date);
+    const layer = rewardLayer(earnedCount());
+    const reduced = Boolean(state.settings?.reducedMotion) || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!target || reduced) {
+      await new Promise(resolve => setTimeout(resolve, 950));
+      layer.remove();
+      return;
+    }
+    const rect = target.getBoundingClientRect();
+    const startX = innerWidth / 2;
+    const startY = innerHeight * .42;
+    const dx = rect.left + rect.width/2 - startX;
+    const dy = rect.top + rect.height/2 - startY;
+    const key = document.createElement("div");
+    key.className = "daily-key-award-grand";
+    key.textContent = "🔑";
+    key.style.left = `${startX}px`;
+    key.style.top = `${startY}px`;
+    document.body.appendChild(key);
+    const motion = key.animate([
+      {opacity:0,transform:"translate(-50%,-50%) scale(.25) rotate(-20deg)"},
+      {opacity:1,transform:"translate(-50%,-50%) scale(1.35) rotate(8deg)",offset:.25},
+      {opacity:1,transform:`translate(calc(-50% + ${dx*.35}px),calc(-50% + ${dy*.18}px)) scale(1) rotate(90deg)`,offset:.62},
+      {opacity:1,transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.42) rotate(350deg)`,offset:.94},
+      {opacity:0,transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.12) rotate(390deg)`}
+    ], {duration:2200,easing:"cubic-bezier(.18,.78,.18,1)",fill:"forwards"});
+    await motion.finished.catch(() => {});
+    key.remove();
+    layer.remove();
+  }
+  function scheduleKey(delay = 250) {
+    window.clearTimeout(keyTimer);
+    keyTimer = window.setTimeout(playPendingKey, delay);
+  }
+  async function playPendingKey() {
+    if (playingKey) return;
+    const award = keyState().pendingKeyAwards[0];
+    if (!award) { releaseRewardLayerSoon(); return; }
+    playingKey = true;
+    reserveRewardLayer();
+    try {
+      await animateKey(award);
+      const chest = keyState();
+      chest.pendingKeyAwards = chest.pendingKeyAwards.filter(item => item.date !== award.date);
+      if (!chest.animatedKeyDates.includes(award.date)) chest.animatedKeyDates.push(award.date);
+      chest.animatedKeyDates = chest.animatedKeyDates.slice(-MAX_KEY_HISTORY);
+      saveState();
+      renderAll();
+    } finally {
+      playingKey = false;
+      if (keyState().pendingKeyAwards.length) scheduleKey(500);
+      else releaseRewardLayerSoon();
+    }
+  }
+
+  function ensureRewardModal() {
+    let modal = document.getElementById("calendarWeeklyRewardModal");
+    if (modal) return modal;
+    modal = document.createElement("div");
+    modal.id = "calendarWeeklyRewardModal";
+    modal.className = "weekly-avatar-modal hidden";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.innerHTML = `<div class="weekly-avatar-card-shell"><button class="weekly-avatar-close" type="button" data-calendar-week-close aria-label="Close">×</button><p class="eyebrow">Weekly Daily Key reward</p><div class="weekly-avatar-preview" id="calendarWeeklyRewardPreview"><span class="weekly-avatar-spark">★</span><img id="calendarWeeklyRewardImage" alt=""></div><h2 id="calendarWeeklyRewardTitle"></h2><p>Collected by earning Daily Keys on at least five days in the Monday–Sunday week.</p><div class="weekly-avatar-actions"><button class="secondary-btn" type="button" data-calendar-week-close>Close</button></div></div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal || event.target.closest("[data-calendar-week-close]")) closeRewardModal();
+    });
+    return modal;
+  }
+  function openRewardModal(reward) {
+    if (!reward) return;
+    const modal = ensureRewardModal();
+    const preview = modal.querySelector("#calendarWeeklyRewardPreview");
+    preview.style.setProperty("--reward-a", reward.colors[0]);
+    preview.style.setProperty("--reward-b", reward.colors[1]);
+    const image = modal.querySelector("#calendarWeeklyRewardImage");
+    image.src = reward.src;
+    image.alt = reward.avatarName;
+    modal.querySelector("#calendarWeeklyRewardTitle").textContent = reward.title;
+    modal.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+  }
+  function closeRewardModal() {
+    document.getElementById("calendarWeeklyRewardModal")?.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+  function claimWeeklyReward() {
+    if (earnedCount() < KEY_TARGET) return null;
+    const chest = keyState();
+    const week = currentWeek();
+    if (chest.calendarWeekClaims[week]) return rewardById(chest.calendarWeekClaims[week].rewardId);
+    const reward = chooseReward();
+    chest.calendarWeekClaims[week] = {week,rewardId:reward.id,claimedAt:new Date().toISOString(),keyDates:earnedDatesThisWeek().slice()};
+    if (!chest.unlockedRewards.includes(reward.id)) chest.unlockedRewards.push(reward.id);
+    saveState();
+    try { showRewardBurst("🎁", `${reward.title} unlocked!`, true); } catch {}
     renderAll();
-    if(chestState().pendingKeyAwards.length) scheduleKey(180);
-    return changed;
+    openRewardModal(reward);
+    return reward;
   }
 
-  function renderQuestRows(){
-    const card=document.querySelector(".daily-quests-card"); const list=document.getElementById("dailyQuestList"); if(!card||!list)return;
-    const activity=ensureDailyActivity();
-    list.innerHTML=DAILY_QUESTS.map(quest=>{
-      const value=Math.min(quest.target,progress(quest)); const complete=activity.questsClaimed.includes(quest.id)||value>=quest.target;
-      const destination=quest.id==="session"?"Daily Session":"Quick Review";
-      return `<div class="daily-quest daily-quest-navigable ${complete?"complete":""}" data-quest-navigation-id="${esc(quest.id)}" role="button" tabindex="0" aria-label="${esc(quest.title)}. Open ${destination}."><div class="daily-quest-icon">${esc(quest.icon||"✓")}</div><div class="daily-quest-copy"><strong>${esc(quest.title)}</strong><p>${esc(quest.detail||"")}</p><div class="daily-quest-progress"><span style="width:${Math.min(100,(value/Math.max(1,quest.target))*100)}%"></span></div><small>${value}/${quest.target}${complete?" · complete":""}</small></div><span class="daily-quest-arrow" aria-hidden="true">›</span></div>`;
-    }).join("");
-    const score=document.getElementById("dailyQuestScore");if(score)score.textContent=`${Math.min(QUEST_TOTAL,activity.questsClaimed.length)}/${QUEST_TOTAL}`;
-    const heading=card.querySelector(".quest-card-header h3");if(heading)heading.textContent=allComplete()?"Daily quests completed":"4 small wins";
-    const desc=card.querySelector(".quest-card-header p:not(.eyebrow)");if(desc&&!allComplete())desc.textContent="Short, meaningful goals keep practice focused without turning XP into the objective.";
-    ensureCollapse(card);
+  function renderAll() {
+    if (rendering) return;
+    rendering = true;
+    try {
+      patchQuestCard();
+      renderChest();
+      compactHome();
+      renderTopWeek();
+    } finally { rendering = false; }
   }
 
-  function ensureCollapse(card){
-    const header=card.querySelector(".quest-card-header");if(!header)return;
-    let button=header.querySelector(".daily-quest-collapse-toggle");
-    if(!button){button=document.createElement("button");button.type="button";button.className="daily-quest-collapse-toggle";header.appendChild(button);button.addEventListener("click",()=>{const collapse=!card.classList.contains("sq-quests-collapsed");card.dataset.questManualState=collapse?"collapsed":"expanded";card.dataset.questManualDay=currentDate();card.classList.toggle("sq-quests-collapsed",collapse);syncCollapse(card,button);});}
-    if(card.dataset.questManualDay!==currentDate()){delete card.dataset.questManualState;card.dataset.questManualDay=currentDate();}
-    if(allComplete()&&card.dataset.questManualState!=="expanded")card.classList.add("sq-quests-collapsed");
-    else if(!allComplete()&&card.dataset.questManualState!=="collapsed")card.classList.remove("sq-quests-collapsed");
-    syncCollapse(card,button);
-  }
-  function syncCollapse(card,button){const collapsed=card.classList.contains("sq-quests-collapsed");button.textContent=collapsed?"⌄":"⌃";button.setAttribute("aria-expanded",collapsed?"false":"true");button.setAttribute("aria-label",collapsed?"Open Daily Quests":"Collapse Daily Quests");}
+  function install() {
+    try {
+      if (typeof state === "undefined" || typeof DAILY_QUESTS === "undefined" || typeof ensureDailyActivity !== "function" || typeof questProgress !== "function" || typeof claimDailyQuestRewards !== "function" || typeof renderDailyQuests !== "function" || typeof updateHome !== "function" || typeof startSession !== "function" || typeof saveState !== "function") { retry(); return; }
+    } catch { retry(); return; }
 
-  function detailMeter(){const count=Math.min(KEY_TARGET,earnedCount());return `<div class="weekly-key-meter calendar-detail-meter" aria-label="${count} of ${KEY_TARGET} required weekly keys collected">${Array.from({length:KEY_TARGET},(_,i)=>`<span class="weekly-key-slot ${i<count?"collected":""}">${i<count?"🔑":""}</span>`).join("")}</div>`;}
-  function renderChest(){
-    const host=document.getElementById("questChest");if(!host)return;
-    const count=earnedCount();const ready=count>=KEY_TARGET;const claim=currentClaim();const latest=latestClaim();const latestReward=latest?rewardById(latest.rewardId):null;const earnedToday=chestState().keyDates.includes(currentDate());
-    host.classList.toggle("locked",!earnedToday&&!ready&&!claim);host.classList.toggle("unlocked",earnedToday||ready||Boolean(claim));host.classList.toggle("weekly-ready",ready&&!claim);host.classList.toggle("weekly-claimed",Boolean(claim));
-    let title=`Weekly Daily Keys · ${Math.min(KEY_TARGET,count)}/${KEY_TARGET}`;let text=`Earn a key on any ${KEY_TARGET} of the 7 days from Monday to Sunday.`;let action=`<span class="weekly-key-status">${earnedToday?"✓":"🔒"}</span>`;
-    if(ready&&!claim){title=`Weekly reward ready · ${count}/7 days`;text=`${KEY_TARGET} Daily Keys collected this calendar week. Open your weekly reward.`;action='<button class="weekly-chest-button" type="button" data-calendar-week-action="open">Open reward</button>';}
-    else if(claim){const reward=rewardById(claim.rewardId);title=`Weekly goal complete · ${count}/7 days`;text=`This week’s reward: ${reward?.title||"collected"}.`;action='<button class="weekly-chest-button secondary" type="button" data-calendar-week-action="view">View reward</button>';}
-    else if(latestReward){text+=` Previous reward: ${latestReward.title}.`;action='<button class="weekly-chest-button secondary" type="button" data-calendar-week-action="latest">View previous</button>';}
-    host.innerHTML=`<div class="weekly-key-icon" aria-hidden="true">${ready&&!claim?"🎁":"🔑"}</div><div class="weekly-key-copy"><strong>${esc(title)}</strong><small>${esc(text)}</small>${detailMeter()}</div><div class="weekly-key-action">${action}</div>`;
-  }
+    window[INSTALL_FLAG] = true;
+    document.documentElement.dataset.weeklyKeyMode = "calendar";
+    window.__salitaQuestWeeklyAvatarChestInstalled = true;
+    window.__salitaQuestWeeklyAvatarPolishInstalled = true;
+    ensureStyles();
+    configureQuests();
 
-  function compactHome(){
-    const home=document.getElementById("homeView");const dashboard=home?.querySelector(".game-dashboard");let week=dashboard?.querySelector(".week-card")||document.querySelector("#homeProgressStack .week-card");let player=dashboard?.querySelector(".player-card")||document.querySelector("#homeProgressStack .player-card");if(!home||!week||!player)return;
-    let stack=document.getElementById("homeProgressStack");if(!stack){stack=document.createElement("section");stack.id="homeProgressStack";stack.className="home-progress-stack";stack.setAttribute("aria-label","Weekly keys and learning level");home.prepend(stack);}
-    if(week.parentElement!==stack)stack.appendChild(week);if(player.parentElement!==stack)stack.appendChild(player);if(dashboard&&dashboard!==stack)dashboard.remove();
-  }
-  function renderTopStrip(){
-    const host=document.getElementById("weekMomentum");if(!host)return;const earned=new Set(earnedDates());const today=currentDate();host.setAttribute("aria-label",`${earned.size} Daily Keys earned this calendar week; weekly goal ${KEY_TARGET} of 7 days`);host.innerHTML=weekDates(currentDate()).map((key,i)=>`<div class="week-day calendar-key-day ${earned.has(key)?"studied":""} ${key===today?"today":""}" data-date="${key}" title="${key}"><span>${earned.has(key)?"🔑":DAY_LABELS[i]}</span><small>${DAY_LABELS[i]}</small></div>`).join("");
-  }
+    const baseClaim = claimDailyQuestRewards;
+    claimDailyQuestRewards = function claimDailyQuestRewardsUnified() {
+      const mayComplete = projectedCompleteAfterClaim();
+      const hadKey = keyState().keyDates.includes(currentDate());
+      if (mayComplete && !hadKey) reserveRewardLayer();
+      const result = baseClaim.apply(this, arguments);
+      configureQuests();
+      const granted = grantTodayKey();
+      if (granted) saveState();
+      renderAll();
+      if (granted || keyState().pendingKeyAwards.length) scheduleKey(180);
+      else if (mayComplete && !hadKey) releaseRewardLayerSoon();
+      return result;
+    };
 
-  function quickLength(){const a=document.getElementById("activityQuickLength"),h=document.getElementById("homeQuickReviewLength");const n=Number(a?.value||h?.value||state?.settings?.quickReviewLength||4);return Number.isFinite(n)&&n>0?n:4;}
-  function launchQuest(id){if(id==="session")startSession("daily");else startSession("quick",false,{length:quickLength()});}
+    const baseRenderDailyQuests = renderDailyQuests;
+    renderDailyQuests = function renderDailyQuestsUnified() {
+      const result = baseRenderDailyQuests.apply(this, arguments);
+      configureQuests();
+      renderAll();
+      document.dispatchEvent(new CustomEvent("salita:daily-quests-rendered"));
+      return result;
+    };
 
-  function claimWeeklyReward(){
-    if(earnedCount()<KEY_TARGET)return null;const chest=chestState();const week=currentWeek();if(chest.calendarWeekClaims[week])return rewardById(chest.calendarWeekClaims[week].rewardId);const reward=chooseReward();chest.calendarWeekClaims[week]={week,rewardId:reward.id,claimedAt:new Date().toISOString(),keyDates:earnedDates().slice()};if(!chest.unlockedRewards.includes(reward.id))chest.unlockedRewards.push(reward.id);saveState();try{showRewardBurst("🎁",`${reward.title} unlocked!`,true);}catch{}renderAll();openRewardModal(reward);return reward;
-  }
-  function ensureRewardModal(){let modal=document.getElementById("calendarWeeklyRewardModal");if(modal)return modal;modal=document.createElement("div");modal.id="calendarWeeklyRewardModal";modal.className="weekly-avatar-modal hidden";modal.setAttribute("role","dialog");modal.setAttribute("aria-modal","true");modal.innerHTML='<div class="weekly-avatar-card-shell"><button class="weekly-avatar-close" type="button" data-calendar-week-close aria-label="Close">×</button><p class="eyebrow">Weekly Daily Key reward</p><div class="weekly-avatar-preview" id="calendarWeeklyRewardPreview"><span class="weekly-avatar-spark">★</span><img id="calendarWeeklyRewardImage" alt=""></div><h2 id="calendarWeeklyRewardTitle"></h2><p>Collected by earning Daily Keys on five days in the Monday–Sunday week.</p><div class="weekly-avatar-actions"><button class="secondary-btn" type="button" data-calendar-week-close>Close</button></div></div>';document.body.appendChild(modal);modal.addEventListener("click",e=>{if(e.target===modal||e.target.closest("[data-calendar-week-close]"))closeRewardModal();});return modal;}
-  function openRewardModal(reward){if(!reward)return;const modal=ensureRewardModal();const preview=modal.querySelector("#calendarWeeklyRewardPreview");preview.style.setProperty("--reward-a",reward.colors[0]);preview.style.setProperty("--reward-b",reward.colors[1]);const img=modal.querySelector("#calendarWeeklyRewardImage");img.src=reward.src;img.alt=reward.avatarName;modal.querySelector("#calendarWeeklyRewardTitle").textContent=reward.title;modal.classList.remove("hidden");document.body.classList.add("modal-open");}
-  function closeRewardModal(){document.getElementById("calendarWeeklyRewardModal")?.classList.add("hidden");document.body.classList.remove("modal-open");}
+    const baseUpdateHome = updateHome;
+    updateHome = function updateHomeUnified() {
+      const result = baseUpdateHome.apply(this, arguments);
+      renderAll();
+      return result;
+    };
 
-  function keyTarget(){return document.querySelector(`.calendar-key-day[data-date="${currentDate()}"]`)||document.querySelector(".calendar-detail-meter .weekly-key-slot.collected:last-child");}
-  function rewardLayer(count){document.querySelector(".daily-key-celebration.reward-coordinator")?.remove();const layer=document.createElement("div");layer.className="daily-key-celebration reward-coordinator";layer.setAttribute("aria-live","polite");layer.innerHTML=`<div class="daily-key-celebration-glow" aria-hidden="true"></div><div class="daily-key-celebration-banner" role="status"><span>Daily Key earned!</span><strong>${count} of ${KEY_TARGET} keys this week</strong></div><div class="daily-key-spark-field" aria-hidden="true"></div>`;const field=layer.querySelector(".daily-key-spark-field");for(let i=0;i<22;i++){const spark=document.createElement("i");spark.style.setProperty("--spark-angle",`${(360/22)*i}deg`);spark.style.setProperty("--spark-distance",`${105+(i%5)*18}px`);spark.style.setProperty("--spark-delay",`${(i%6)*22}ms`);field.appendChild(spark);}document.body.appendChild(layer);requestAnimationFrame(()=>layer.classList.add("show"));return layer;}
-  async function animateKey(award){
-    reserveRewardLayer();renderAll();const target=keyTarget();const layer=rewardLayer(Math.min(KEY_TARGET,earnedCount()));const reduced=Boolean(state.settings?.reducedMotion)||matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduced){await new Promise(r=>setTimeout(r,850));layer.remove();return true;}
-    const rect=target?.getBoundingClientRect();const startX=innerWidth/2,startY=innerHeight*.46;const endX=rect?rect.left+rect.width/2:startX,endY=rect?rect.top+rect.height/2:startY;const dx=endX-startX,dy=endY-startY;const key=document.createElement("div");key.className="daily-key-award daily-key-award-grand";key.textContent="🔑";key.style.left=`${startX}px`;key.style.top=`${startY}px`;document.body.appendChild(key);const motion=key.animate([{opacity:0,transform:"translate(-50%,-50%) scale(.2) rotate(-25deg)"},{opacity:1,transform:"translate(-50%,-50%) scale(1.4) rotate(8deg)",offset:.22},{opacity:1,transform:`translate(calc(-50% + ${dx*.32}px),calc(-50% + ${dy*.16}px)) scale(1.05) rotate(80deg)`,offset:.62},{opacity:1,transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.42) rotate(360deg)`,offset:.94},{opacity:0,transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.12) rotate(390deg)`}],{duration:2350,easing:"cubic-bezier(.18,.78,.18,1)",fill:"forwards"});setTimeout(()=>layer.classList.add("key-in-flight"),1050);setTimeout(()=>layer.classList.add("leaving"),1840);await motion.finished.catch(()=>{});key.remove();setTimeout(()=>layer.remove(),520);return true;
-  }
-  function homeVisible(){const home=document.getElementById("homeView");return document.visibilityState!=="hidden"&&document.body.dataset.currentView==="home"&&home?.classList.contains("active");}
-  async function playPendingKey(){clearTimeout(keyTimer);if(playingKey||!homeVisible())return;const award=chestState().pendingKeyAwards[0];if(!award){releaseRewardLayerSoon();return;}playingKey=true;try{if(await animateKey(award)){const chest=chestState();chest.pendingKeyAwards=chest.pendingKeyAwards.filter(a=>a.date!==award.date);if(!chest.animatedKeyDates.includes(award.date))chest.animatedKeyDates.push(award.date);chest.animatedKeyDates=chest.animatedKeyDates.slice(-MAX_KEY_HISTORY);saveState();}}finally{playingKey=false;if(chestState().pendingKeyAwards.length&&homeVisible())scheduleKey(650);else releaseRewardLayerSoon();}}
-  function scheduleKey(delay=500){clearTimeout(keyTimer);if(chestState().pendingKeyAwards.length)reserveRewardLayer();keyTimer=setTimeout(playPendingKey,delay);}
+    document.addEventListener("click", event => {
+      const questRow = event.target.closest(".daily-quest[data-quest-navigation-id]");
+      if (questRow && !event.target.closest("button,a,select,input")) {
+        launchQuest(questRow.dataset.questNavigationId);
+        return;
+      }
+      const action = event.target.closest("[data-calendar-week-action]")?.dataset.calendarWeekAction;
+      if (action === "open") claimWeeklyReward();
+      else if (action === "view") openRewardModal(rewardById(currentClaim()?.rewardId));
+      else if (action === "latest") openRewardModal(rewardById(latestClaim()?.rewardId));
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const questRow = event.target.closest(".daily-quest[data-quest-navigation-id]");
+      if (!questRow) return;
+      event.preventDefault();
+      launchQuest(questRow.dataset.questNavigationId);
+    });
 
-  function renderAll(){compactHome();renderTopStrip();renderQuestRows();renderChest();document.dispatchEvent(new CustomEvent("salita:daily-quests-rendered"));}
-  function ensureStyles(){if(document.getElementById("dailyQuestKeySystemStyles"))return;const style=document.createElement("style");style.id="dailyQuestKeySystemStyles";style.textContent=`
-    .home-progress-stack{display:grid;gap:10px;margin:0 0 14px}.home-progress-stack .week-card,.home-progress-stack .player-card{margin:0!important}.home-progress-stack .week-card{padding:10px 12px!important;min-height:0!important}.home-progress-stack .week-card-head{display:none!important}.home-progress-stack .week-momentum{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:6px!important;margin:0!important}.home-progress-stack .week-day{min-width:0!important;min-height:46px!important;padding:5px 2px!important;border-radius:12px!important;display:grid!important;place-items:center!important;gap:1px!important}.home-progress-stack .week-day span{font-size:1rem!important;line-height:1!important}.home-progress-stack .week-day small{font-size:.62rem!important;line-height:1!important}.home-progress-stack .player-card{padding:10px 14px!important;min-height:0!important;align-items:center!important}.home-progress-stack .player-copy>.eyebrow,.home-progress-stack #playerLevelSubtitle{display:none!important}.home-progress-stack .player-copy{gap:4px!important}.home-progress-stack .player-copy h3{margin:0!important}.home-progress-stack .player-avatar-wrap{transform:scale(.88);transform-origin:center}.home-progress-stack .player-xp-row,.home-progress-stack .player-xp-track{margin-top:2px!important}
-    .daily-quest-navigable{cursor:pointer;position:relative;transition:transform .14s ease}.daily-quest-navigable:hover{transform:translateY(-1px)}.daily-quest-navigable:focus-visible{outline:3px solid rgba(11,111,103,.28);outline-offset:2px}.daily-quest-arrow{align-self:center;color:#0b6f67;font-size:1.5rem;font-weight:900;padding-left:8px}
-    .daily-quest-collapse-toggle{appearance:none;border:1px solid rgba(11,111,103,.2);background:#f4faf7;color:#0b6f67;border-radius:999px;min-width:36px;height:36px;padding:0 10px;font:inherit;font-weight:900;cursor:pointer;display:inline-grid;place-items:center}.daily-quests-card.sq-quests-collapsed{padding-top:12px!important;padding-bottom:12px!important}.daily-quests-card.sq-quests-collapsed .daily-quest-list,.daily-quests-card.sq-quests-collapsed #questChest{display:none!important}.daily-quests-card.sq-quests-collapsed .quest-card-header{margin:0!important;align-items:center!important;min-height:40px!important}.daily-quests-card.sq-quests-collapsed .quest-card-header>div:first-child{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap}.daily-quests-card.sq-quests-collapsed .quest-card-header .eyebrow,.daily-quests-card.sq-quests-collapsed .quest-card-header h3{margin:0!important}.daily-quests-card.sq-quests-collapsed .quest-card-header h3{font-size:1rem!important}.daily-quests-card.sq-quests-collapsed .quest-card-header p:not(.eyebrow){display:none!important}
-    .daily-quests-card .calendar-detail-meter{display:grid!important;grid-template-columns:repeat(5,minmax(34px,1fr))!important;gap:12px!important;width:100%!important;max-width:380px!important;margin-top:12px!important}.daily-quests-card .calendar-detail-meter .weekly-key-slot{width:auto!important;min-width:34px!important;min-height:34px!important;margin:0!important;display:grid!important;place-items:center!important}
-    @media(max-width:620px){.home-progress-stack{gap:8px;margin-bottom:10px}.home-progress-stack .week-card{padding:8px!important}.home-progress-stack .week-momentum{gap:4px!important}.home-progress-stack .week-day{min-height:42px!important;border-radius:10px!important}.home-progress-stack .player-card{padding:8px 10px!important}.daily-quest-collapse-toggle{height:32px;min-width:32px;padding:0 8px}.daily-quests-card .calendar-detail-meter{grid-template-columns:repeat(5,minmax(30px,1fr))!important;gap:9px!important;max-width:none!important}.daily-quests-card .calendar-detail-meter .weekly-key-slot{min-width:30px!important;min-height:32px!important}}
-    @media(prefers-reduced-motion:reduce){.daily-quest-navigable{transition:none}.daily-quest-navigable:hover{transform:none}}
-  `;document.head.appendChild(style);}
+    const observer = new MutationObserver(() => {
+      if (!rendering) window.requestAnimationFrame(renderAll);
+    });
+    const home = document.getElementById("homeView");
+    if (home) observer.observe(home, {subtree:true,childList:true});
 
-  function install(){
-    try{if(typeof state==="undefined"||typeof DAILY_QUESTS==="undefined"||typeof ensureDailyActivity!=="function"||typeof questProgress!=="function"||typeof saveState!=="function"||typeof startSession!=="function"||typeof updateHome!=="function")return retry();}catch{return retry();}
-    ensureStyles();configureQuests();
-    claimDailyQuestRewards=claimRewards;
-    renderDailyQuests=renderAll;
-    const baseUpdateHome=updateHome;updateHome=function(){const result=baseUpdateHome.apply(this,arguments);renderAll();return result;};
-    document.addEventListener("click",event=>{const action=event.target.closest("[data-calendar-week-action]");if(action){const type=action.dataset.calendarWeekAction;if(type==="open")claimWeeklyReward();else if(type==="view")openRewardModal(rewardById(currentClaim()?.rewardId));else if(type==="latest")openRewardModal(rewardById(latestClaim()?.rewardId));return;}const row=event.target.closest(".daily-quest[data-quest-navigation-id]");if(row&&!event.target.closest("button,a,select,input"))launchQuest(row.dataset.questNavigationId);});
-    document.addEventListener("keydown",event=>{if(event.key!=="Enter"&&event.key!==" ")return;const row=event.target.closest(".daily-quest[data-quest-navigation-id]");if(!row)return;event.preventDefault();launchQuest(row.dataset.questNavigationId);});
-    document.addEventListener("visibilitychange",()=>{if(!document.hidden&&homeVisible())scheduleKey(500);});window.addEventListener("pageshow",()=>{renderAll();if(homeVisible())scheduleKey(700);});
-    grantTodayKey();renderAll();saveState();if(chestState().pendingKeyAwards.length)scheduleKey(700);
+    configureQuests();
+    const alreadyHasKey = keyState().keyDates.includes(currentDate());
+    const granted = grantTodayKey();
+    if (granted) saveState();
+    if ((alreadyHasKey || granted) && !keyState().animatedKeyDates.includes(currentDate())) queueKey(currentDate());
+    renderAll();
+    if (keyState().pendingKeyAwards.length) scheduleKey(500);
   }
 
   install();
